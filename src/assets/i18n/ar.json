@@ -1,0 +1,56 @@
+{
+  "Company": "شركة طيبة للكمبيوتر",
+  "Phone": "0020404475000",
+  "Mobile": "002001065055550",
+  "Theme": "السمة",
+  "Menu": {
+    "Users": "المستخدمين",
+    "Login": "دخول",
+    "Routes": "العناوين",
+    "Permissions": "الصلاحيات",
+    "Roles": "الأدوار"
+  },
+  "Actions": {
+    "Logout": "خروج",
+    "Add": "إضافة",
+    "Save": "حفظ",
+    "Search": "بحث",
+    "Actions": "إجراءات",
+    "Update": "تعديل",
+    "Details": "تفاصيل",
+    "Delete": "حذف",
+    "Close": "إغلاق",
+    "Export": "تصدير"
+  },
+  "Modules": {
+    "System-Management": "إدارة النظام",
+    "Security": "الحماية"
+  },
+  "Forms": {
+    "S": "م",
+    "Welcome": "مرحبا",
+    "Mr": "أ -",
+    "Username": "إسم المستخدم",
+    "Password": "كلمة المرور",
+    "Name": "الإسم",
+    "Mobile": "المحمول",
+    "Email": "الإيميل",
+    "Language": "اللغة",
+    "Status": "الحالة",
+    "Active": "نشط",
+    "Not-Active": "غير نشط",
+    "Yes": "نعم",
+    "No": "لا",
+    "Route": "العنوان",
+    "Route-Ar": "العنوان بالعربي",
+    "Route-En": "العنوان بالإنجليزي",
+    "Permission": "الصلاحية",
+    "Permission-Ar": "الصلاحية بالعربي",
+    "Permission-En": "الصلاحية بالإنجليزي",
+    "Role": "الدور",
+    "Role-Ar": "الدور بالعربي",
+    "Role-En": "الدور بالإنجليزي",
+    "Change-Password": "تغيير كلمة المرور",
+    "New-Password": "كلمة المرور الجديدة"
+  }
+}

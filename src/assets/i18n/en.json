@@ -1,0 +1,57 @@
+{
+  "Company": "Tebah For Computer",
+  "Phone": "0020404475000",
+  "Mobile": "002001065055550",
+  "Theme": "Theme",
+  "Menu": {
+    "Users": "Users",
+    "Login": "Login",
+    "Routes": "Routes",
+    "Permissions": "Permissions",
+    "Roles": "Roles"
+  },
+  "Actions": {
+    "Logout": "Logout",
+    "Add": "Add",
+    "Save": "Save",
+    "Search": "Search",
+    "Actions": "Actions",
+    "Update": "Update",
+    "Details": "Details",
+    "Delete": "Delete",
+    "Close": "Close",
+    "Export": "Export"
+  },
+  "Modules": {
+    "System-Management": "System Management",
+    "Security": "Security"
+  },
+  "Forms": {
+    "S": "S",
+    "Welcome": "Welcome",
+    "Mr": "Mr -",
+    "Username": "Username",
+    "Password": "Password",
+    "Name": "Name",
+    "Mobile": "Mobile",
+    "Email": "Email",
+    "Language": "Language",
+    "Status": "Status",
+    "Active": "Active",
+    "Not-Active": "Not Active",
+
+    "Yes": "Yes",
+    "No": "No",
+    "Route": "Route",
+    "Route-Ar": "Route Ar",
+    "Route-En": "Route En",
+    "Permission": "Permission",
+    "Permission-Ar": "Permission Ar",
+    "Permission-En": "Permission En",
+    "Role": "Role",
+    "Role-Ar": "Role Ar",
+    "Role-En": "Role En",
+    "Change-Password": "Change Password",
+    "New-Password": "New Password"
+  }
+}

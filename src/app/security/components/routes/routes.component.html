@@ -1,0 +1,500 @@
+<h1 class="title">
+  <span>{{ "Menu.Routes" | translate }}</span>
+</h1>
+
+<div class="row-button">
+  <button
+    mat-raised-button
+    color="success"
+    (click)="resetModel(definitions.operation.add)"
+    [disabled]="busy"
+  >
+    {{ "Actions.Add" | translate }}
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <button
+    mat-raised-button
+    color="search"
+    (click)="resetModel(definitions.operation.search)"
+    [disabled]="busy"
+  >
+    {{ "Actions.Search" | translate }}
+    <mat-icon>search</mat-icon>
+  </button>
+
+  <button
+    mat-raised-button
+    color="info"
+    (click)="exportDataToExcel('routesList', 'routes')"
+    [disabled]="busy"
+  >
+    {{ "Actions.Export" | translate }}
+    <mat-icon>import_export</mat-icon>
+  </button>
+</div>
+
+<form
+  #addRouteForm="ngForm"
+  class="data-form"
+  *ngIf="
+    (actionType && actionType === definitions.operation.add) ||
+    actionType === definitions.operation.update
+  "
+>
+  <mat-form-field appearance="outline">
+    <mat-label>{{ "Forms.Route" | translate }} </mat-label>
+    <input
+      matInput
+      [(ngModel)]="route.name"
+      placeholder="{{ 'Forms.Route' | translate }}"
+      name="route-name"
+      autofocus
+      required
+      minlength="{{ inputsLength.routeName }}"
+      autocomplete="off"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ "Forms.Route-En" | translate }} </mat-label>
+    <input
+      matInput
+      [(ngModel)]="route.en"
+      placeholder="{{ 'Forms.Route-En' | translate }}"
+      name="route-name-en"
+      required
+      minlength="{{ inputsLength.routeName }}"
+      autocomplete="off"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ "Forms.Route-Ar" | translate }} </mat-label>
+    <input
+      matInput
+      [(ngModel)]="route.ar"
+      placeholder="{{ 'Forms.Route-Ar' | translate }}"
+      name="route-name-ar"
+      required
+      minlength="{{ inputsLength.routeName }}"
+      autocomplete="off"
+    />
+  </mat-form-field>
+
+  <mat-checkbox
+    class="margin"
+    [(ngModel)]="route.active"
+    name="route-status"
+    color="primary"
+  >
+    {{ "Forms.Active" | translate }}
+  </mat-checkbox>
+
+  <fieldset class="form-content">
+    <legend>
+      <h2 class="form-content-legend">
+        <span> {{ "Menu.Permissions" | translate }}</span>
+      </h2>
+    </legend>
+    <form #addPermissionForm="ngForm" class="my-form">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "Forms.Permission" | translate }} </mat-label>
+        <input
+          matInput
+          [(ngModel)]="permission.name"
+          placeholder="{{ 'Forms.Permission' | translate }}"
+          name="permission-name"
+          autofocus
+          required
+          minlength="{{ inputsLength.permissionName }}"
+          autocomplete="off"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "Forms.Permission-En" | translate }} </mat-label>
+        <input
+          matInput
+          [(ngModel)]="permission.en"
+          placeholder="{{ 'Forms.Permission-En' | translate }}"
+          name="permission-name-en"
+          required
+          minlength="{{ inputsLength.permissionName }}"
+          autocomplete="off"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "Forms.Permission-Ar" | translate }} </mat-label>
+        <input
+          matInput
+          [(ngModel)]="permission.ar"
+          placeholder="{{ 'Forms.Permission-Ar' | translate }}"
+          name="permission-name-ar"
+          required
+          minlength="{{ inputsLength.permissionName }}"
+          autocomplete="off"
+        />
+      </mat-form-field>
+
+      <button
+        mat-mini-fab
+        color="primary"
+        [disabled]="addPermissionForm.form.invalid || busy"
+        (click)="pushPermissionToPermissionsList(permission)"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+      <div class="table-responsive">
+        <table class="table table-sm align-middle table-hover">
+          <thead>
+            <tr class="thead">
+              <th>{{ "Forms.S" | translate }}</th>
+              <th>{{ "Forms.Permission" | translate }}</th>
+              <th>{{ "Forms.Permission-En" | translate }}</th>
+              <th>{{ "Forms.Permission-Ar" | translate }}</th>
+              <th>{{ "Forms.Status" | translate }}</th>
+              <th>{{ "Actions.Actions" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let permission of route.permissionsList; let i = index">
+              <td>
+                <p class="serial">{{ i + 1 }}</p>
+              </td>
+
+              <td>
+                <mat-form-field appearance="outline">
+                  <input
+                    matInput
+                    [(ngModel)]="permission.name"
+                    name="permission-list-item-name"
+                    autofocus
+                    required
+                    [ngModelOptions]="{ standalone: true }"
+                    minlength="{{ inputsLength.permissionName }}"
+                    autocomplete="off"
+                  />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline">
+                  <input
+                    matInput
+                    [(ngModel)]="permission.en"
+                    name="permission-list-item-name-en"
+                    required
+                    required
+                    [ngModelOptions]="{ standalone: true }"
+                    minlength="{{ inputsLength.permissionName }}"
+                    autocomplete="off"
+                  />
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field appearance="outline">
+                  <input
+                    matInput
+                    [(ngModel)]="permission.ar"
+                    name="permission-list-item-name-ar"
+                    required
+                    required
+                    [ngModelOptions]="{ standalone: true }"
+                    minlength="{{ inputsLength.permissionName }}"
+                    autocomplete="off"
+                  />
+                </mat-form-field>
+              </td>
+              <td>
+                <span *ngIf="permission.active" class="status-active">
+                  {{ "Forms.Active" | translate }}
+                  <mat-checkbox
+                    class="margin"
+                    [(ngModel)]="permission.active"
+                    required
+                    [ngModelOptions]="{ standalone: true }"
+                    name="permission-list-item-status"
+                    color="primary"
+                  >
+                  </mat-checkbox>
+                </span>
+                <span *ngIf="!permission.active" class="status-not-active">
+                  {{ "Forms.Not-Active" | translate }}
+                  <mat-checkbox
+                    class="margin"
+                    [(ngModel)]="permission.active"
+                    name="permission-list-item-status"
+                    color="primary"
+                  >
+                  </mat-checkbox>
+                </span>
+              </td>
+              <td>
+                <div class="row-button">
+                  <button
+                    mat-mini-fab
+                    color="danger"
+                    (click)="removeUnitFromUnitsList(permission)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </fieldset>
+  <div class="row-button">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!addRouteForm.form.valid || busy"
+      *ngIf="actionType && actionType === definitions.operation.add"
+      (click)="addRoute(route)"
+    >
+      {{ "Actions.Save" | translate }}<mat-icon>save</mat-icon>
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!addRouteForm.form.valid || busy"
+      *ngIf="actionType && actionType === definitions.operation.update"
+      (click)="updateRoute(route)"
+    >
+      {{ "Actions.Update" | translate }}<mat-icon>save</mat-icon>
+    </button>
+
+    <button mat-raised-button color="danger" (click)="resetActionTypeToClose()">
+      {{ "Actions.Close" | translate }}
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</form>
+
+<div
+  class="data-form"
+  *ngIf="actionType && actionType === definitions.operation.search"
+>
+  <form #searchRouteForm="ngForm" class="my-form">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ "Forms.Route" | translate }} </mat-label>
+      <input
+        matInput
+        [(ngModel)]="route.name"
+        placeholder="{{ 'Forms.Route' | translate }}"
+        name="search-Route"
+        autocomplete="off"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ "Forms.Route-Ar" | translate }} </mat-label>
+      <input
+        matInput
+        [(ngModel)]="route.ar"
+        placeholder="{{ 'Forms.Route-Ar' | translate }}"
+        name="search-Route-ar"
+        autocomplete="off"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ "Forms.Route-En" | translate }} </mat-label>
+      <input
+        matInput
+        [(ngModel)]="route.en"
+        placeholder="{{ 'Forms.Route-En' | translate }}"
+        name="search-Route-en"
+        autocomplete="off"
+      />
+    </mat-form-field>
+
+    <span>
+      {{ "Forms.Active" | translate }}
+      <mat-checkbox
+        class="margin"
+        [(ngModel)]="route.active"
+        name="search-category-status"
+        color="primary"
+      >
+      </mat-checkbox>
+    </span>
+  </form>
+  <div class="row-button">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!searchRouteForm.form.valid || busy"
+      (click)="searchRoute(route)"
+    >
+      {{ "Actions.Search" | translate }}<mat-icon>search</mat-icon>
+    </button>
+
+    <button mat-raised-button color="danger" (click)="resetActionTypeToClose()">
+      {{ "Actions.Close" | translate }}
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div
+  class="result"
+  *ngIf="
+    routesList &&
+    routesList.length &&
+    (actionType === definitions.operation.result ||
+      actionType === definitions.operation.getAll)
+  "
+>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle table-hover">
+      <thead>
+        <tr class="thead">
+          <th>{{ "Forms.S" | translate }}</th>
+          <th>{{ "Forms.Route" | translate }}</th>
+          <th>{{ "Forms.Route-En" | translate }}</th>
+          <th>{{ "Forms.Route-Ar" | translate }}</th>
+          <th>{{ "Forms.Status" | translate }}</th>
+          <th class="no_print">{{ "Actions.Actions" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let route of routesList; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ route.name }}</td>
+          <td>{{ route.en }}</td>
+          <td>{{ route.ar }}</td>
+          <td>
+            <span *ngIf="route.active" class="status-active"
+              >{{ "Forms.Active" | translate }}
+            </span>
+            <span *ngIf="!route.active" class="status-not-active"
+              >{{ "Forms.Not-Active" | translate }}
+            </span>
+          </td>
+          <td class="no_print">
+            <div class="row-button">
+              <button
+                mat-mini-fab
+                color="edit"
+                (click)="
+                  setData(route); actionType = definitions.operation.update
+                "
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button
+                mat-mini-fab
+                color="info"
+                (click)="showDetails(routeDetails); setData(route)"
+              >
+                <mat-icon>view_list</mat-icon>
+              </button>
+
+              <button mat-mini-fab color="danger" (click)="deleteRoute(route)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="paginiantion">
+  <div *ngIf="actionType === definitions.operation.getAll">
+    <paginator
+      (pageChange)="getAllRouts($event)"
+      [paginationData]="responsePaginationData"
+    >
+    </paginator>
+  </div>
+
+  <div *ngIf="actionType === definitions.operation.result">
+    <paginator
+      (pageChange)="searchRoute(route, $event)"
+      *ngIf="routesList && routesList.length"
+      [paginationData]="responsePaginationData"
+    >
+    </paginator>
+  </div>
+</div>
+
+<ng-template #routeDetails>
+  <div class="details-div">
+    <h2 class="details-header">
+      <span> {{ "Actions.Details" | translate }}</span>
+    </h2>
+
+    <div class="table-responsive">
+      <table class="table table-sm align-middle table-hover">
+        <thead>
+          <tr class="thead">
+            <td>{{ "Forms.Route" | translate }}</td>
+            <td>{{ "Forms.Route-En" | translate }}</td>
+            <td>{{ "Forms.Route-Ar" | translate }}</td>
+            <td>{{ "Forms.Status" | translate }}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ route.name }}</td>
+            <td>{{ route.en }}</td>
+            <td>{{ route.ar }}</td>
+            <td>
+              <span *ngIf="route.active" class="status-active">
+                {{ "Forms.Active" | translate }}
+              </span>
+              <span *ngIf="!route.active" class="status-not-active">
+                {{ "Forms.Not-Active" | translate }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-sm align-middle table-hover">
+        <thead>
+          <tr class="thead">
+            <td>{{ "Forms.Permission" | translate }}</td>
+            <td>{{ "Forms.Permission-En" | translate }}</td>
+            <td>{{ "Forms.Permission-Ar" | translate }}</td>
+            <td>{{ "Forms.Status" | translate }}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let permission of route.permissionsList; let i = index">
+            <td>{{ permission.name }}</td>
+            <td>{{ permission.en }}</td>
+            <td>{{ permission.ar }}</td>
+            <td>
+              <span *ngIf="permission.active" class="status-active">
+                {{ "Forms.Active" | translate }}
+              </span>
+              <span *ngIf="!permission.active" class="status-not-active">
+                {{ "Forms.Not-Active" | translate }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row-button">
+      <button mat-raised-button color="danger" [mat-dialog-close]="true">
+        {{ "Actions.Close" | translate }}
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<spinner [busy]="busy"></spinner>

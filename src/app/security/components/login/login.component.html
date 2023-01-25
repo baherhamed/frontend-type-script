@@ -1,0 +1,47 @@
+<h2 class="title">
+  <span> {{ "Menu.Login" | translate }}</span>
+</h2>
+
+<form #loginForm="ngForm" class="login-form">
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ "Forms.Username" | translate }} </mat-label>
+      <input
+        matInput
+        [(ngModel)]="login.username"
+        placeholder="{{ 'Forms.Username' | translate }}"
+        name="username"
+        required
+        minlength="{{ inputsLength.username }}"
+        autocomplete="off"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ "Forms.Password" | translate }}</mat-label>
+      <input
+        matInput
+        type="password"
+        placeholder="{{ 'Forms.Password' | translate }}"
+        [(ngModel)]="login.password"
+        name="password"
+        minlength="{{ inputsLength.password }}"
+        autocomplete="off"
+        required
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="row-button">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!loginForm.form.valid || busy"
+      (click)="tryLogin(login)"
+    >
+      {{ "Menu.Login" | translate }}<mat-icon>login</mat-icon>
+    </button>
+  </div>
+</form>
+
+<spinner [busy]="busy"></spinner>
