@@ -1,0 +1,301 @@
+<h1 class="title">
+  <span>{{ "Menu.Govs" | translate }}</span>
+</h1>
+
+<div class="actions-buttons">
+  <button
+    *ngIf="
+      userLoggedIn &&
+      securityPermissionsList &&
+      securityPermissionsList.includes('addGov')
+    "
+    mat-raised-button
+    color="success"
+    (click)="resetModel(definitions.operation.add)"
+    [disabled]="busy"
+    class="m-1"
+  >
+    {{ "Actions.Add" | translate }}
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <button
+    mat-raised-button
+    color="search"
+    (click)="resetModel(definitions.operation.search)"
+    [disabled]="busy"
+    class="m-1"
+  >
+    {{ "Actions.Search" | translate }}
+    <mat-icon>search</mat-icon>
+  </button>
+
+  <button
+    mat-raised-button
+    color="info"
+    (click)="exportDataToExcel('govsList', 'govs')"
+    [disabled]="busy"
+    class="m-1"
+  >
+    {{ "Actions.Export" | translate }}
+    <mat-icon>import_export</mat-icon>
+  </button>
+</div>
+
+<form
+  #addGovForm="ngForm"
+  *ngIf="
+    (actionType && actionType === definitions.operation.add) ||
+    actionType === definitions.operation.update
+  "
+>
+  <fieldset class="form">
+    <div class="container text-center">
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-sm-3">
+          <mat-label>{{ "Forms.Name" | translate }} </mat-label>
+          <input
+            matInput
+            [(ngModel)]="gov.name"
+            placeholder="{{ 'Forms.Name' | translate }}"
+            name="gov-name"
+            autofocus
+            required
+            minlength="{{ inputsLength.govName }}"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <div class="col-sm-2">
+          <mat-checkbox
+            class="margin"
+            [(ngModel)]="gov.active"
+            name="gov-status"
+            color="primary"
+          >
+            {{ "Forms.Active" | translate }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions-buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!addGovForm.form.valid || busy"
+        *ngIf="
+          userLoggedIn &&
+          securityPermissionsList &&
+          securityPermissionsList.includes('addGov') &&
+          actionType &&
+          actionType === definitions.operation.add
+        "
+        (click)="addGov(gov)"
+        class="m-1"
+      >
+        {{ "Actions.Save" | translate }}<mat-icon>save</mat-icon>
+      </button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!addGovForm.form.valid || busy"
+        *ngIf="
+          userLoggedIn &&
+          securityPermissionsList &&
+          securityPermissionsList.includes('updateGov') &&
+          actionType &&
+          actionType === definitions.operation.update
+        "
+        (click)="updateGov(gov)"
+        class="m-1"
+      >
+        {{ "Actions.Update" | translate }}<mat-icon>save</mat-icon>
+      </button>
+
+      <button
+        mat-raised-button
+        color="danger"
+        (click)="resetActionTypeToClose()"
+        class="m-1"
+      >
+        {{ "Actions.Close" | translate }}
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </fieldset>
+</form>
+
+<div
+  class="data-form"
+  *ngIf="actionType && actionType === definitions.operation.search"
+>
+  <form #searchGovForm="ngForm">
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>{{ "Forms.Name" | translate }} </mat-label>
+      <input
+        matInput
+        [(ngModel)]="gov.name"
+        placeholder="{{ 'Forms.Name' | translate }}"
+        name="search-gov-name"
+        autocomplete="off"
+      />
+    </mat-form-field>
+  </form>
+  <div class="actions-buttons">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!searchGovForm.form.valid || busy"
+      (click)="searchGov(gov)"
+      class="m-1"
+    >
+      {{ "Actions.Search" | translate }}<mat-icon>search</mat-icon>
+    </button>
+
+    <button
+      mat-raised-button
+      color="danger"
+      (click)="resetActionTypeToClose()"
+      class="m-1"
+    >
+      {{ "Actions.Close" | translate }}
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div
+  class="result"
+  *ngIf="
+    govsList &&
+    govsList.length &&
+    (actionType === definitions.operation.result ||
+      actionType === definitions.operation.getAll)
+  "
+>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle table-hover">
+      <thead>
+        <tr class="thead">
+          <th>{{ "Forms.S" | translate }}</th>
+          <th>{{ "Forms.Name" | translate }}</th>
+          <th>{{ "Forms.Status" | translate }}</th>
+          <th class="no_print">{{ "Actions.Actions" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gov of govsList; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ gov.name }}</td>
+
+          <td>
+            <span *ngIf="gov.active" class="status-active"
+              >{{ "Forms.Active" | translate }}
+            </span>
+            <span *ngIf="!gov.active" class="status-not-active"
+              >{{ "Forms.Not-Active" | translate }}
+            </span>
+          </td>
+          <td class="no_print">
+            <button
+              mat-mini-fab
+              color="edit"
+              (click)="setData(gov); actionType = definitions.operation.update"
+              *ngIf="
+                userLoggedIn &&
+                securityPermissionsList &&
+                securityPermissionsList.includes('updateGov')
+              "
+              class="m-1"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button
+              mat-mini-fab
+              color="info"
+              (click)="showDetails(govDetails); setData(gov)"
+              *ngIf="
+                userLoggedIn &&
+                securityPermissionsList &&
+                securityPermissionsList.includes('deleteGov')
+              "
+              class="m-1"
+            >
+              <mat-icon>view_list</mat-icon>
+            </button>
+
+            <button
+              mat-mini-fab
+              color="danger"
+              (click)="deleteGov(gov)"
+              class="m-1"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="paginiantion">
+  <div *ngIf="actionType === definitions.operation.getAll">
+    <paginator
+      (pageChange)="getAllGovs($event)"
+      [paginationData]="responsePaginationData"
+    >
+    </paginator>
+  </div>
+
+  <div *ngIf="actionType === definitions.operation.result">
+    <paginator
+      (pageChange)="searchGov(gov, $event)"
+      *ngIf="govsList && govsList.length"
+      [paginationData]="responsePaginationData"
+    >
+    </paginator>
+  </div>
+</div>
+
+<ng-template #govDetails>
+  <div class="details-div">
+    <h2 class="details-header">
+      <span> {{ "Actions.Details" | translate }}</span>
+    </h2>
+
+    <div class="table-responsive">
+      <table class="table table-sm align-middle table-hover">
+        <thead>
+          <tr class="thead">
+            <td>{{ "Forms.Name" | translate }}</td>
+            <td>{{ "Forms.Status" | translate }}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ gov.name }}</td>
+
+            <td>
+              <span *ngIf="gov.active" class="status-active">
+                {{ "Forms.Active" | translate }}
+              </span>
+              <span *ngIf="!gov.active" class="status-not-active">
+                {{ "Forms.Not-Active" | translate }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button mat-raised-button color="danger" [mat-dialog-close]="true">
+      {{ "Actions.Close" | translate }}
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</ng-template>
+
+<spinner [busy]="busy"></spinner>

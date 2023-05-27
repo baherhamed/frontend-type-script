@@ -6,4 +6,7 @@ export const inputsLength = {
   email: 10,
   username: 5,
   password: 5,
+  routeName: 3,
+  govName: 3,
+  cityName: 3,
 };

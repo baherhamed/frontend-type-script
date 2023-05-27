@@ -12,7 +12,7 @@
     <button
       mat-menu-item
       [matMenuTriggerFor]="systemManagementMenu"
-      *ngIf="routesList"
+      *ngIf="userLoggedIn && !isDeveloper"
     >
       <mat-icon color="primary"> settings </mat-icon>
       <span>{{ "Modules.System-Management" | translate }}</span>
@@ -35,41 +35,48 @@
 
   <!-- systemManagement menu -->
   <mat-menu #systemManagementMenu="matMenu">
-    <button
-      mat-menu-item
-      routerLink="systemManagement/cities"
+    <a
+      class="menu-element"
+      *ngIf="routesList && routesList.includes('govs')"
+      [routerLink]="['systemManagement/govs']"
       routerLinkActive="active"
-      *ngIf="routesList && routesList.includes('cities')"
     >
-      <mat-icon color="primary"> add_location </mat-icon>
+      <span>{{ "Menu.Govs" | translate }}</span>
+    </a>
+    <a
+      class="menu-element"
+      *ngIf="routesList && routesList.includes('cities')"
+      [routerLink]="['systemManagement/cities']"
+      routerLinkActive="active"
+    >
       <span>{{ "Menu.Cities" | translate }}</span>
-    </button>
+    </a>
   </mat-menu>
 
   <!-- securityMenu menu -->
   <mat-menu #securityMenu="matMenu">
-    <button
-      mat-menu-item
-      routerLink="security/routes"
-      routerLinkActive="active"
+    <a
+      class="menu-element"
       *ngIf="userLoggedIn && isDeveloper"
-    >
-      <mat-icon color="primary"> image </mat-icon>
-      <span>{{ "Menu.Routes" | translate }}</span>
-    </button>
-
-    <button
-      mat-menu-item
-      routerLink="security/users"
+      [routerLink]="['security/routes']"
       routerLinkActive="active"
+    >
+      <!-- <mat-icon color="primary"> image </mat-icon> -->
+      <span>{{ "Menu.Routes" | translate }}</span>
+    </a>
+
+    <a
+      class="menu-element"
       *ngIf="
         (userLoggedIn && isDeveloper) ||
         (routesList && routesList.includes('users'))
       "
+      [routerLink]="['security/users']"
+      routerLinkActive="active"
     >
-      <mat-icon color="primary"> supervised_user_circle </mat-icon>
+      <!-- <mat-icon color="primary"> supervised_user_circle </mat-icon> -->
       <span>{{ "Menu.Users" | translate }}</span>
-    </button>
+    </a>
   </mat-menu>
 
   <mat-toolbar color="primary">

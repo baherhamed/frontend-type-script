@@ -43,7 +43,7 @@ export class RoutesComponent implements OnInit {
   constructor(
     private dialog: DialogService,
     private routeService: RoutesService,
-    private title: SetTitleService,
+    private titleService: SetTitleService,
     private notification: NotificationService
   ) {
     this.inputsLength = inputsLength;
@@ -55,10 +55,11 @@ export class RoutesComponent implements OnInit {
     this.routesList = [];
     const currentLang = localStorage.getItem(definitions.currentLangValue);
     if (!currentLang || currentLang === definitions.language.ar) {
-      this.title.setTitle('العناوين');
+      this.titleService.setTitle('العناوين');
     } else if (currentLang === definitions.language.en) {
-      this.title.setTitle('Routes');
+      this.titleService.setTitle('Routes');
     }
+
     this.getAllRouts();
   }
   async exportDataToExcel(table: any, file: any) {
@@ -249,7 +250,7 @@ export class RoutesComponent implements OnInit {
         this.notification.info(response.message);
       }
       this.responsePaginationData = res.paginationInfo;
-      this.routesList = res.data;
+      this.routesList = res.data || [];
       this.actionType = definitions.operation.getAll;
       this.busy = false;
     });

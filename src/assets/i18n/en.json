@@ -8,7 +8,9 @@
     "Login": "Login",
     "Routes": "Routes",
     "Permissions": "Permissions",
-    "Roles": "Roles"
+    "Roles": "Roles",
+    "Govs": "Govs",
+    "Cities": "Cities"
   },
   "Actions": {
     "Logout": "Logout",
@@ -39,7 +41,6 @@
     "Status": "Status",
     "Active": "Active",
     "Not-Active": "Not Active",
-
     "Yes": "Yes",
     "No": "No",
     "Route": "Route",
@@ -52,6 +53,8 @@
     "Role-Ar": "Role Ar",
     "Role-En": "Role En",
     "Change-Password": "Change Password",
-    "New-Password": "New Password"
+    "New-Password": "New Password",
+    "Gov": "Gov",
+    "City": "City"
   }
 }

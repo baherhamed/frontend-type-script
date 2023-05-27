@@ -2,15 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { definitions } from 'src/app/shared';
-
 import { environment } from 'src/environments/environment';
-import { ChangePassword, User } from '..';
+import { Gov } from '..';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
-  usersUrl = `${environment.url}/api/security/users`;
+export class GovsService {
+  govsUrl = `${environment.url}/api/systemManagement/govs`;
   token = localStorage.getItem(definitions.token);
   language = localStorage.getItem(definitions.currentLangValue);
 
@@ -21,77 +20,65 @@ export class UsersService {
     .set('accept-language', `${this.language}`)
     .set('Authorization', `Bearer ${this.token}`);
 
-  addUser(user: any): Observable<any> {
+  addGov(gov: Gov): Observable<any> {
     return this.http
       .post<{
         success: boolean;
         message: string;
-        data: any;
-      }>(`${this.usersUrl}/add`, user, {
+        data: Gov;
+      }>(`${this.govsUrl}/add`, gov, {
         headers: definitions.requestHeaders().headers,
       })
       .pipe(retry(5));
   }
 
-  updateUser(user: any): Observable<any> {
+  updateGov(gov: any): Observable<any> {
     return this.http
-      .put<{ success: boolean; message: string; data: User }>(
-        `${this.usersUrl}/update`,
-        user,
+      .put<{ success: boolean; message: string; data: Gov }>(
+        `${this.govsUrl}/update`,
+        gov,
         { headers: definitions.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
 
-  deleteUser(user: any): Observable<any> {
+  deleteGov(gov: any): Observable<any> {
     return this.http
-      .put<{ success: boolean; message: string; data: User }>(
-        `${this.usersUrl}/delete`,
-        user,
+      .put<{ success: boolean; message: string; data: any }>(
+        `${this.govsUrl}/delete`,
+        gov,
         { headers: definitions.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
 
-  searchUser(user: any): Observable<any> {
+  searchGov(gov: any): Observable<any> {
     return this.http
-      .post<{ success: boolean; message: string; data: User }>(
-        `${this.usersUrl}/search`,
-        user,
+      .post<{ success: boolean; message: string; data: Gov }>(
+        `${this.govsUrl}/search`,
+        gov,
         { headers: definitions.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
-  
-  getAllUsers(pagination?: any): Observable<any> {
+
+  getAllGovs(pagination?: any): Observable<any> {
     return this.http
-      .post<{ success: boolean; message: string; data: User }>(
-        `${this.usersUrl}/get_all`,
+      .post<{ success: boolean; message: string; data: Gov }>(
+        `${this.govsUrl}/get_all`,
         pagination,
         { headers: definitions.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
 
-  getActiveUsers() {
+  getActiveGovs() {
     return this.http
-      .post<{ success: boolean; message: string; data: User[] }>(
-        `${this.usersUrl}/get_active`,
+      .post<{ success: boolean; message: string; data: Gov[] }>(
+        `${this.govsUrl}/get_active`,
         null,
         { headers: definitions.requestHeaders().headers }
       )
-      .pipe(retry(5));
-  }
-
-  changePassword(changePassword: ChangePassword): Observable<any> {
-    return this.http
-      .post<{
-        success: boolean;
-        message: string;
-        data: ChangePassword;
-      }>(`${this.usersUrl}/change_password`, changePassword, {
-        headers: definitions.requestHeaders().headers,
-      })
       .pipe(retry(5));
   }
 }

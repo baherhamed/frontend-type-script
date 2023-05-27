@@ -2,17 +2,16 @@
   <span>{{ "Menu.Users" | translate }}</span>
 </h1>
 
-<div class="row-button">
+<div class="actions-buttons">
   <button
     mat-raised-button
     color="success"
     (click)="resetModel(definitions.operation.add)"
     *ngIf="
       (userLoggedIn && isDeveloper) ||
-      (securityPermissionsList &&
-        (securityPermissionsList.includes('*') ||
-          securityPermissionsList.includes('addUser')))
+      (securityPermissionsList && securityPermissionsList.includes('addUser'))
     "
+    class="m-1"
   >
     {{ "Actions.Add" | translate }}
     <mat-icon>add</mat-icon>
@@ -22,6 +21,7 @@
     mat-raised-button
     color="search"
     (click)="resetModel(definitions.operation.search)"
+    class="m-1"
   >
     {{ "Actions.Search" | translate }}
     <mat-icon>search</mat-icon>
@@ -30,222 +30,240 @@
 
 <form
   #addUsersForm="ngForm"
-  class="data-form"
   *ngIf="
     (actionType && actionType === definitions.operation.add) ||
     actionType === definitions.operation.update
   "
 >
-  <div class="row">
-    <mat-form-field appearance="outline">
-      <mat-label>{{ "Forms.Name" | translate }} </mat-label>
-      <input
-        matInput
-        [(ngModel)]="user.name"
-        placeholder="{{ 'Forms.Name' | translate }}"
-        name="user-name"
-        minlength="{{ inputLength.name }}"
-        required
-        autocomplete="off"
-      />
-    </mat-form-field>
+  <fieldset class="form">
+    <div class="container text-center">
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-sm-3">
+          <mat-label>{{ "Forms.Name" | translate }} </mat-label>
+          <input
+            matInput
+            [(ngModel)]="user.name"
+            placeholder="{{ 'Forms.Name' | translate }}"
+            name="user-name"
+            minlength="{{ inputLength.name }}"
+            required
+            autocomplete="off"
+          />
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ "Forms.Mobile" | translate }} </mat-label>
-      <input
-        matInput
-        [(ngModel)]="user.mobile"
-        placeholder="{{ 'Forms.Mobile' | translate }}"
-        name="mobile"
-        minlength="{{ inputLength.mobile }}"
-        maxlength="{{ inputLength.mobile }}"
-        required
-        autocomplete="off"
-      />
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="col-sm-3">
+          <mat-label>{{ "Forms.Mobile" | translate }} </mat-label>
+          <input
+            matInput
+            [(ngModel)]="user.mobile"
+            placeholder="{{ 'Forms.Mobile' | translate }}"
+            name="mobile"
+            minlength="{{ inputLength.mobile }}"
+            maxlength="{{ inputLength.mobile }}"
+            required
+            autocomplete="off"
+          />
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ "Forms.Language" | translate }} </mat-label>
-      <mat-select
-        matNativeControl
-        [(ngModel)]="user.language"
-        required
-        name="language"
-      >
-        <mat-option [value]="lang" *ngFor="let lang of languagesList">{{
-          lang.name
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="col-sm-6">
+          <mat-label>{{ "Forms.Email" | translate }} </mat-label>
+          <input
+            matInput
+            [(ngModel)]="user.email"
+            placeholder="{{ 'Forms.Email' | translate }}"
+            name="email"
+            minlength="{{ inputLength.email }}"
+            autocomplete="off"
+          />
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ "Forms.Email" | translate }} </mat-label>
-      <input
-        matInput
-        [(ngModel)]="user.email"
-        placeholder="{{ 'Forms.Email' | translate }}"
-        name="email"
-        minlength="{{ inputLength.email }}"
-        autocomplete="off"
-      />
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="col-sm-3">
+          <mat-label>{{ "Forms.Password" | translate }}</mat-label>
+          <input
+            matInput
+            type="password"
+            placeholder="{{ 'Forms.Password' | translate }}"
+            minlength="{{ inputLength.password }}"
+            [(ngModel)]="user.password"
+            name="password"
+            autocomplete="off"
+          />
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ "Forms.Password" | translate }}</mat-label>
-      <input
-        matInput
-        type="password"
-        placeholder="{{ 'Forms.Password' | translate }}"
-        minlength="{{ inputLength.password }}"
-        [(ngModel)]="user.password"
-        name="password"
-        autocomplete="off"
-      />
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="col-sm-3">
+          <mat-label>{{ "Forms.Language" | translate }} </mat-label>
+          <mat-select
+            matNativeControl
+            [(ngModel)]="user.language"
+            required
+            name="language"
+          >
+            <mat-option [value]="lang" *ngFor="let lang of languagesList">{{
+              lang.name
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <section>
-      <mat-checkbox
-        class="example-margin"
-        [(ngModel)]="user.active"
-        name="primary-status"
-        color="primary"
-      >
-        {{ "Forms.Active" | translate }}
-      </mat-checkbox>
-    </section>
-
-    <!-- *ngIf="actionType && actionType === definitions.operation.update" -->
-    <fieldset class="form-content">
-      <legend>
-        <span class="form-content-legend">
-          {{ "Menu.Routes" | translate }}
-        </span>
-      </legend>
-      <div class="row" *ngFor="let route of routesList; let i = index">
-        <div class="col-sm-2">
-          <div class="form-group text-center">
-            <label> {{ route?.ar }} </label>
-            <div class="form-check">
-              <input
-                class="largerCheckbox"
-                type="checkbox"
-                name="role-status"
-                [ngModelOptions]="{ standalone: true }"
-                [(ngModel)]="route.active"
-              />
-            </div>
-          </div>
+        <div class="col">
+          <mat-checkbox
+            [(ngModel)]="user.active"
+            name="primary-status"
+            color="primary"
+          >
+            {{ "Forms.Active" | translate }}
+          </mat-checkbox>
         </div>
-        <div class="col-sm-10" *ngIf="route.active">
-          <div class="row">
-            <div
-              class="col-sm-2"
-              *ngFor="let permission of route.permissionsList"
-            >
-              <div class="form-group text-center">
-                <label> {{ permission?.ar }} </label>
-                <div class="form-check">
-                  <input
-                    class="largerCheckbox"
-                    type="checkbox"
-                    name="permission-status"
-                    [ngModelOptions]="{ standalone: true }"
-                    [(ngModel)]="permission.active"
-                  />
+        <div class="container">
+          <!-- *ngIf="actionType && actionType === definitions.operation.update" -->
+          <fieldset>
+            <legend>
+              <span class="legend">
+                {{ "Menu.Routes" | translate }}
+              </span>
+            </legend>
+            <div class="row" *ngFor="let route of routesList; let i = index">
+              <div class="col-sm-2">
+                <div class="form-group text-center">
+                  <label> {{ route?.ar }} </label>
+                  <div class="form-check">
+                    <input
+                      class="largerCheckbox"
+                      type="checkbox"
+                      name="role-status"
+                      [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="route.active"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-10" *ngIf="route.active">
+                <div class="row">
+                  <div
+                    class="col-sm-2"
+                    *ngFor="let permission of route.permissionsList"
+                  >
+                    <div class="form-group text-center">
+                      <label> {{ permission?.ar }} </label>
+                      <div class="form-check">
+                        <input
+                          class="largerCheckbox"
+                          type="checkbox"
+                          name="permission-status"
+                          [ngModelOptions]="{ standalone: true }"
+                          [(ngModel)]="permission.active"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </fieldset>
         </div>
       </div>
-    </fieldset>
-  </div>
-  <div class="row-button">
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!addUsersForm.form.valid"
-      *ngIf="
-        ((userLoggedIn && isDeveloper) ||
-          (securityPermissionsList &&
-            (securityPermissionsList.includes('*') ||
-              securityPermissionsList.includes('addUser')))) &&
-        actionType &&
-        actionType === definitions.operation.add
-      "
-      (click)="addUser(user)"
-    >
-      {{ "Actions.Save" | translate }}<mat-icon>save</mat-icon>
-    </button>
+    </div>
 
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!addUsersForm.form.valid || busy"
-      *ngIf="
-        ((userLoggedIn && isDeveloper) ||
-          (securityPermissionsList &&
-            (securityPermissionsList.includes('*') ||
-              securityPermissionsList.includes('updateUser')))) &&
-        actionType &&
-        actionType === definitions.operation.update
-      "
-      (click)="updateUser(user)"
-    >
-      {{ "Actions.Update" | translate }}<mat-icon>save</mat-icon>
-    </button>
+    <div class="actions-buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!addUsersForm.form.valid"
+        *ngIf="
+          ((userLoggedIn && isDeveloper) ||
+            (securityPermissionsList &&
+              securityPermissionsList.includes('addUser'))) &&
+          actionType &&
+          actionType === definitions.operation.add
+        "
+        (click)="addUser(user)"
+        class="m-1"
+      >
+        {{ "Actions.Save" | translate }}<mat-icon>save</mat-icon>
+      </button>
 
-    <button mat-raised-button color="danger" (click)="resetActionTypeToClose()">
-      {{ "Actions.Close" | translate }}
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!addUsersForm.form.valid || busy"
+        *ngIf="
+          ((userLoggedIn && isDeveloper) ||
+            (securityPermissionsList &&
+              securityPermissionsList.includes('updateUser'))) &&
+          actionType &&
+          actionType === definitions.operation.update
+        "
+        (click)="updateUser(user)"
+        class="m-1"
+      >
+        {{ "Actions.Update" | translate }}<mat-icon>save</mat-icon>
+      </button>
+
+      <button
+        mat-raised-button
+        color="danger"
+        (click)="resetActionTypeToClose()"
+        class="m-1"
+      >
+        {{ "Actions.Close" | translate }}
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </fieldset>
 </form>
-<!-- </div> -->
 
-<div
-  class="data-form"
+<form
+  #searchUserForm="ngForm"
   *ngIf="actionType && actionType === definitions.operation.search"
 >
-  <form #searchUserForm="ngForm">
-    <mat-form-field>
-      <mat-label>{{ "Forms.Name" | translate }} </mat-label>
-      <input
-        matInput
-        [(ngModel)]="user.name"
-        placeholder="{{ 'Forms.Name' | translate }}"
-        name="search-user-name"
-        autocomplete="off"
-      />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>{{ "Forms.Mobile" | translate }} </mat-label>
-      <input
-        matInput
-        [(ngModel)]="user.mobile"
-        placeholder="{{ 'Forms.Mobile' | translate }}"
-        name="search-user-mobile"
-        autocomplete="off"
-      />
-    </mat-form-field>
-  </form>
+  <fieldset class="form">
+    <div class="container text-center">
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-sm-3">
+          <mat-label>{{ "Forms.Name" | translate }} </mat-label>
+          <input
+            matInput
+            [(ngModel)]="user.name"
+            placeholder="{{ 'Forms.Name' | translate }}"
+            name="search-user-name"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-sm-3">
+          <mat-label>{{ "Forms.Mobile" | translate }} </mat-label>
+          <input
+            matInput
+            [(ngModel)]="user.mobile"
+            placeholder="{{ 'Forms.Mobile' | translate }}"
+            name="search-user-mobile"
+            autocomplete="off"
+          />
+        </mat-form-field>
+      </div>
+    </div>
 
-  <div class="row-button">
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!searchUserForm.form.valid || busy"
-      (click)="searchUser(user)"
-    >
-      {{ "Actions.Search" | translate }}<mat-icon>search</mat-icon>
-    </button>
+    <div class="actions-buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!searchUserForm.form.valid || busy"
+        (click)="searchUser(user)"
+        class="m-1"
+      >
+        {{ "Actions.Search" | translate }}<mat-icon>search</mat-icon>
+      </button>
 
-    <button mat-raised-button color="danger" (click)="resetActionTypeToClose()">
-      {{ "Actions.Close" | translate }}
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-</div>
+      <button
+        mat-raised-button
+        color="danger"
+        (click)="resetActionTypeToClose()"
+        class="m-1"
+      >
+        {{ "Actions.Close" | translate }}
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </fieldset>
+</form>
 
 <div
   class="result"
@@ -288,45 +306,42 @@
             </span>
           </td>
           <td>
-            <div class="row-button">
-              <button
-                mat-mini-fab
-                color="edit"
-                (click)="
-                  setData(user); actionType = definitions.operation.update
-                "
-                *ngIf="
-                  (userLoggedIn && isDeveloper) ||
-                  (securityPermissionsList &&
-                    (securityPermissionsList.includes('*') ||
-                      securityPermissionsList.includes('updateUser')))
-                "
-              >
-                <mat-icon>edit</mat-icon>
-              </button>
+            <button
+              mat-mini-fab
+              color="edit"
+              (click)="setData(user); actionType = definitions.operation.update"
+              *ngIf="
+                (userLoggedIn && isDeveloper) ||
+                (securityPermissionsList &&
+                  securityPermissionsList.includes('updateUser'))
+              "
+              class="m-1"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
 
-              <button
-                mat-mini-fab
-                color="info"
-                (click)="showDetails(userDetails); setDetailsData(user)"
-              >
-                <mat-icon>view_list</mat-icon>
-              </button>
+            <button
+              mat-mini-fab
+              color="info"
+              (click)="showDetails(userDetails); setDetailsData(user)"
+              class="m-1"
+            >
+              <mat-icon>view_list</mat-icon>
+            </button>
 
-              <button
-                mat-mini-fab
-                color="danger"
-                (click)="deleteUser(user)"
-                *ngIf="
-                  (userLoggedIn && isDeveloper) ||
-                  (securityPermissionsList &&
-                    (securityPermissionsList.includes('*') ||
-                      securityPermissionsList.includes('deleteUser')))
-                "
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
+            <button
+              mat-mini-fab
+              color="danger"
+              (click)="deleteUser(user)"
+              *ngIf="
+                (userLoggedIn && isDeveloper) ||
+                (securityPermissionsList &&
+                  securityPermissionsList.includes('deleteUser'))
+              "
+              class="m-1"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -453,12 +468,10 @@
       </table>
     </div>
 
-    <div class="row-button">
-      <button mat-raised-button color="danger" [mat-dialog-close]="true">
-        {{ "Actions.Close" | translate }}
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
+    <button mat-raised-button color="danger" [mat-dialog-close]="true">
+      {{ "Actions.Close" | translate }}
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
 </ng-template>
 

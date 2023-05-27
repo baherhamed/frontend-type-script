@@ -14,11 +14,13 @@ const routes: Routes = [
     path: SecuritRoutes.users.name,
     component: UsersComponent,
     canActivate: [AuthGuard],
+
   },
   {
     path: SecuritRoutes.routes.name,
     component: RoutesComponent,
     canActivate: [AuthGuard],
+
   },
 ];
 

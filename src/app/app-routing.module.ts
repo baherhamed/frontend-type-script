@@ -14,6 +14,13 @@ const routes: Routes = [
         (module) => module.SecurityModule
       ),
   },
+  {
+    path: 'systemManagement',
+    loadChildren: () =>
+      import('./system-management/system-management.module').then(
+        (module) => module.SystemManagementModule
+      ),
+  },
   // {
   //   path: 'systemManagement',
   //   loadChildren: () =>

@@ -46,7 +46,7 @@ export class UsersComponent implements OnInit {
   };
 
   tockenValues: any;
-  securityPermissionsList: any;
+  securityPermissionsList: any[string];
 
   constructor(
     private dialog: DialogService,
@@ -63,6 +63,7 @@ export class UsersComponent implements OnInit {
   async ngOnInit() {
     this.tockenValues = await getTokenValue();
     this.userLoggedIn = this.tockenValues?.userLoggedIn;
+    this.securityPermissionsList = this.tockenValues?.permissionsList;
     this.isDeveloper = this.tockenValues?.isDeveloper;
     this.actionType = null;
     const currentLang = localStorage.getItem(definitions.currentLangValue);
@@ -71,7 +72,6 @@ export class UsersComponent implements OnInit {
     } else if (currentLang === definitions.language.en) {
       this.title.setTitle('Users');
     }
-    this.securityPermissionsList = this.tockenValues?.permissionsList;
     this.getActiveLanguages();
     this.getActiveRouts();
     this.getAllUsers();
@@ -95,13 +95,19 @@ export class UsersComponent implements OnInit {
     this.getActiveRouts();
   }
 
-  addUser(user: User) {
+  async addUser(user: User) {
+    const routesList = await this.setRoleRoutesList();
+    const permissionsList = await this.setPermissionsList();
+
     const newUser = {
       name: user.name,
       mobile: user.mobile,
       email: user.email,
+      routesList,
+      permissionsList,
       password: user.password,
       language_id: user.language._id,
+      active: user.active,
     };
     this.busy = true;
     this.userService.addUser(newUser).subscribe(async (res: any) => {
@@ -111,7 +117,18 @@ export class UsersComponent implements OnInit {
       } else {
         this.notification.success(response.message);
         this.actionType = '';
-        this.resetActionTypeToClose();
+        this.usersList.push({
+          _id: Object(response.data)._id,
+          name: user.name,
+          mobile: user.mobile,
+          email: user.email,
+          password: user.password,
+          language: user.language,
+          routesList: user.routesList,
+          permissionsList: user.permissionsList,
+          active: user.active,
+        });
+        this.actionType = definitions.operation.result;
       }
       this.busy = false;
     });
@@ -213,6 +230,7 @@ export class UsersComponent implements OnInit {
   }
 
   async setDetailsData(user: User) {
+    console.log('routesList', user);
     this.user = {
       _id: user._id,
       name: user.name,
@@ -273,6 +291,7 @@ export class UsersComponent implements OnInit {
         }
       }
     }
+
     return selectedPermissionsList;
   }
 
@@ -301,7 +320,7 @@ export class UsersComponent implements OnInit {
         this.notification.info(response.message);
       }
       this.responsePaginationData = res.paginationInfo;
-      this.usersList = res.data;
+      this.usersList = res.data || [];
       this.actionType = definitions.operation.getAll;
       this.busy = false;
     });
