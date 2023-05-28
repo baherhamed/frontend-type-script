@@ -35,7 +35,11 @@
     color="info"
     (click)="exportDataToExcel('citiesList', 'cities')"
     [disabled]="busy"
-    class="m-1"
+    class="m-1"    *ngIf="
+    userLoggedIn &&
+    securityPermissionsList &&
+    securityPermissionsList.includes('exportCities')
+  "
   >
     {{ "Actions.Export" | translate }}
     <mat-icon>import_export</mat-icon>
@@ -142,20 +146,26 @@
 </form>
 
 <div
-  class="data-form"
+  
   *ngIf="actionType && actionType === definitions.operation.search"
 >
   <form #searchCityForm="ngForm">
-    <mat-form-field appearance="outline" class="col-3">
-      <mat-label>{{ "Forms.Name" | translate }} </mat-label>
-      <input
-        matInput
-        [(ngModel)]="city.name"
-        placeholder="{{ 'Forms.Name' | translate }}"
-        name="search-city-name"
-        autocomplete="off"
-      />
-    </mat-form-field>
+    <fieldset class="form">
+      <div class="container text-center">
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-3">
+            <mat-label>{{ "Forms.Name" | translate }} </mat-label>
+            <input
+              matInput
+              [(ngModel)]="city.name"
+              placeholder="{{ 'Forms.Name' | translate }}"
+              name="search-city-name"
+              autocomplete="off"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </fieldset>
   </form>
   <div class="actions-buttons">
     <button

@@ -26,6 +26,22 @@
     {{ "Actions.Search" | translate }}
     <mat-icon>search</mat-icon>
   </button>
+
+  <button
+    mat-raised-button
+    color="info"
+    (click)="exportDataToExcel('usersList', 'users')"
+    [disabled]="busy"
+    class="m-1"
+    *ngIf="
+      userLoggedIn &&
+      securityPermissionsList &&
+      securityPermissionsList.includes('exportUsers')
+    "
+  >
+    {{ "Actions.Export" | translate }}
+    <mat-icon>import_export</mat-icon>
+  </button>
 </div>
 
 <form
@@ -235,6 +251,17 @@
             [(ngModel)]="user.mobile"
             placeholder="{{ 'Forms.Mobile' | translate }}"
             name="search-user-mobile"
+            autocomplete="off"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-sm-3">
+          <mat-label>{{ "Forms.Email" | translate }} </mat-label>
+          <input
+            matInput
+            [(ngModel)]="user.email"
+            placeholder="{{ 'Forms.Email' | translate }}"
+            name="search-user-email"
             autocomplete="off"
           />
         </mat-form-field>

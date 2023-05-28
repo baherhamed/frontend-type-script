@@ -8,6 +8,7 @@ import {
   SetTitleService,
   definitions,
   validateResponse,
+  exportToExcel,
 } from 'src/app/shared';
 import { Permission, Route, User } from '../../models';
 import { RoutesService, UsersService } from '../../services';
@@ -75,6 +76,10 @@ export class UsersComponent implements OnInit {
     this.getActiveLanguages();
     this.getActiveRouts();
     this.getAllUsers();
+  }
+  
+  async exportDataToExcel(table: any, file: any) {
+    exportToExcel(table, file);
   }
 
   resetModel(action: string) {
@@ -230,7 +235,6 @@ export class UsersComponent implements OnInit {
   }
 
   async setDetailsData(user: User) {
-    console.log('routesList', user);
     this.user = {
       _id: user._id,
       name: user.name,
