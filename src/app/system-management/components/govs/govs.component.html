@@ -35,11 +35,12 @@
     color="info"
     (click)="exportDataToExcel('govsList', 'govs')"
     [disabled]="busy"
-    class="m-1"    *ngIf="
-    userLoggedIn &&
-    securityPermissionsList &&
-    securityPermissionsList.includes('exportGovs')
-  "
+    class="m-1"
+    *ngIf="
+      userLoggedIn &&
+      securityPermissionsList &&
+      securityPermissionsList.includes('exportGovs')
+    "
   >
     {{ "Actions.Export" | translate }}
     <mat-icon>import_export</mat-icon>
@@ -69,6 +70,20 @@
             autocomplete="off"
           />
         </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-sm-2">
+          <mat-label>{{ "Forms.Gov-Code" | translate }} </mat-label>
+          <input
+            matInput
+            [(ngModel)]="gov.code"
+            placeholder="{{ 'Forms.Gov-Code' | translate }}"
+            name="gov-code"
+            required
+            minlength="{{ inputsLength.govCode }}"
+            autocomplete="off"
+          />
+        </mat-form-field>
+
         <div class="col-sm-2">
           <mat-checkbox
             class="margin"
@@ -145,6 +160,16 @@
               autocomplete="off"
             />
           </mat-form-field>
+          <mat-form-field appearance="outline" class="col-2">
+            <mat-label>{{ "Forms.Gov-Code" | translate }} </mat-label>
+            <input
+              matInput
+              [(ngModel)]="gov.code"
+              placeholder="{{ 'Forms.Gov-Code' | translate }}"
+              name="search-gov-code"
+              autocomplete="off"
+            />
+          </mat-form-field>
         </div>
       </div>
     </fieldset>
@@ -187,6 +212,7 @@
         <tr class="thead">
           <th>{{ "Forms.S" | translate }}</th>
           <th>{{ "Forms.Name" | translate }}</th>
+          <th>{{ "Forms.Gov-Code" | translate }}</th>
           <th>{{ "Forms.Status" | translate }}</th>
           <th class="no_print">{{ "Actions.Actions" | translate }}</th>
         </tr>
@@ -195,6 +221,7 @@
         <tr *ngFor="let gov of govsList; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ gov.name }}</td>
+          <td>{{ gov.code }}</td>
 
           <td>
             <span *ngIf="gov.active" class="status-active"
@@ -278,12 +305,14 @@
         <thead>
           <tr class="thead">
             <td>{{ "Forms.Name" | translate }}</td>
+            <td>{{ "Forms.Gov-Code" | translate }}</td>
             <td>{{ "Forms.Status" | translate }}</td>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>{{ gov.name }}</td>
+            <td>{{ gov.code }}</td>
 
             <td>
               <span *ngIf="gov.active" class="status-active">

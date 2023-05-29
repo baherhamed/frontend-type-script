@@ -1,8 +1,9 @@
-import { Gov } from '.';
-
 export interface City {
   _id?: string;
-  gov: Gov;
+  gov: {
+    _id?: string;
+    name: string;
+  };
   name: string;
-  active: boolean;
+  active?: boolean;
 }

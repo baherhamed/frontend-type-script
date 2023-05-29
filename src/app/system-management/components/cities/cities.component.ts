@@ -29,6 +29,7 @@ export class CitiesComponent {
 
   city: City = {
     gov: {
+      _id: '',
       name: '',
     },
     name: '',
@@ -73,6 +74,7 @@ export class CitiesComponent {
     this.actionType = action;
     this.city = {
       gov: {
+        _id: '',
         name: '',
       },
       name: '',
@@ -82,7 +84,7 @@ export class CitiesComponent {
 
   async addCity(city: City) {
     const newCity = {
-      gov_id: city.gov._id,
+      govId: city.gov._id,
       name: city.name,
       active: city.active,
     };
@@ -127,13 +129,18 @@ export class CitiesComponent {
     });
   }
 
-  setData(city: City) {
+  async setData(city: City) {
+    let selectedGov;
+
+    for await (const gov of this.govsList) {
+      if (gov && gov._id === city.gov._id) {
+        selectedGov = gov;
+      }
+    }
+
     this.city = {
       _id: city._id,
-      gov: {
-        _id: city.gov._id,
-        name: city.gov.name,
-      },
+      gov: selectedGov || city.gov,
       name: city.name,
       active: city.active,
     };
@@ -142,7 +149,7 @@ export class CitiesComponent {
   async updateCity(city: City) {
     const updatedCity = {
       _id: city._id,
-      gov_id: city.gov._id,
+      govId: city.gov._id,
       name: city.name,
       active: city.active,
     };

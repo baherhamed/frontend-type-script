@@ -47,7 +47,7 @@ export async function getTokenValue() {
       }
 
       tokenValues = {
-        user_id: decodeInfo.user_id,
+        userId: decodeInfo.userId,
         name: decodeInfo.name,
         isDeveloper: decodeInfo.isDeveloper,
         language,

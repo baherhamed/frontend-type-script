@@ -1,5 +1,5 @@
 export interface Token {
-  user_id: string;
+  userId: string;
   name: string;
   iat: number;
   exp: number;

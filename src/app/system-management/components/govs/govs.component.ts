@@ -29,6 +29,7 @@ export class GovsComponent implements OnInit {
 
   gov: Gov = {
     name: '',
+    code: '',
     active: true,
   };
 
@@ -67,17 +68,14 @@ export class GovsComponent implements OnInit {
     this.actionType = action;
     this.gov = {
       name: '',
+      code: '',
       active: true,
     };
   }
 
   async addGov(gov: Gov) {
-    const newGov = {
-      name: gov.name,
-      active: gov.active,
-    };
     this.busy = true;
-    this.govService.addGov(newGov).subscribe(async (res) => {
+    this.govService.addGov(gov).subscribe(async (res) => {
       const response = await validateResponse(res);
       if (!response.success) {
         this.notification.info(response.message);
@@ -87,6 +85,7 @@ export class GovsComponent implements OnInit {
         this.govsList.push({
           _id: Object(response.data)._id,
           name: gov.name,
+          code: gov.code,
           active: gov.active,
         });
         this.actionType = definitions.operation.result;
@@ -94,15 +93,10 @@ export class GovsComponent implements OnInit {
       this.busy = false;
     });
   }
-  
+
   async updateGov(gov: Gov) {
-    const updatedGov = {
-      _id: gov._id,
-      name: gov.name,
-      active: gov.active,
-    };
     this.busy = true;
-    this.govService.updateGov(updatedGov).subscribe(async (res: IResponse) => {
+    this.govService.updateGov(gov).subscribe(async (res: IResponse) => {
       const response = await validateResponse(res);
       if (!response.success) {
         this.notification.info(response.message);
@@ -157,6 +151,7 @@ export class GovsComponent implements OnInit {
       });
     }
   }
+
   searchGov(gov: Gov, pagination?: any) {
     const searchData = {
       query: gov,
@@ -182,6 +177,7 @@ export class GovsComponent implements OnInit {
     this.gov = {
       _id: gov._id,
       name: gov.name,
+      code: gov.code,
       active: gov.active,
     };
   }

@@ -35,11 +35,12 @@
     color="info"
     (click)="exportDataToExcel('citiesList', 'cities')"
     [disabled]="busy"
-    class="m-1"    *ngIf="
-    userLoggedIn &&
-    securityPermissionsList &&
-    securityPermissionsList.includes('exportCities')
-  "
+    class="m-1"
+    *ngIf="
+      userLoggedIn &&
+      securityPermissionsList &&
+      securityPermissionsList.includes('exportCities')
+    "
   >
     {{ "Actions.Export" | translate }}
     <mat-icon>import_export</mat-icon>
@@ -62,10 +63,10 @@
             matNativeControl
             [(ngModel)]="city.gov"
             required
-            name="gov"
+            name="city-gov"
           >
-            <mat-option [value]="lang" *ngFor="let lang of govsList">{{
-              lang.name
+            <mat-option [value]="gov" *ngFor="let gov of govsList">{{
+              gov.name
             }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -145,10 +146,7 @@
   </fieldset>
 </form>
 
-<div
-  
-  *ngIf="actionType && actionType === definitions.operation.search"
->
+<div *ngIf="actionType && actionType === definitions.operation.search">
   <form #searchCityForm="ngForm">
     <fieldset class="form">
       <div class="container text-center">
@@ -242,7 +240,7 @@
             <button
               mat-mini-fab
               color="info"
-              (click)="showDetails(govDetails); setData(city)"
+              (click)="showDetails(cityDetails); setData(city)"
               class="m-1"
             >
               <mat-icon>view_list</mat-icon>
@@ -287,7 +285,7 @@
   </div>
 </div>
 
-<ng-template #govDetails>
+<ng-template #cityDetails>
   <div class="details-div">
     <h2 class="details-header">
       <span> {{ "Actions.Details" | translate }}</span>

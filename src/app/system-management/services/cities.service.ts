@@ -61,10 +61,20 @@ export class CitiesService {
       .pipe(retry(5));
   }
 
+  getCitiesByGov(city: any): Observable<any> {
+    return this.http
+      .post<{ success: boolean; message: string; data: any }>(
+        `${this.citiesUrl}/getCitiesByGov`,
+        city,
+        { headers: definitions.requestHeaders().headers }
+      )
+      .pipe(retry(5));
+  }
+
   getAllCities(pagination?: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: any }>(
-        `${this.citiesUrl}/get_all`,
+        `${this.citiesUrl}/getAll`,
         pagination,
         { headers: definitions.requestHeaders().headers }
       )
@@ -74,7 +84,7 @@ export class CitiesService {
   getActiveCities() {
     return this.http
       .post<{ success: boolean; message: string; data: [] }>(
-        `${this.citiesUrl}/get_active`,
+        `${this.citiesUrl}/getActive`,
         null,
         { headers: definitions.requestHeaders().headers }
       )

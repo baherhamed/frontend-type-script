@@ -65,7 +65,7 @@ export class GovsService {
   getAllGovs(pagination?: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: Gov }>(
-        `${this.govsUrl}/get_all`,
+        `${this.govsUrl}/getAll`,
         pagination,
         { headers: definitions.requestHeaders().headers }
       )
@@ -75,7 +75,7 @@ export class GovsService {
   getActiveGovs() {
     return this.http
       .post<{ success: boolean; message: string; data: Gov[] }>(
-        `${this.govsUrl}/get_active`,
+        `${this.govsUrl}/getActive`,
         null,
         { headers: definitions.requestHeaders().headers }
       )

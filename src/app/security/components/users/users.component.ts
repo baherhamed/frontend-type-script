@@ -111,7 +111,7 @@ export class UsersComponent implements OnInit {
       routesList,
       permissionsList,
       password: user.password,
-      language_id: user.language._id,
+      languageId: user.language._id,
       active: user.active,
     };
     this.busy = true;
@@ -171,7 +171,7 @@ export class UsersComponent implements OnInit {
       mobile: user.mobile,
       email: user.email,
       password: user.password,
-      language_id: user.language._id,
+      languageId: user.language._id,
       routesList,
       permissionsList,
       active: user.active,
