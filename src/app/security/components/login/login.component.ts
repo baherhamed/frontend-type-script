@@ -38,7 +38,7 @@ export class LoginComponent {
     this.securityService.login(login).subscribe(async (res) => {
       const response = await validateResponse(res);
 
-      if (!response.success) {
+      if (!response.success || !response.data) {
         this.notification.info(response.message);
       } else {
         try {

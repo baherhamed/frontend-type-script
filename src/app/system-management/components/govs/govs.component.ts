@@ -77,7 +77,7 @@ export class GovsComponent implements OnInit {
     this.busy = true;
     this.govService.addGov(gov).subscribe(async (res) => {
       const response = await validateResponse(res);
-      if (!response.success) {
+      if (!response.success || !response.data) {
         this.notification.info(response.message);
       } else {
         this.notification.success(response.message);
@@ -98,7 +98,7 @@ export class GovsComponent implements OnInit {
     this.busy = true;
     this.govService.updateGov(gov).subscribe(async (res: IResponse) => {
       const response = await validateResponse(res);
-      if (!response.success) {
+      if (!response.success || !response.data) {
         this.notification.info(response.message);
       } else {
         this.notification.success(response.message);

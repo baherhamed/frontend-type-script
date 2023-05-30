@@ -91,7 +91,7 @@ export class CitiesComponent {
     this.busy = true;
     this.cityService.addCity(newCity).subscribe(async (res) => {
       const response = await validateResponse(res);
-      if (!response.success) {
+      if (!response.success || !response.data) {
         this.notification.info(response.message);
       } else {
         this.notification.success(response.message);
@@ -158,7 +158,7 @@ export class CitiesComponent {
       .updateCity(updatedCity)
       .subscribe(async (res: IResponse) => {
         const response = await validateResponse(res);
-        if (!response.success) {
+        if (!response.success || !response.data) {
           this.notification.info(response.message);
         } else {
           this.notification.success(response.message);

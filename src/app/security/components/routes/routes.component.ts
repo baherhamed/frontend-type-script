@@ -112,7 +112,7 @@ export class RoutesComponent implements OnInit {
     this.busy = true;
     this.routeService.addRoute(newRoute).subscribe(async (res) => {
       const response = await validateResponse(res);
-      if (!response.success) {
+      if (!response.success || !response.data) {
         this.notification.info(response.message);
       } else {
         this.notification.success(response.message);
