@@ -9,7 +9,7 @@
     (click)="resetModel(definitions.operation.add)"
     *ngIf="
       (userLoggedIn && isDeveloper) ||
-      (securityPermissionsList && securityPermissionsList.includes('addUser'))
+      (securityPermissionsList && securityPermissionsList.includes(permissionsNames.addUser))
     "
     class="m-1"
   >
@@ -36,7 +36,7 @@
     *ngIf="
       userLoggedIn &&
       securityPermissionsList &&
-      securityPermissionsList.includes('exportUsers')
+      securityPermissionsList.includes(permissionsNames.exportUsers)
     "
   >
     {{ "Actions.Export" | translate }}
@@ -187,7 +187,7 @@
         *ngIf="
           ((userLoggedIn && isDeveloper) ||
             (securityPermissionsList &&
-              securityPermissionsList.includes('addUser'))) &&
+              securityPermissionsList.includes(permissionsNames.addUser))) &&
           actionType &&
           actionType === definitions.operation.add
         "
@@ -204,7 +204,7 @@
         *ngIf="
           ((userLoggedIn && isDeveloper) ||
             (securityPermissionsList &&
-              securityPermissionsList.includes('updateUser'))) &&
+              securityPermissionsList.includes(permissionsNames.updateUser))) &&
           actionType &&
           actionType === definitions.operation.update
         "
@@ -340,7 +340,7 @@
               *ngIf="
                 (userLoggedIn && isDeveloper) ||
                 (securityPermissionsList &&
-                  securityPermissionsList.includes('updateUser'))
+                  securityPermissionsList.includes(permissionsNames.updateUser))
               "
               class="m-1"
             >
@@ -363,7 +363,7 @@
               *ngIf="
                 (userLoggedIn && isDeveloper) ||
                 (securityPermissionsList &&
-                  securityPermissionsList.includes('deleteUser'))
+                  securityPermissionsList.includes(permissionsNames.deleteUser))
               "
               class="m-1"
             >

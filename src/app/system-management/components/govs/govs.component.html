@@ -7,7 +7,7 @@
     *ngIf="
       userLoggedIn &&
       securityPermissionsList &&
-      securityPermissionsList.includes('addGov')
+      securityPermissionsList.includes(permissionsNames.addGov)
     "
     mat-raised-button
     color="success"
@@ -39,7 +39,7 @@
     *ngIf="
       userLoggedIn &&
       securityPermissionsList &&
-      securityPermissionsList.includes('exportGovs')
+      securityPermissionsList.includes(permissionsNames.exportGovs)
     "
   >
     {{ "Actions.Export" | translate }}
@@ -105,7 +105,7 @@
         *ngIf="
           userLoggedIn &&
           securityPermissionsList &&
-          securityPermissionsList.includes('addGov') &&
+          securityPermissionsList.includes(permissionsNames.addGov) &&
           actionType &&
           actionType === definitions.operation.add
         "
@@ -122,7 +122,7 @@
         *ngIf="
           userLoggedIn &&
           securityPermissionsList &&
-          securityPermissionsList.includes('updateGov') &&
+          securityPermissionsList.includes(permissionsNames.updateGov) &&
           actionType &&
           actionType === definitions.operation.update
         "
@@ -239,7 +239,7 @@
               *ngIf="
                 userLoggedIn &&
                 securityPermissionsList &&
-                securityPermissionsList.includes('updateGov')
+                securityPermissionsList.includes(permissionsNames.updateGov)
               "
               class="m-1"
             >
@@ -253,7 +253,7 @@
               *ngIf="
                 userLoggedIn &&
                 securityPermissionsList &&
-                securityPermissionsList.includes('deleteGov')
+                securityPermissionsList.includes(permissionsNames.deleteGov)
               "
               class="m-1"
             >

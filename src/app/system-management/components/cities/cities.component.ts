@@ -6,6 +6,7 @@ import {
   NotificationService,
   SetTitleService,
   definitions,
+  permissionsNames,
   exportToExcel,
   getTokenValue,
   inputsLength,
@@ -21,6 +22,7 @@ export class CitiesComponent {
   responsePaginationData: any;
   inputsLength: any;
   definitions: any;
+  permissionsNames: any;
   actionType: any;
   govsList: Gov[] = [];
   citiesList: City[] = [];
@@ -48,6 +50,7 @@ export class CitiesComponent {
   ) {
     this.inputsLength = inputsLength;
     this.definitions = definitions;
+    this.permissionsNames = permissionsNames;
   }
 
   async ngOnInit() {

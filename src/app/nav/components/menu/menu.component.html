@@ -37,7 +37,7 @@
   <mat-menu #systemManagementMenu="matMenu">
     <a
       class="menu-element"
-      *ngIf="routesList && routesList.includes('govs')"
+      *ngIf="routesList && routesList.includes(routesNames.govs)"
       [routerLink]="['systemManagement/govs']"
       routerLinkActive="active"
     >
@@ -45,7 +45,7 @@
     </a>
     <a
       class="menu-element"
-      *ngIf="routesList && routesList.includes('cities')"
+      *ngIf="routesList && routesList.includes(routesNames.cities)"
       [routerLink]="['systemManagement/cities']"
       routerLinkActive="active"
     >
@@ -69,7 +69,7 @@
       class="menu-element"
       *ngIf="
         (userLoggedIn && isDeveloper) ||
-        (routesList && routesList.includes('users'))
+        (routesList && routesList.includes(routesNames.users))
       "
       [routerLink]="['security/users']"
       routerLinkActive="active"

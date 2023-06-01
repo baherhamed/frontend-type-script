@@ -9,6 +9,7 @@ import {
   definitions,
   validateResponse,
   exportToExcel,
+  permissionsNames,
 } from 'src/app/shared';
 import { Permission, Route, User } from '../../models';
 import { RoutesService, UsersService } from '../../services';
@@ -25,6 +26,7 @@ export class UsersComponent implements OnInit {
   isDeveloper: boolean = false;
   inputLength: any;
   definitions: any;
+  permissionsNames: any;
   actionType: any;
   languagesList: Language[] = [];
   usersList: User[] = [];
@@ -59,6 +61,7 @@ export class UsersComponent implements OnInit {
   ) {
     this.inputLength = inputsLength;
     this.definitions = definitions;
+    this.permissionsNames = permissionsNames;
   }
 
   async ngOnInit() {

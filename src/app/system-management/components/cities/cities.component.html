@@ -10,7 +10,7 @@
     *ngIf="
       userLoggedIn &&
       securityPermissionsList &&
-      securityPermissionsList.includes('addCity')
+      securityPermissionsList.includes(permissionsNames.addCity)
     "
     [disabled]="busy"
     class="m-1"
@@ -39,7 +39,7 @@
     *ngIf="
       userLoggedIn &&
       securityPermissionsList &&
-      securityPermissionsList.includes('exportCities')
+      securityPermissionsList.includes(permissionsNames.exportCities)
     "
   >
     {{ "Actions.Export" | translate }}
@@ -106,7 +106,7 @@
         *ngIf="
           userLoggedIn &&
           securityPermissionsList &&
-          securityPermissionsList.includes('addCity') &&
+          securityPermissionsList.includes(permissionsNames.addCity) &&
           actionType &&
           actionType === definitions.operation.add
         "
@@ -123,7 +123,7 @@
         *ngIf="
           userLoggedIn &&
           securityPermissionsList &&
-          securityPermissionsList.includes('updateCity') &&
+          securityPermissionsList.includes(permissionsNames.updateCity) &&
           actionType &&
           actionType === definitions.operation.update
         "
@@ -230,7 +230,7 @@
               *ngIf="
                 userLoggedIn &&
                 securityPermissionsList &&
-                securityPermissionsList.includes('updateCity')
+                securityPermissionsList.includes(permissionsNames.updateCity)
               "
               class="m-1"
             >
@@ -253,7 +253,7 @@
               *ngIf="
                 userLoggedIn &&
                 securityPermissionsList &&
-                securityPermissionsList.includes('deleteCity')
+                securityPermissionsList.includes(permissionsNames.deleteCity)
               "
               class="m-1"
             >

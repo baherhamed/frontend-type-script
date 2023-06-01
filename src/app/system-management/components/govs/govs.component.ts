@@ -6,6 +6,7 @@ import {
   NotificationService,
   SetTitleService,
   definitions,
+  permissionsNames,
   exportToExcel,
   getTokenValue,
   inputsLength,
@@ -22,6 +23,7 @@ export class GovsComponent implements OnInit {
   inputsLength: any;
   userLoggedIn: boolean = false;
   definitions: any;
+  permissionsNames: any;
   actionType: any;
   govsList: Gov[] = [];
   busy = false;
@@ -43,6 +45,7 @@ export class GovsComponent implements OnInit {
   ) {
     this.inputsLength = inputsLength;
     this.definitions = definitions;
+    this.permissionsNames = permissionsNames;
   }
 
   async ngOnInit() {

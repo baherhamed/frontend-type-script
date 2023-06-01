@@ -8,6 +8,7 @@ import {
   getTokenValue,
   inputsLength,
   NotificationService,
+  routesNames,
   validateResponse,
 } from 'src/app/shared';
 
@@ -35,6 +36,7 @@ export class MenuComponent {
   language: string = '';
   busy = false;
   inputsLength: any;
+  routesNames: any[string];
   newPasswordPassword: ChangePassword = {
     _id: '',
     password: '',
@@ -47,6 +49,7 @@ export class MenuComponent {
     private notification: NotificationService
   ) {
     this.inputsLength = inputsLength;
+    this.routesNames = routesNames;
   }
 
   async ngOnInit() {

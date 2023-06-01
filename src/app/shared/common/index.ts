@@ -6,3 +6,5 @@ export * from './validate-input-data';
 export * from './validate-response';
 export * from './pagination';
 export * from './export-to-excel';
+export * from './routes-names';
+export * from './permissions-names';
