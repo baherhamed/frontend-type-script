@@ -9,7 +9,8 @@
     (click)="resetModel(definitions.operation.add)"
     *ngIf="
       (userLoggedIn && isDeveloper) ||
-      (securityPermissionsList && securityPermissionsList.includes(permissionsNames.addUser))
+      (securityPermissionsList &&
+        securityPermissionsList.includes(permissionsNames.addUser))
     "
     class="m-1"
   >
@@ -51,7 +52,7 @@
     actionType === definitions.operation.update
   "
 >
-  <fieldset class="form">
+  <fieldset>
     <div class="container text-center">
       <div class="row">
         <mat-form-field appearance="outline" class="col-sm-3">
@@ -129,15 +130,14 @@
             {{ "Forms.Active" | translate }}
           </mat-checkbox>
         </div>
-        <div class="container">
-          <!-- *ngIf="actionType && actionType === definitions.operation.update" -->
-          <fieldset>
-            <legend>
-              <span class="legend">
-                {{ "Menu.Routes" | translate }}
-              </span>
-            </legend>
-            <div class="row" *ngFor="let route of routesList; let i = index">
+
+        <fieldset>
+          <legend>
+            <span class="legend">{{ "Menu.Routes" | translate }}</span>
+          </legend>
+
+          <div class="row" *ngFor="let route of user.routesList; let i = index">
+            <fieldset>
               <div class="col-sm-2">
                 <div class="form-group text-center">
                   <label> {{ route?.ar }} </label>
@@ -173,9 +173,9 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </fieldset>
-        </div>
+            </fieldset>
+          </div>
+        </fieldset>
       </div>
     </div>
 
@@ -436,7 +436,6 @@
             <td>{{ "Forms.S" | translate }}</td>
             <td>{{ "Forms.Route-Ar" | translate }}</td>
             <td>{{ "Forms.Route-En" | translate }}</td>
-            <td>{{ "Forms.Status" | translate }}</td>
             <td>{{ "Menu.Permissions" | translate }}</td>
           </tr>
         </thead>
@@ -445,23 +444,14 @@
             <td>{{ i + 1 }}</td>
             <td>{{ route.ar }}</td>
             <td>{{ route.en }}</td>
-            <td>
-              <span *ngIf="route.active" class="status-active">
-                {{ "Forms.Active" | translate }}
-              </span>
-              <span *ngIf="!route.active" class="status-not-active">
-                {{ "Forms.Not-Active" | translate }}
-              </span>
-            </td>
+
             <td *ngIf="route.permissionsList">
               <div class="table-responsive">
                 <table class="table table-sm align-middle table-hover">
                   <thead>
                     <tr class="thead">
-                      <td>{{ "Forms.S" | translate }}</td>
                       <td>{{ "Forms.Permission-Ar" | translate }}</td>
                       <td>{{ "Forms.Permission-En" | translate }}</td>
-                      <td>{{ "Forms.Status" | translate }}</td>
                     </tr>
                   </thead>
                   <tbody>
@@ -471,20 +461,8 @@
                         let i = index
                       "
                     >
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ permission.ar }}</td>
-                      <td>{{ permission.en }}</td>
-                      <td>
-                        <span *ngIf="permission.active" class="status-active">
-                          {{ "Forms.Active" | translate }}
-                        </span>
-                        <span
-                          *ngIf="!permission.active"
-                          class="status-not-active"
-                        >
-                          {{ "Forms.Not-Active" | translate }}
-                        </span>
-                      </td>
+                      <td *ngIf="permission.active">{{ permission.ar }}</td>
+                      <td *ngIf="permission.active">{{ permission.en }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -494,11 +472,12 @@
         </tbody>
       </table>
     </div>
-
-    <button mat-raised-button color="danger" [mat-dialog-close]="true">
-      {{ "Actions.Close" | translate }}
-      <mat-icon>close</mat-icon>
-    </button>
+    <div class="actions-buttons">
+      <button mat-raised-button color="danger" [mat-dialog-close]="true">
+        {{ "Actions.Close" | translate }}
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
   </div>
 </ng-template>
 

@@ -1,4 +1,4 @@
-import { Route } from '.';
+import { Permission, Route } from '.';
 
 export interface User {
   _id?: string;
@@ -11,6 +11,6 @@ export interface User {
     name: string;
   };
   routesList: Route[];
-  permissionsList?: any;
+  permissionsList?: Permission[];
   active: boolean;
 }

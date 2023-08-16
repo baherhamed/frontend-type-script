@@ -66,7 +66,7 @@ export class UsersService {
   getAllUsers(pagination?: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: User }>(
-        `${this.usersUrl}/get_all`,
+        `${this.usersUrl}/getAll`,
         pagination,
         { headers: definitions.requestHeaders().headers }
       )
@@ -76,7 +76,7 @@ export class UsersService {
   getActiveUsers() {
     return this.http
       .post<{ success: boolean; message: string; data: User[] }>(
-        `${this.usersUrl}/get_active`,
+        `${this.usersUrl}/getActive`,
         null,
         { headers: definitions.requestHeaders().headers }
       )
@@ -89,7 +89,7 @@ export class UsersService {
         success: boolean;
         message: string;
         data: ChangePassword;
-      }>(`${this.usersUrl}/change_password`, changePassword, {
+      }>(`${this.usersUrl}/changePassword`, changePassword, {
         headers: definitions.requestHeaders().headers,
       })
       .pipe(retry(5));

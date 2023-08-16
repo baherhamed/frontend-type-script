@@ -420,23 +420,17 @@ a.menu-element:hover {
   height: 90em;
 }
 
-// .form-content {
-//   border: 3px solid #000;
-//   border-radius: 7px;
-// padding: 5px;
-// margin-bottom: 15px;
-// }
-
 fieldset {
   border: 3px solid #000;
   border-radius: 7px;
-  padding: 5px;
-  // overflow-y: auto;
-  // overflow-x: hidden;
+  padding: 1rem;
+  width: 90vw;
+  margin: 1rem;
+  // align-content: center;
 }
 
 fieldset.form {
-  margin: 0 5%;
+  margin: 0 auto;
   padding: 1em;
 }
 
@@ -502,4 +496,28 @@ a:hover {
 
 a:active {
   text-decoration: none;
+}
+
+@media only screen and (max-width: 576px) {
+  //
+}
+
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  //
+}
+
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+  //
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1200px) {
+  //
+}
+
+@media only screen and (min-width: 1201px) and (max-width: 1400px) {
+  //
+}
+
+@media only screen and (min-width: 1401px) {
+  //
 }

@@ -45,6 +45,7 @@ export class UsersComponent implements OnInit {
       name: '',
     },
     routesList: [],
+    permissionsList: [],
     active: true,
   };
 
@@ -80,7 +81,7 @@ export class UsersComponent implements OnInit {
     this.getActiveRouts();
     this.getAllUsers();
   }
-  
+
   async exportDataToExcel(table: any, file: any) {
     exportToExcel(table, file);
   }
@@ -97,7 +98,8 @@ export class UsersComponent implements OnInit {
         _id: '',
         name: '',
       },
-      routesList: [],
+      routesList: this.routesList,
+      permissionsList: [],
       active: true,
     };
     this.getActiveRouts();
@@ -245,6 +247,7 @@ export class UsersComponent implements OnInit {
       email: user.email,
       language: user.language,
       routesList: user.routesList,
+      permissionsList: user.permissionsList,
       active: user.active,
     };
   }
@@ -257,29 +260,20 @@ export class UsersComponent implements OnInit {
       }
     }
 
-    for await (const item of this.permissionsList) {
-      for await (const elem of user.permissionsList) {
-        if (elem.active && item._id === elem._id) {
-          item.active = true;
-        }
-      }
-    }
-
     this.user = {
       _id: user._id,
       name: user.name,
       mobile: user.mobile,
       email: user.email,
       language: selectedLanguage || user.language,
-      routesList: this.routesList,
-      permissionsList: this.permissionsList,
+      routesList: user.routesList,
       active: user.active,
     };
   }
 
   async setRoleRoutesList() {
     const selectedRoutesList = [];
-    for await (const route of this.routesList) {
+    for await (const route of this.user.routesList) {
       if (route && route.active) {
         selectedRoutesList.push(route.name);
       }
@@ -289,7 +283,7 @@ export class UsersComponent implements OnInit {
 
   async setPermissionsList() {
     const selectedPermissionsList = [];
-    for await (const route of this.routesList) {
+    for await (const route of this.user.routesList) {
       if (route && route.active) {
         for await (const permission of route.permissionsList) {
           if (permission && permission.active) {

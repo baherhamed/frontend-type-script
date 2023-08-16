@@ -47,7 +47,7 @@ export class RoutesService {
   getActiveRouts(): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: any }>(
-        `${this.baseUrl}/get_active`,
+        `${this.baseUrl}/getActive`,
         null,
         { headers: definitions.requestHeaders().headers }
       )
@@ -57,7 +57,7 @@ export class RoutesService {
   getAllRouts(pagination?: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: Route }>(
-        `${this.baseUrl}/get_all`,
+        `${this.baseUrl}/getAll`,
         pagination,
         { headers: definitions.requestHeaders().headers }
       )
