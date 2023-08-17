@@ -1,4 +1,4 @@
-import { Token } from '..';
+import { Token, hashString } from '..';
 import { definitions } from './definitions';
 export async function getTokenValue() {
   let tokenValues;
@@ -7,11 +7,15 @@ export async function getTokenValue() {
   let decodeInfo: Token;
   let language;
   const token = localStorage.getItem(definitions.token);
-  const localStorageRoutesList = localStorage.getItem(definitions.routesList);
-  const localStoragePermissionsList = localStorage.getItem(
-    definitions.permissionsList
-  );
-
+  const storageRoutesList = localStorage.getItem(definitions.routesList) || '';
+  const storagePermissionsList =
+    localStorage.getItem(definitions.permissionsList) || '';
+  const localStorageRoutesList = (
+    await hashString(storageRoutesList!.toString())
+  ).hashedText;
+  const localStoragePermissionsList = (
+    await hashString(storagePermissionsList!.toString())
+  ).hashedText;
   if (token) {
     const base64Url = token.split('.')[1];
 
@@ -30,7 +34,6 @@ export async function getTokenValue() {
 
     if (decodeInfo.exp * 1000 > Date.now()) {
       language = localStorage.getItem(definitions.currentLangValue);
-      // console.log('localStorageRoutesList', localStorageRoutesList);
 
       if (localStorageRoutesList) {
         const routesListArr = localStorageRoutesList.split(',');

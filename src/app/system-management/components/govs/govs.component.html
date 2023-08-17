@@ -250,11 +250,6 @@
               mat-mini-fab
               color="info"
               (click)="showDetails(govDetails); setData(gov)"
-              *ngIf="
-                userLoggedIn &&
-                securityPermissionsList &&
-                securityPermissionsList.includes(permissionsNames.deleteGov)
-              "
               class="m-1"
             >
               <mat-icon>view_list</mat-icon>
@@ -264,6 +259,11 @@
               mat-mini-fab
               color="danger"
               (click)="deleteGov(gov)"
+              *ngIf="
+                userLoggedIn &&
+                securityPermissionsList &&
+                securityPermissionsList.includes(permissionsNames.deleteGov)
+              "
               class="m-1"
             >
               <mat-icon>delete</mat-icon>

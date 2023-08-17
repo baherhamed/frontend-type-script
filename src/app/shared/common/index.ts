@@ -8,3 +8,4 @@ export * from './pagination';
 export * from './export-to-excel';
 export * from './routes-names';
 export * from './permissions-names';
+export * from './hash-string';

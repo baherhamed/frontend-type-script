@@ -21,7 +21,7 @@
     <button
       mat-menu-item
       [matMenuTriggerFor]="securityMenu"
-      *ngIf="userLoggedIn && isDeveloper"
+      *ngIf="userLoggedIn"
     >
       <mat-icon color="primary"> security </mat-icon>
       <span>{{ "Modules.Security" | translate }}</span>
@@ -68,8 +68,7 @@
     <a
       class="menu-element"
       *ngIf="
-        (userLoggedIn && isDeveloper) ||
-        (routesList && routesList.includes(routesNames.users))
+        userLoggedIn || (routesList && routesList.includes(routesNames.users))
       "
       [routerLink]="['security/users']"
       routerLinkActive="active"
