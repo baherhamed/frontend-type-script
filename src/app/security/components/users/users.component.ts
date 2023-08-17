@@ -11,7 +11,7 @@ import {
   exportToExcel,
   permissionsNames,
 } from 'src/app/shared';
-import { Permission, Route, User } from '../../models';
+import { Permission, Route, User } from '../../interfaces';
 import { RoutesService, UsersService } from '../../services';
 import { DefinitionsService } from 'src/app/shared/services/definitions.service';
 

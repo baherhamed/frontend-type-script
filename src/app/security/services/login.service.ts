@@ -4,7 +4,7 @@ import { Observable, retry } from 'rxjs';
 import { definitions } from 'src/app/shared';
 
 import { environment } from 'src/environments/environment';
-import { Login } from '../models';
+import { Login } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',

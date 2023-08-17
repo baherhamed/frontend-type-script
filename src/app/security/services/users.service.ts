@@ -16,10 +16,7 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  headers = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set('accept-language', `${this.language}`)
-    .set('Authorization', `Bearer ${this.token}`);
+
 
   addUser(user: any): Observable<any> {
     return this.http

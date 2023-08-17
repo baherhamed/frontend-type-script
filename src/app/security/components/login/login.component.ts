@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Login } from '../../models';
+import { Login } from '../../interfaces';
 import { SecurityService } from '../../services';
 import {
   getTokenValue,

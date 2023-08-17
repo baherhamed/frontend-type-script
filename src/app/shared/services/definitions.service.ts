@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { definitions } from '..';
 
-import { Language } from '../models';
+import { Language } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -13,11 +13,6 @@ export class DefinitionsService {
   token = localStorage.getItem(definitions.token);
   language = localStorage.getItem(definitions.currentLangValue);
 
-  headers = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set('accept-language', `${this.language}`)
-    .set('Authorization', `Bearer ${this.token}`);
-
   constructor(private http: HttpClient) {}
 
   getActiveLanguages() {
@@ -26,7 +21,7 @@ export class DefinitionsService {
       message: string;
       data: Language[];
     }>(`${this.languageUrl}/get_active_languages`, null, {
-      headers: this.headers,
+      headers: definitions.requestHeaders().headers,
       // observe: 'response',
     });
   }
