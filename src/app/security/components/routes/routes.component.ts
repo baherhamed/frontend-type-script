@@ -6,7 +6,7 @@ import {
   SetTitleService,
   validateResponse,
   getTokenValue,
-  definitions,
+  site,
   exportToExcel,
   IResponse,
 } from 'src/app/shared';
@@ -47,16 +47,16 @@ export class RoutesComponent implements OnInit {
     private notification: NotificationService
   ) {
     this.inputsLength = inputsLength;
-    this.definitions = definitions;
+    this.definitions = site;
   }
   async ngOnInit() {
     this.tockenValues = await getTokenValue();
     this.actionType = null;
     this.routesList = [];
-    const currentLang = localStorage.getItem(definitions.currentLangValue);
-    if (!currentLang || currentLang === definitions.language.ar) {
+    const currentLang = localStorage.getItem(site.currentLangValue);
+    if (!currentLang || currentLang === site.language.ar) {
       this.titleService.setTitle('العناوين');
-    } else if (currentLang === definitions.language.en) {
+    } else if (currentLang === site.language.en) {
       this.titleService.setTitle('Routes');
     }
 
@@ -124,7 +124,7 @@ export class RoutesComponent implements OnInit {
           active: route.active,
           permissionsList: Object(response.data).permissionsList,
         });
-        this.actionType = definitions.operation.result;
+        this.actionType = site.operation.result;
       }
       this.busy = false;
     });
@@ -145,7 +145,7 @@ export class RoutesComponent implements OnInit {
       } else {
         this.notification.success(response.message);
         this.routesList = res.data;
-        this.actionType = definitions.operation.result;
+        this.actionType = site.operation.result;
       }
       this.busy = false;
     });
@@ -185,13 +185,13 @@ export class RoutesComponent implements OnInit {
           this.notification.success(response.message);
           for await (let item of this.routesList) {
             if (item._id === Object(response.data)._id) {
-              definitions.spliceElementToUpdate(
+              site.spliceElementToUpdate(
                 this.routesList,
                 Object(response.data)
               );
             }
           }
-          this.actionType = definitions.operation.result;
+          this.actionType = site.operation.result;
         }
         this.busy = false;
       });
@@ -203,11 +203,11 @@ export class RoutesComponent implements OnInit {
 
   deleteRoute(route: Route) {
     let confirmMessage;
-    if (!this.lang || this.lang === definitions.language.en) {
-      confirmMessage = definitions.confirmMessage.en;
+    if (!this.lang || this.lang === site.language.en) {
+      confirmMessage = site.confirmMessage.en;
     }
-    if (this.lang === definitions.language.ar) {
-      confirmMessage = definitions.confirmMessage.ar;
+    if (this.lang === site.language.ar) {
+      confirmMessage = site.confirmMessage.ar;
     }
     const confirmDelete = confirm(confirmMessage);
     if (confirmDelete) {
@@ -251,7 +251,7 @@ export class RoutesComponent implements OnInit {
       }
       this.responsePaginationData = res.paginationInfo;
       this.routesList = res.data || [];
-      this.actionType = definitions.operation.getAll;
+      this.actionType = site.operation.getAll;
       this.busy = false;
     });
   }
@@ -283,7 +283,7 @@ export class RoutesComponent implements OnInit {
     };
   }
   resetActionTypeToClose() {
-    this.actionType = definitions.operation.close;
+    this.actionType = site.operation.close;
     this.getAllRouts();
   }
 }

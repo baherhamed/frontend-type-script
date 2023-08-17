@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
-import { definitions } from 'src/app/shared';
+import { site } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 import { Route } from '..';
 
@@ -9,9 +9,9 @@ import { Route } from '..';
   providedIn: 'root',
 })
 export class RoutesService {
-  baseUrl = `${environment.url}${definitions.api}/security/routes`;
-  token = localStorage.getItem(definitions.token);
-  language = localStorage.getItem(definitions.currentLangValue);
+  baseUrl = `${environment.url}${site.api}/security/routes`;
+  token = localStorage.getItem(site.token);
+  language = localStorage.getItem(site.currentLangValue);
   constructor(private http: HttpClient) {}
 
   addRoute(route: any): Observable<any> {
@@ -19,7 +19,7 @@ export class RoutesService {
       .post<{ success: boolean; message: string; data: Route }>(
         `${this.baseUrl}/add`,
         route,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -29,7 +29,7 @@ export class RoutesService {
       .put<{ success: boolean; message: string; data: Route }>(
         `${this.baseUrl}/update`,
         route,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -39,7 +39,7 @@ export class RoutesService {
       .post<{ success: boolean; message: string; data: Route }>(
         `${this.baseUrl}/search`,
         route,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -49,7 +49,7 @@ export class RoutesService {
       .post<{ success: boolean; message: string; data: any }>(
         `${this.baseUrl}/getActive`,
         null,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -59,7 +59,7 @@ export class RoutesService {
       .post<{ success: boolean; message: string; data: Route }>(
         `${this.baseUrl}/getAll`,
         pagination,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -69,7 +69,7 @@ export class RoutesService {
       .put<{ success: boolean; message: string; data: Route }>(
         `${this.baseUrl}/delete`,
         Route,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }

@@ -1,15 +1,15 @@
 import { Token, hashString } from '..';
-import { definitions } from './definitions';
+import { site } from './site';
 export async function getTokenValue() {
   let tokenValues;
   const routesList = [];
   const permissionsList = [];
   let decodeInfo: Token;
   let language;
-  const token = localStorage.getItem(definitions.token);
-  const storageRoutesList = localStorage.getItem(definitions.routesList) || '';
+  const token = localStorage.getItem(site.token);
+  const storageRoutesList = localStorage.getItem(site.routesList) || '';
   const storagePermissionsList =
-    localStorage.getItem(definitions.permissionsList) || '';
+    localStorage.getItem(site.permissionsList) || '';
   const localStorageRoutesList = (await hashString(storageRoutesList))
     .hashedText;
   const localStoragePermissionsList = (await hashString(storagePermissionsList))
@@ -31,7 +31,7 @@ export async function getTokenValue() {
     decodeInfo = JSON.parse(jsonPayload);
 
     if (decodeInfo.exp * 1000 > Date.now()) {
-      language = localStorage.getItem(definitions.currentLangValue);
+      language = localStorage.getItem(site.currentLangValue);
 
       if (localStorageRoutesList) {
         const routesListArr = localStorageRoutesList.split(',');
@@ -63,19 +63,19 @@ export async function getTokenValue() {
       // console.log('tokenValues', tokenValues);
     } else {
       localStorage.setItem(
-        definitions.currentLangValue,
-        definitions.language.ar
+        site.currentLangValue,
+        site.language.ar
       );
-      localStorage.removeItem(definitions.token);
-      localStorage.removeItem(definitions.routesList);
-      localStorage.removeItem(definitions.permissionsList);
+      localStorage.removeItem(site.token);
+      localStorage.removeItem(site.routesList);
+      localStorage.removeItem(site.permissionsList);
       location.replace('/security/login');
       tokenValues = {
         userLoggedIn: false,
       };
     }
   } else if (!token) {
-    localStorage.setItem(definitions.currentLangValue, definitions.language.en);
+    localStorage.setItem(site.currentLangValue, site.language.en);
   }
 
   return tokenValues;

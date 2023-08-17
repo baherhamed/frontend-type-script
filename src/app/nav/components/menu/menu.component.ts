@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ChangePassword, UsersService } from 'src/app/security';
 import {
-  definitions,
+  site,
   DialogService,
   getTokenValue,
   inputsLength,
@@ -25,10 +25,10 @@ export class MenuComponent {
   tockenValues: any;
   permissionsList: string[] = [];
   themesList = [
-    definitions.themes.deeppurple,
-    definitions.themes.indigo,
-    definitions.themes.pink,
-    definitions.themes.purple,
+    site.themes.deeppurple,
+    site.themes.indigo,
+    site.themes.pink,
+    site.themes.purple,
   ];
   themePath = `./assets/themes/`;
   seletcedTheme: string = '';
@@ -68,14 +68,14 @@ export class MenuComponent {
     const htmlTag = document.querySelector('link#them');
     this.theme = this.seletcedTheme
       ? `${this.themePath}${this.seletcedTheme}.css`
-      : `${this.themePath}${definitions.themes.default}.css`;
+      : `${this.themePath}${site.themes.default}.css`;
 
     htmlTag?.removeAttribute('href');
     htmlTag?.setAttribute('href', this.theme);
   }
 
   changeLanguage() {
-    const currentLanguage = localStorage.getItem(definitions.currentLangValue);
+    const currentLanguage = localStorage.getItem(site.currentLangValue);
 
     if (currentLanguage) {
       this.language = currentLanguage;
@@ -83,22 +83,22 @@ export class MenuComponent {
     let htmlTag = document.querySelector('html');
     let setLang = '';
     let newlanguage = '';
-    if (!currentLanguage || currentLanguage === definitions.language.ar) {
+    if (!currentLanguage || currentLanguage === site.language.ar) {
       if (htmlTag) {
         htmlTag.setAttribute('dir', 'ltr');
-        setLang = definitions.language.en;
-        newlanguage = definitions.language.en;
+        setLang = site.language.en;
+        newlanguage = site.language.en;
       }
-    } else if (currentLanguage && currentLanguage === definitions.language.en) {
+    } else if (currentLanguage && currentLanguage === site.language.en) {
       if (htmlTag) {
         htmlTag.setAttribute('dir', 'rtl');
-        setLang = definitions.language.ar;
-        newlanguage = definitions.language.ar;
+        setLang = site.language.ar;
+        newlanguage = site.language.ar;
       }
     }
     this.translateService.setDefaultLang(setLang);
-    localStorage.removeItem(definitions.currentLangValue);
-    localStorage.setItem(definitions.currentLangValue, newlanguage);
+    localStorage.removeItem(site.currentLangValue);
+    localStorage.setItem(site.currentLangValue, newlanguage);
     location.reload();
   }
 
@@ -126,9 +126,9 @@ export class MenuComponent {
   }
 
   logout() {
-    localStorage.removeItem(definitions.token);
-    localStorage.removeItem(definitions.routesList);
-    localStorage.removeItem(definitions.permissionsList);
+    localStorage.removeItem(site.token);
+    localStorage.removeItem(site.routesList);
+    localStorage.removeItem(site.permissionsList);
     location.assign('/');
   }
 }

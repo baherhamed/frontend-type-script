@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { definitions } from '..';
+import { site } from '..';
 
 import { Language } from '../interfaces';
 
@@ -10,8 +10,8 @@ import { Language } from '../interfaces';
 })
 export class DefinitionsService {
   languageUrl = `${environment.url}/api/system_management/languages`;
-  token = localStorage.getItem(definitions.token);
-  language = localStorage.getItem(definitions.currentLangValue);
+  token = localStorage.getItem(site.token);
+  language = localStorage.getItem(site.currentLangValue);
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +21,7 @@ export class DefinitionsService {
       message: string;
       data: Language[];
     }>(`${this.languageUrl}/get_active_languages`, null, {
-      headers: definitions.requestHeaders().headers,
+      headers: site.requestHeaders().headers,
       // observe: 'response',
     });
   }

@@ -5,7 +5,7 @@ import {
   IResponse,
   NotificationService,
   SetTitleService,
-  definitions,
+  site,
   permissionsNames,
   exportToExcel,
   getTokenValue,
@@ -44,7 +44,7 @@ export class GovsComponent implements OnInit {
     private notification: NotificationService
   ) {
     this.inputsLength = inputsLength;
-    this.definitions = definitions;
+    this.definitions = site;
     this.permissionsNames = permissionsNames;
   }
 
@@ -54,10 +54,10 @@ export class GovsComponent implements OnInit {
     this.securityPermissionsList = this.tockenValues?.permissionsList;
     this.actionType = null;
     this.govsList = [];
-    const currentLang = localStorage.getItem(definitions.currentLangValue);
-    if (!currentLang || currentLang === definitions.language.ar) {
+    const currentLang = localStorage.getItem(site.currentLangValue);
+    if (!currentLang || currentLang === site.language.ar) {
       this.title.setTitle('المحافظات');
-    } else if (currentLang === definitions.language.en) {
+    } else if (currentLang === site.language.en) {
       this.title.setTitle('Govs');
     }
     this.getAllGovs();
@@ -91,7 +91,7 @@ export class GovsComponent implements OnInit {
           code: gov.code,
           active: gov.active,
         });
-        this.actionType = definitions.operation.result;
+        this.actionType = site.operation.result;
       }
       this.busy = false;
     });
@@ -107,13 +107,13 @@ export class GovsComponent implements OnInit {
         this.notification.success(response.message);
         for await (let item of this.govsList) {
           if (item._id === Object(response.data)._id) {
-            definitions.spliceElementToUpdate(
+            site.spliceElementToUpdate(
               this.govsList,
               Object(response.data)
             );
           }
         }
-        this.actionType = definitions.operation.result;
+        this.actionType = site.operation.result;
       }
       this.busy = false;
     });
@@ -121,11 +121,11 @@ export class GovsComponent implements OnInit {
 
   deleteGov(gov: Gov) {
     let confirmMessage;
-    if (!this.lang || this.lang === definitions.language.en) {
-      confirmMessage = definitions.confirmMessage.en;
+    if (!this.lang || this.lang === site.language.en) {
+      confirmMessage = site.confirmMessage.en;
     }
-    if (this.lang === definitions.language.ar) {
-      confirmMessage = definitions.confirmMessage.ar;
+    if (this.lang === site.language.ar) {
+      confirmMessage = site.confirmMessage.ar;
     }
     const confirmDelete = confirm(confirmMessage);
     if (confirmDelete) {
@@ -170,7 +170,7 @@ export class GovsComponent implements OnInit {
       } else {
         this.notification.success(response.message);
         this.govsList = res.data;
-        this.actionType = definitions.operation.result;
+        this.actionType = site.operation.result;
       }
       this.busy = false;
     });
@@ -203,13 +203,13 @@ export class GovsComponent implements OnInit {
       this.responsePaginationData = res.paginationInfo;
       this.govsList = res.data || [];
 
-      this.actionType = definitions.operation.getAll;
+      this.actionType = site.operation.getAll;
       this.busy = false;
     });
   }
 
   resetActionTypeToClose() {
-    this.actionType = definitions.operation.close;
+    this.actionType = site.operation.close;
     this.getAllGovs();
   }
 }

@@ -1,4 +1,4 @@
-import { definitions } from './definitions';
+import { site } from './site';
 export async function showMessageInLanguage(msg: any): Promise<{
   message: any;
   error: any;
@@ -11,20 +11,20 @@ export async function showMessageInLanguage(msg: any): Promise<{
   let success;
   let info;
   let warning;
-  const currenLanguage = localStorage.getItem(definitions.currentLangValue);
+  const currenLanguage = localStorage.getItem(site.currentLangValue);
 
-  if (currenLanguage === definitions.language.en) {
+  if (currenLanguage === site.language.en) {
     message = msg;
-    error = definitions.messageTitle.error.en;
-    success = definitions.messageTitle.success.en;
-    info = definitions.messageTitle.info.en;
-    warning = definitions.messageTitle.warning.en;
-  } else if (!currenLanguage || currenLanguage === definitions.language.ar) {
+    error = site.messageTitle.error.en;
+    success = site.messageTitle.success.en;
+    info = site.messageTitle.info.en;
+    warning = site.messageTitle.warning.en;
+  } else if (!currenLanguage || currenLanguage === site.language.ar) {
     message = msg;
-    error = definitions.messageTitle.error.ar;
-    success = definitions.messageTitle.success.ar;
-    info = definitions.messageTitle.info.ar;
-    warning = definitions.messageTitle.warning.ar;
+    error = site.messageTitle.error.ar;
+    success = site.messageTitle.success.ar;
+    info = site.messageTitle.info.ar;
+    warning = site.messageTitle.warning.ar;
   }
 
   return { message, error, success, info, warning };

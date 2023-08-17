@@ -5,7 +5,7 @@ import {
   IResponse,
   NotificationService,
   SetTitleService,
-  definitions,
+  site,
   permissionsNames,
   exportToExcel,
   getTokenValue,
@@ -49,7 +49,7 @@ export class CitiesComponent {
     private notification: NotificationService
   ) {
     this.inputsLength = inputsLength;
-    this.definitions = definitions;
+    this.definitions = site;
     this.permissionsNames = permissionsNames;
   }
 
@@ -59,10 +59,10 @@ export class CitiesComponent {
     this.securityPermissionsList = this.tockenValues?.permissionsList;
     this.actionType = null;
     this.citiesList = [];
-    const currentLang = localStorage.getItem(definitions.currentLangValue);
-    if (!currentLang || currentLang === definitions.language.ar) {
+    const currentLang = localStorage.getItem(site.currentLangValue);
+    if (!currentLang || currentLang === site.language.ar) {
       this.title.setTitle('المدن');
-    } else if (currentLang === definitions.language.en) {
+    } else if (currentLang === site.language.en) {
       this.title.setTitle('Cities');
     }
     this.getActiveGovs();
@@ -105,7 +105,7 @@ export class CitiesComponent {
           name: city.name,
           active: city.active,
         });
-        this.actionType = definitions.operation.result;
+        this.actionType = site.operation.result;
       }
       this.busy = false;
     });
@@ -126,7 +126,7 @@ export class CitiesComponent {
       } else {
         this.notification.success(response.message);
         this.citiesList = res.data;
-        this.actionType = definitions.operation.result;
+        this.actionType = site.operation.result;
       }
       this.busy = false;
     });
@@ -167,13 +167,13 @@ export class CitiesComponent {
           this.notification.success(response.message);
           for await (let item of this.citiesList) {
             if (item._id === Object(response.data)._id) {
-              definitions.spliceElementToUpdate(
+              site.spliceElementToUpdate(
                 this.citiesList,
                 Object(response.data)
               );
             }
           }
-          this.actionType = definitions.operation.result;
+          this.actionType = site.operation.result;
         }
         this.busy = false;
       });
@@ -185,11 +185,11 @@ export class CitiesComponent {
 
   deleteCity(city: City) {
     let confirmMessage;
-    if (!this.lang || this.lang === definitions.language.en) {
-      confirmMessage = definitions.confirmMessage.en;
+    if (!this.lang || this.lang === site.language.en) {
+      confirmMessage = site.confirmMessage.en;
     }
-    if (this.lang === definitions.language.ar) {
-      confirmMessage = definitions.confirmMessage.ar;
+    if (this.lang === site.language.ar) {
+      confirmMessage = site.confirmMessage.ar;
     }
     const confirmDelete = confirm(confirmMessage);
     if (confirmDelete) {
@@ -233,7 +233,7 @@ export class CitiesComponent {
       this.responsePaginationData = res.paginationInfo;
       this.citiesList = res.data || [];
 
-      this.actionType = definitions.operation.getAll;
+      this.actionType = site.operation.getAll;
       this.busy = false;
     });
   }
@@ -244,7 +244,7 @@ export class CitiesComponent {
     });
   }
   resetActionTypeToClose() {
-    this.actionType = definitions.operation.close;
+    this.actionType = site.operation.close;
     this.getAllCities();
   }
 }

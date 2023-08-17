@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
-import { definitions } from 'src/app/shared';
+import { site } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,8 +9,8 @@ import { environment } from 'src/environments/environment';
 })
 export class CitiesService {
   citiesUrl = `${environment.url}/api/systemManagement/cities`;
-  token = localStorage.getItem(definitions.token);
-  language = localStorage.getItem(definitions.currentLangValue);
+  token = localStorage.getItem(site.token);
+  language = localStorage.getItem(site.currentLangValue);
 
   constructor(private http: HttpClient) {}
 
@@ -26,7 +26,7 @@ export class CitiesService {
         message: string;
         data: any;
       }>(`${this.citiesUrl}/add`, city, {
-        headers: definitions.requestHeaders().headers,
+        headers: site.requestHeaders().headers,
       })
       .pipe(retry(5));
   }
@@ -36,7 +36,7 @@ export class CitiesService {
       .put<{ success: boolean; message: string; data: any }>(
         `${this.citiesUrl}/update`,
         city,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -46,7 +46,7 @@ export class CitiesService {
       .put<{ success: boolean; message: string; data: any }>(
         `${this.citiesUrl}/delete`,
         city,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -56,7 +56,7 @@ export class CitiesService {
       .post<{ success: boolean; message: string; data: any }>(
         `${this.citiesUrl}/search`,
         city,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -66,7 +66,7 @@ export class CitiesService {
       .post<{ success: boolean; message: string; data: any }>(
         `${this.citiesUrl}/getCitiesByGov`,
         city,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -76,7 +76,7 @@ export class CitiesService {
       .post<{ success: boolean; message: string; data: any }>(
         `${this.citiesUrl}/getAll`,
         pagination,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -86,7 +86,7 @@ export class CitiesService {
       .post<{ success: boolean; message: string; data: [] }>(
         `${this.citiesUrl}/getActive`,
         null,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }

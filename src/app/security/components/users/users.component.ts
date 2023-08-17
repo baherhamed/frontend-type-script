@@ -6,7 +6,7 @@ import {
   NotificationService,
   DialogService,
   SetTitleService,
-  definitions,
+  site,
   validateResponse,
   exportToExcel,
   permissionsNames,
@@ -61,7 +61,7 @@ export class UsersComponent implements OnInit {
     private notification: NotificationService
   ) {
     this.inputLength = inputsLength;
-    this.definitions = definitions;
+    this.definitions = site;
     this.permissionsNames = permissionsNames;
   }
 
@@ -71,10 +71,10 @@ export class UsersComponent implements OnInit {
     this.securityPermissionsList = this.tockenValues?.permissionsList;
     this.isDeveloper = this.tockenValues?.isDeveloper;
     this.actionType = null;
-    const currentLang = localStorage.getItem(definitions.currentLangValue);
-    if (!currentLang || currentLang === definitions.language.ar) {
+    const currentLang = localStorage.getItem(site.currentLangValue);
+    if (!currentLang || currentLang === site.language.ar) {
       this.title.setTitle('المستخدمين');
-    } else if (currentLang === definitions.language.en) {
+    } else if (currentLang === site.language.en) {
       this.title.setTitle('Users');
     }
     this.getActiveLanguages();
@@ -138,7 +138,7 @@ export class UsersComponent implements OnInit {
           permissionsList: user.permissionsList,
           active: user.active,
         });
-        this.actionType = definitions.operation.result;
+        this.actionType = site.operation.result;
       }
       this.busy = false;
     });
@@ -160,7 +160,7 @@ export class UsersComponent implements OnInit {
       } else {
         this.notification.success(response.message);
         this.usersList = res.data;
-        this.actionType = definitions.operation.result;
+        this.actionType = site.operation.result;
       }
       this.busy = false;
     });
@@ -191,10 +191,10 @@ export class UsersComponent implements OnInit {
         this.notification.success(response.message);
         for await (let item of this.usersList) {
           if (item._id === res.data._id) {
-            definitions.spliceElementToUpdate(this.usersList, res.data);
+            site.spliceElementToUpdate(this.usersList, res.data);
           }
         }
-        this.actionType = definitions.operation.result;
+        this.actionType = site.operation.result;
       }
       this.busy = false;
     });
@@ -202,11 +202,11 @@ export class UsersComponent implements OnInit {
 
   deleteUser(user: User) {
     let confirmMessage;
-    if (!this.lang || this.lang === definitions.language.en) {
-      confirmMessage = definitions.confirmMessage.en;
+    if (!this.lang || this.lang === site.language.en) {
+      confirmMessage = site.confirmMessage.en;
     }
-    if (this.lang === definitions.language.ar) {
-      confirmMessage = definitions.confirmMessage.ar;
+    if (this.lang === site.language.ar) {
+      confirmMessage = site.confirmMessage.ar;
     }
     const confirmDelete = confirm(confirmMessage);
     if (confirmDelete) {
@@ -322,13 +322,13 @@ export class UsersComponent implements OnInit {
       }
       this.responsePaginationData = res.paginationInfo;
       this.usersList = res.data || [];
-      this.actionType = definitions.operation.getAll;
+      this.actionType = site.operation.getAll;
       this.busy = false;
     });
   }
 
   resetActionTypeToClose() {
-    this.actionType = definitions.operation.close;
+    this.actionType = site.operation.close;
     this.getAllUsers();
   }
 }

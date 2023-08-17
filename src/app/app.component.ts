@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { definitions } from './shared';
+import { site } from './shared';
 
 @Component({
   selector: 'app-root',
@@ -27,19 +27,19 @@ export class AppComponent {
   }
 
   setLanguage() {
-    const currentLanguage = localStorage.getItem(definitions.currentLangValue);
+    const currentLanguage = localStorage.getItem(site.currentLangValue);
 
     let htmlTag = document.querySelector('html');
     let setLang = '';
-    if (!currentLanguage || currentLanguage === definitions.language.ar) {
+    if (!currentLanguage || currentLanguage === site.language.ar) {
       if (htmlTag) {
         htmlTag.setAttribute('dir', 'rtl');
-        setLang = definitions.language.ar;
+        setLang = site.language.ar;
       }
-    } else if (currentLanguage && currentLanguage === definitions.language.en) {
+    } else if (currentLanguage && currentLanguage === site.language.en) {
       if (htmlTag) {
         htmlTag.setAttribute('dir', 'ltr');
-        setLang = definitions.language.en;
+        setLang = site.language.en;
       }
     }
     this.translateService.setDefaultLang(setLang);

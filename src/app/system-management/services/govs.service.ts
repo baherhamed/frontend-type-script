@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
-import { definitions } from 'src/app/shared';
+import { site } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 import { Gov } from '..';
 
@@ -10,8 +10,8 @@ import { Gov } from '..';
 })
 export class GovsService {
   govsUrl = `${environment.url}/api/systemManagement/govs`;
-  token = localStorage.getItem(definitions.token);
-  language = localStorage.getItem(definitions.currentLangValue);
+  token = localStorage.getItem(site.token);
+  language = localStorage.getItem(site.currentLangValue);
 
   constructor(private http: HttpClient) {}
 
@@ -27,7 +27,7 @@ export class GovsService {
         message: string;
         data: Gov;
       }>(`${this.govsUrl}/add`, gov, {
-        headers: definitions.requestHeaders().headers,
+        headers: site.requestHeaders().headers,
       })
       .pipe(retry(5));
   }
@@ -37,7 +37,7 @@ export class GovsService {
       .put<{ success: boolean; message: string; data: Gov }>(
         `${this.govsUrl}/update`,
         gov,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -47,7 +47,7 @@ export class GovsService {
       .put<{ success: boolean; message: string; data: any }>(
         `${this.govsUrl}/delete`,
         gov,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -57,7 +57,7 @@ export class GovsService {
       .post<{ success: boolean; message: string; data: Gov }>(
         `${this.govsUrl}/search`,
         gov,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -67,7 +67,7 @@ export class GovsService {
       .post<{ success: boolean; message: string; data: Gov }>(
         `${this.govsUrl}/getAll`,
         pagination,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }
@@ -77,7 +77,7 @@ export class GovsService {
       .post<{ success: boolean; message: string; data: Gov[] }>(
         `${this.govsUrl}/getActive`,
         null,
-        { headers: definitions.requestHeaders().headers }
+        { headers: site.requestHeaders().headers }
       )
       .pipe(retry(5));
   }

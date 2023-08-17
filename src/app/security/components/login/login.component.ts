@@ -4,7 +4,7 @@ import { SecurityService } from '../../services';
 import {
   getTokenValue,
   inputsLength,
-  definitions,
+  site,
   NotificationService,
   validateResponse,
 } from 'src/app/shared';
@@ -42,13 +42,13 @@ export class LoginComponent {
       } else {
         try {
           this.notification.success(response.message);
-          localStorage.setItem(definitions.token, res.data.token);
-          localStorage.setItem(definitions.routesList, res.data.routesList);
+          localStorage.setItem(site.token, res.data.token);
+          localStorage.setItem(site.routesList, res.data.routesList);
           localStorage.setItem(
-            definitions.permissionsList,
+            site.permissionsList,
             res.data.permissionsList
           );
-          localStorage.setItem(definitions.currentLangValue, res.data.language);
+          localStorage.setItem(site.currentLangValue, res.data.language);
           const tockenValues = await getTokenValue();
           this.userLoggedIn = tockenValues?.userLoggedIn;
           location.assign('/');
