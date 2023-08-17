@@ -7,9 +7,7 @@ import {
   definitions,
   NotificationService,
   validateResponse,
-  hashString,
 } from 'src/app/shared';
-
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -43,19 +41,14 @@ export class LoginComponent {
         this.notification.info(response.message);
       } else {
         try {
-          // console.log('res.data.routesList', res.data.routesList);
-
-          // console.log('aaa', (await hashString(res.data.routesList.toString())).hashedText);
-
           this.notification.success(response.message);
           localStorage.setItem(definitions.token, res.data.token);
           localStorage.setItem(definitions.routesList, res.data.routesList);
-          // localStorage.setItem(definitions.routesList, res.data.routesList);
-          localStorage.setItem(definitions.currentLangValue, res.data.language);
           localStorage.setItem(
             definitions.permissionsList,
             res.data.permissionsList
           );
+          localStorage.setItem(definitions.currentLangValue, res.data.language);
           const tockenValues = await getTokenValue();
           this.userLoggedIn = tockenValues?.userLoggedIn;
           location.assign('/');

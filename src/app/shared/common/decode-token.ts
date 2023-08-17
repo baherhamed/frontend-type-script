@@ -10,12 +10,10 @@ export async function getTokenValue() {
   const storageRoutesList = localStorage.getItem(definitions.routesList) || '';
   const storagePermissionsList =
     localStorage.getItem(definitions.permissionsList) || '';
-  const localStorageRoutesList = (
-    await hashString(storageRoutesList!.toString())
-  ).hashedText;
-  const localStoragePermissionsList = (
-    await hashString(storagePermissionsList!.toString())
-  ).hashedText;
+  const localStorageRoutesList = (await hashString(storageRoutesList))
+    .hashedText;
+  const localStoragePermissionsList = (await hashString(storagePermissionsList))
+    .hashedText;
   if (token) {
     const base64Url = token.split('.')[1];
 
@@ -41,6 +39,7 @@ export async function getTokenValue() {
           routesList.push(elem);
         }
       }
+      // console.log('localStoragePermissionsList', localStoragePermissionsList);
 
       if (localStoragePermissionsList) {
         const permissionsListArr = localStoragePermissionsList.split(',');
