@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 
 import { TranslateService } from '@ngx-translate/core';
 import { ChangePassword, UsersService } from 'src/app/security';
@@ -10,6 +11,7 @@ import {
   NotificationService,
   routesNames,
   validateResponse,
+  setMetaLanguage,
 } from 'src/app/shared';
 
 @Component({
@@ -46,7 +48,8 @@ export class MenuComponent {
     private dialog: DialogService,
     private userService: UsersService,
     private translateService: TranslateService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private metaService: Meta
   ) {
     this.inputsLength = inputsLength;
     this.routesNames = routesNames;
@@ -60,6 +63,16 @@ export class MenuComponent {
     this.permissionsList = this.tockenValues?.permissionsList;
     this.name = this.tockenValues?.name;
     this.language = this.tockenValues?.language;
+    const metaData = await setMetaLanguage('home', this.language);
+
+    this.metaService.updateTag({
+      name: metaData!.descriptionTag,
+      content: metaData?.description,
+    });
+    this.metaService.updateTag({
+      name: metaData!.keywordsTag,
+      content: metaData?.keywords,
+    });
 
     this.changeTheme();
   }

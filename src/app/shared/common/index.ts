@@ -9,3 +9,5 @@ export * from './export-to-excel';
 export * from './routes-names';
 export * from './permissions-names';
 export * from './hash-string';
+export * from './meta';
+export * from './set-meta-language';

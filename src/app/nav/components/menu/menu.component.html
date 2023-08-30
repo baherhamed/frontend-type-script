@@ -3,33 +3,47 @@
     <mat-slide-toggle (change)="changeLanguage()" [color]="'primary'">{{
       language
     }}</mat-slide-toggle>
-    <p *ngIf="userLoggedIn" class="welcome status-not-active">
+    <p
+      *ngIf="userLoggedIn"
+      class="welcome status-not-active"
+      title="{{ 'Forms.Change-Password' | translate }}"
+    >
       <a (click)="showDetails(changePasswordTemplate)">
         {{ "Forms.Change-Password" | translate }}
       </a>
     </p>
 
     <button
+      title="{{ 'Modules.System-Management' | translate }}"
       mat-menu-item
       [matMenuTriggerFor]="systemManagementMenu"
       *ngIf="userLoggedIn && !isDeveloper"
     >
       <mat-icon color="primary"> settings </mat-icon>
-      <span>{{ "Modules.System-Management" | translate }}</span>
+      <p title="{{ 'Modules.System-Management' | translate }}">
+        {{ "Modules.System-Management" | translate }}
+      </p>
     </button>
 
     <button
       mat-menu-item
       [matMenuTriggerFor]="securityMenu"
-      *ngIf="userLoggedIn"
+      *ngIf="
+        userLoggedIn && routesList && routesList.includes(routesNames.users)
+      "
+      title="{{ 'Modules.Security' | translate }}"
     >
       <mat-icon color="primary"> security </mat-icon>
-      <span>{{ "Modules.Security" | translate }}</span>
+      <p title="{{ 'Modules.Security' | translate }}">
+        {{ "Modules.Security" | translate }}
+      </p>
     </button>
 
     <button mat-menu-item (click)="logout()">
       <mat-icon color="primary">logout</mat-icon>
-      <span class="text-danger">{{ "Actions.Logout" | translate }}</span>
+      <p class="text-danger" title="{{ 'Actions.Logout' | translate }}">
+        {{ "Actions.Logout" | translate }}
+      </p>
     </button>
   </mat-menu>
 
@@ -41,7 +55,7 @@
       [routerLink]="['systemManagement/govs']"
       routerLinkActive="active"
     >
-      <span>{{ "Menu.Govs" | translate }}</span>
+      <p title="{{ 'Menu.Govs' | translate }}">{{ "Menu.Govs" | translate }}</p>
     </a>
     <a
       class="menu-element"
@@ -49,7 +63,9 @@
       [routerLink]="['systemManagement/cities']"
       routerLinkActive="active"
     >
-      <span>{{ "Menu.Cities" | translate }}</span>
+      <p title="{{ 'Menu.Cities' | translate }} ">
+        {{ "Menu.Cities" | translate }}
+      </p>
     </a>
   </mat-menu>
 
@@ -62,7 +78,9 @@
       routerLinkActive="active"
     >
       <!-- <mat-icon color="primary"> image </mat-icon> -->
-      <span>{{ "Menu.Routes" | translate }}</span>
+      <p title="{{ 'Menu.Routes' | translate }}">
+        {{ "Menu.Routes" | translate }}
+      </p>
     </a>
 
     <a
@@ -74,7 +92,9 @@
       routerLinkActive="active"
     >
       <!-- <mat-icon color="primary"> supervised_user_circle </mat-icon> -->
-      <span>{{ "Menu.Users" | translate }}</span>
+      <p title="{{ 'Menu.Users' | translate }}">
+        {{ "Menu.Users" | translate }}
+      </p>
     </a>
   </mat-menu>
 

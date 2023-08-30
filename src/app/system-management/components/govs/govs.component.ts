@@ -11,7 +11,9 @@ import {
   getTokenValue,
   inputsLength,
   validateResponse,
+  setMetaLanguage,
 } from 'src/app/shared';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'govs',
@@ -34,14 +36,15 @@ export class GovsComponent implements OnInit {
     code: '',
     active: true,
   };
-
+  language = '';
   tockenValues: any;
   securityPermissionsList: any[string];
   constructor(
     private dialog: DialogService,
     private govService: GovsService,
     private title: SetTitleService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private metaService: Meta
   ) {
     this.inputsLength = inputsLength;
     this.definitions = site;
@@ -55,11 +58,24 @@ export class GovsComponent implements OnInit {
     this.actionType = null;
     this.govsList = [];
     const currentLang = localStorage.getItem(site.currentLangValue);
+    this.language = this.tockenValues?.language;
     if (!currentLang || currentLang === site.language.ar) {
       this.title.setTitle('المحافظات');
     } else if (currentLang === site.language.en) {
       this.title.setTitle('Govs');
     }
+
+    const metaData = await setMetaLanguage('home', this.language);
+
+    this.metaService.updateTag({
+      name: metaData!.descriptionTag,
+      content: metaData?.description,
+    });
+    this.metaService.updateTag({
+      name: metaData!.keywordsTag,
+      content: metaData?.keywords,
+    });
+    
     this.getAllGovs();
   }
 
@@ -107,10 +123,7 @@ export class GovsComponent implements OnInit {
         this.notification.success(response.message);
         for await (let item of this.govsList) {
           if (item._id === Object(response.data)._id) {
-            site.spliceElementToUpdate(
-              this.govsList,
-              Object(response.data)
-            );
+            site.spliceElementToUpdate(this.govsList, Object(response.data));
           }
         }
         this.actionType = site.operation.result;

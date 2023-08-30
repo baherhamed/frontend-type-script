@@ -15,7 +15,7 @@ export class PaginatorComponent implements OnInit {
   pageSize = 0;
   length = 0;
 
-  pageSizeOptions = [5, 10, 20, 50, 100];
+  pageSizeOptions = [5, 10, 20, 50, 100, 200, 300, 500, 1000];
   showFirstLastButtons = true;
 
   async ngOnInit() {
