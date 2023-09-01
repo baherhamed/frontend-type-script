@@ -8,7 +8,7 @@ import { site } from './shared';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  definitions: any;
+  site: any;
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -22,8 +22,8 @@ export class AppComponent {
   }
 
   async ngOnInit() {
-    // definitions = definitions;
-    // this.definitions.disableDeveloperTools();
+    // site = site;
+    // this.site.disableDeveloperTools();
   }
 
   setLanguage() {

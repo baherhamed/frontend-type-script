@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-// @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 // @import "@angular/material/prebuilt-themes/indigo-pink.css";
 // @import "@angular/material/prebuilt-themes/pink-bluegrey.css";
 // @import "@angular/material/prebuilt-themes/purple-green.css";
@@ -31,23 +31,38 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  // font-size: 1rem;
-  color: #0000ff;
+  // color: #0000ff;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 9px;
+  scrollbar-width: thin;
 }
 
-// table {
-//   border: transparent;
-// }
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
 
-// tr {
-//   border: 2px solid #000000;
-// }
+/* Handle */
+::-webkit-scrollbar-thumb {
+  // background: #1e90ff;
+  background: #000000;
+  border-radius: 10px;
+}
 
-.data-form {
-  width: 90vw;
-  // margin: 10 auto;
-  // overflow: auto;
-  height: 70vh;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000;
+}
+
+mat-form-field.mat-mdc-form-field {
+  color: teal !important;
+}
+
+input.mat-mdc-input-element.mat-mdc-form-field-input-control.mdc-text-field__input {
+  color: #0000ff;
 }
 
 .login-form {
@@ -55,58 +70,18 @@ body {
   margin: 0 auto;
   height: 70vh;
 }
-// .half-form {
-//   width: 50vw;
-//   margin: 0 auto;
-//   height: 70vh;
-// }
 
 .select-theme > * {
   border-color: #ffffff;
   border: solid 3px;
 }
 
-.add-data {
-  width: 90vw;
-  margin: 10 auto;
-  overflow: auto;
-  // max-height: 70vh;
-}
-
-// .mat-card.details-div {
-//   width: 70vw;
-//   background-color: #dcdcdc;
-//   height: auto;
-//   max-height: 80vh;
-// }
-
 .details-div {
   padding: 0.5em;
   min-height: 15vh;
   max-height: 70vh;
+  max-width: 100vw;
 }
-
-.media-div {
-  max-height: 70vh;
-  overflow: auto;
-}
-
-// .form {
-//   min-width: 150px;
-//   max-width: 500px;
-//   width: 100%;
-//   margin: 0 auto;
-// }
-
-.data-form {
-  width: 90vw;
-  height: 70vh;
-  max-height: 75vh;
-  // overflow: auto;
-  margin: 0.25em;
-  padding: 0.25em;
-}
-
 .result {
   width: 90vw;
   height: 70vh;
@@ -118,19 +93,24 @@ body {
 .full-width {
   width: 100%;
 }
+::ng-deep .mat-focused .mat-form-field {
+  /*change color of label*/
+  color: green !important;
+}
+::ng-deep.mat-form-field {
+  /*change color of underline*/
+  background-color: green !important;
+}
 
-// .mat-form-field,
-// .mat-mdc-form-field {
-//   margin: 0.1em;
-// }
+::ng-deep.mat-form-field {
+  /*change color of underline when focused*/
+  background-color: green !important;
+}
 
-// mat-dialog-container.mat-dialog-container,
-// mat-dialog-container.mat-mdc-dialog-container {
-// mat-dialog-container {
-//   // height: 60vh;
-//   max-height: 80vh;
-//   // overflow: auto;
-// }
+mat-checkbox,
+mat-mdc-button-ripple {
+  display: inline-flex;
+}
 
 .mat-success {
   color: #fff !important;
@@ -184,69 +164,15 @@ body {
   background-color: #dc3545 !important;
 }
 
-// .modal-dialog {
-//   margin: 0px auto;
-//   max-width: 90vw;
-// }
-
-// .modal-content {
-//   width: 50vw;
-// }
-
-.details-header {
-  // display: block;
+.model-header {
+  border-radius: 7px;
   color: #ffffff;
   background-color: #778899;
-  margin: 10px auto;
+  font-size: large;
   text-align: center;
   padding: 0.5em;
+  width: inherit;
 }
-
-// .modal-body {
-//   max-height: 70vh;
-//   overflow-y: auto;
-// }
-
-// .data-color {
-//   color: #0000ff;
-// }
-
-// .viewer {
-//   width: 33%;
-//   margin: 20px;
-// }
-
-// .customer-file {
-//   margin: 10px auto;
-//   padding: 10px;
-//   height: 300px;
-//   width: 100%;
-// }
-
-// .mat-card {
-//   border-radius: 20px !important;
-//   width: 90vw;
-//   margin: 20px auto;
-// background-color: #e5e7e9;
-// }
-
-// .mat-card.video-display {
-//   width: 70em;
-//   height: 400px;
-//   display: block;
-//   margin-left: auto;
-//   margin-right: auto;
-// }
-
-// .image-view {
-//   width: 200px;
-//   height: 200px;
-// }
-
-// .video-view {
-//   width: 250px;
-//   height: 215px;
-// }
 
 .custom-nav-item {
   color: #fff;
@@ -268,52 +194,25 @@ body {
   display: none;
 }
 
-// .row button,
-// .row a {
-//   margin: 2px;
-// }
-
-// .row-button button,
-// .row-button a {
-//   margin: 1rem;
-// }
-
 .actions-buttons {
   margin: 1rem;
 }
 
-.table {
-  margin: 10px auto;
-  width: 90em;
-  // border-collapse: collapse;
-}
+// .serial,
+// tbody > * {
+//   color: #0000ff;
+//   font-weight: bold;
+// }
 
-.serial,
-tbody > * {
+ td > *
+ {
   color: #0000ff;
-  font-weight: bold;
 }
 
-input.mat-mdc-input-element,
-input.mat-input-element {
-  color: #0000ff !important;
-}
-// .table td {
-//   padding: 0;
-//   margin: 0;
-// }
-// .custom-table-hover tbody > tr:hover {
-//   background-color: #c0c0c0;
-//   color: #ffffff;
-// }
-
-// thead.thead > tr > td,
-// td.thead,
-
-.thead {
-  color: #ffffff;
-  background-color: #778899;
-  padding: 1em;
+table {
+  border-radius: 1em;
+  border-collapse: collapse;
+  overflow: hidden;
 }
 
 .mat-icon {
@@ -365,13 +264,7 @@ input.mat-input-element {
 }
 
 .active {
-  // background: teal;
   color: teal;
-}
-
-input.largerCheckbox {
-  width: 30px;
-  height: 30px;
 }
 
 .spinner {
@@ -408,52 +301,31 @@ a.menu-element:hover {
   color: #ffffff;
 }
 
-.card-div {
-  width: 95vw;
-  margin: 0 auto;
-  overflow: auto;
-  height: 90vh;
-}
-
-.card-image {
-  width: 90em;
-  height: 90em;
-}
-
 fieldset {
-  border: 3px solid #000;
+  border: 2px solid #2e5958;
   border-radius: 7px;
-  padding: 1rem;
-  width: 90vw;
-  margin: 1rem;
-  // align-content: center;
-}
-
-fieldset.form {
-  margin: 0 auto;
-  padding: 1em;
-}
-
-.form-legend {
-  color: #ffff00;
+  padding: 0.5em 0.5em;
+  position: relative;
+  margin: 0.5em 0.5em;
+  align-content: center;
+  max-width: 95vw;
 }
 
 .legend {
-  color: #0000cd;
+  border: 3px solid #e67e22;
+  border-radius: 7px;
+  margin: 0.5em;
+  padding: 0.5em;
+  width: fit-content;
+  text-decoration: underline;
+  font-weight: lighter;
+  font-size: 1rem;
+  background-color: #000000;
+  color: #ffffff;
 }
 
-legend.arround-form {
-  border: 3px solid #333333;
-  width: inherit;
-  padding: 3px;
-  margin-bottom: 5px;
-}
-
-legend.content {
-  width: inherit;
-  padding: 3px;
-  border: none;
-  margin-bottom: 5px;
+.legend::after {
+  content: " : ";
 }
 
 .tooltip {
@@ -462,23 +334,13 @@ legend.content {
   background-color: yellow;
   border: 1px solid black;
   position: relative;
-  // font-family: kofi_droid;
   text-align: center;
 }
 
-// html,
-// body {
-//   height: 100%;
-// }
-// body {
-//   margin: 0;
-//   font-family: Roboto, "Helvetica Neue", sans-serif;
-// }
 ::placeholder {
   font-style: italic;
   font-size: 10px;
   color: mintcream;
-  background: lightseagreen;
   padding: 5px;
 }
 

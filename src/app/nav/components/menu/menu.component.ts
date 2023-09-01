@@ -73,18 +73,6 @@ export class MenuComponent {
       name: metaData!.keywordsTag,
       content: metaData?.keywords,
     });
-
-    this.changeTheme();
-  }
-
-  changeTheme() {
-    const htmlTag = document.querySelector('link#them');
-    this.theme = this.seletcedTheme
-      ? `${this.themePath}${this.seletcedTheme}.css`
-      : `${this.themePath}${site.themes.default}.css`;
-
-    htmlTag?.removeAttribute('href');
-    htmlTag?.setAttribute('href', this.theme);
   }
 
   changeLanguage() {

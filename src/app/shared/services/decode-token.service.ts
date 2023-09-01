@@ -1,6 +1,6 @@
 // import { Injectable } from '@angular/core';
 // import { JwtHelperService } from '@auth0/angular-jwt';
-// import { definitions } from '..';
+// import { site } from '..';
 
 // @Injectable({
 //   providedIn: 'root',
@@ -10,7 +10,7 @@
 //   constructor(private jwtHelper: JwtHelperService) {}
 
 //   decodeToken() {
-//     const token = localStorage.getItem(definitions.token);
+//     const token = localStorage.getItem(site.token);
 //     let payload;
 //     if (token) {
 //       payload = this.jwtHelper.decodeToken(token);

@@ -24,7 +24,7 @@ export class GovsComponent implements OnInit {
   responsePaginationData: any;
   inputsLength: any;
   userLoggedIn: boolean = false;
-  definitions: any;
+  site: any;
   permissionsNames: any;
   actionType: any;
   govsList: Gov[] = [];
@@ -47,8 +47,24 @@ export class GovsComponent implements OnInit {
     private metaService: Meta
   ) {
     this.inputsLength = inputsLength;
-    this.definitions = site;
+    this.site = site;
     this.permissionsNames = permissionsNames;
+  }
+
+  displayAdd(templateRef: any) {
+    this.dialog.showAdd(templateRef);
+  }
+
+  displayUpdate(templateRef: any) {
+    this.dialog.showUpdate(templateRef);
+  }
+
+  displaySearch(templateRef: any) {
+    this.dialog.showSearch(templateRef);
+  }
+
+  showDetails(templateRef: any) {
+    this.dialog.showDetails(templateRef);
   }
 
   async ngOnInit() {
@@ -75,7 +91,7 @@ export class GovsComponent implements OnInit {
       name: metaData!.keywordsTag,
       content: metaData?.keywords,
     });
-    
+
     this.getAllGovs();
   }
 
@@ -196,10 +212,6 @@ export class GovsComponent implements OnInit {
       code: gov.code,
       active: gov.active,
     };
-  }
-
-  showDetails(templateRef: any) {
-    this.dialog.showDetails(templateRef);
   }
 
   getAllGovs(pagination?: any) {

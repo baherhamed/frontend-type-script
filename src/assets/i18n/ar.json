@@ -28,6 +28,9 @@
     "System-Management": "إدارة النظام",
     "Security": "الحماية"
   },
+  "Legends":{
+    "Basic-Informations":"البيانات الأساسية"
+  },
   "Forms": {
     "S": "م",
     "Welcome": "مرحبا",

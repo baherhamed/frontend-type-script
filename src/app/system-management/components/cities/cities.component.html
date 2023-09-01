@@ -6,7 +6,7 @@
   <button
     mat-raised-button
     color="success"
-    (click)="resetModel(definitions.operation.add)"
+    (click)="resetModel(site.operation.add); displayAdd(showAdd)"
     *ngIf="
       userLoggedIn &&
       securityPermissionsList &&
@@ -22,7 +22,7 @@
   <button
     mat-raised-button
     color="search"
-    (click)="resetModel(definitions.operation.search)"
+    (click)="resetModel(site.operation.search); displaySearch(showSearch)"
     [disabled]="busy"
     class="m-1"
   >
@@ -47,109 +47,121 @@
   </button>
 </div>
 
-<form
-  #addCityForm="ngForm"
-  *ngIf="
-    (actionType && actionType === definitions.operation.add) ||
-    actionType === definitions.operation.update
-  "
->
-  <fieldset class="form">
-    <div class="container text-center">
-      <div class="row">
-        <mat-form-field appearance="outline" class="col-sm-3">
-          <mat-label>{{ "Forms.Gov" | translate }} </mat-label>
-          <mat-select
-            matNativeControl
-            [(ngModel)]="city.gov"
-            required
-            name="city-gov"
-          >
-            <mat-option [value]="gov" *ngFor="let gov of govsList">{{
-              gov.name
-            }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+<ng-template #showAdd>
+  <fieldset>
+    <div class="model-header">
+      <p class="text-center" *ngIf="actionType === site.operation.add">
+        {{ "Actions.Add" | translate }}
+      </p>
+      <p class="text-center" *ngIf="actionType === site.operation.update">
+        {{ "Actions.Update" | translate }}
+      </p>
+    </div>
 
-        <mat-form-field appearance="outline" class="col-sm-3">
-          <mat-label>{{ "Forms.Name" | translate }} </mat-label>
-          <input
-            matInput
-            [(ngModel)]="city.name"
-            placeholder="{{ 'Forms.Name' | translate }}"
-            name="city-name"
-            autofocus
-            required
-            minlength="{{ inputsLength.cityName }}"
-            autocomplete="off"
-          />
-        </mat-form-field>
+    <form #addCityForm="ngForm">
+      <fieldset>
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-sm-3">
+            <mat-label>{{ "Forms.Gov" | translate }} </mat-label>
+            <mat-select
+              matNativeControl
+              [(ngModel)]="city.gov"
+              required
+              name="city-gov"
+            >
+              <mat-option [value]="gov" *ngFor="let gov of govsList">{{
+                gov.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <div class="col-sm-2">
-          <mat-checkbox
-            class="margin"
-            [(ngModel)]="city.active"
-            name="gov-status"
-            color="primary"
-          >
-            {{ "Forms.Active" | translate }}
-          </mat-checkbox>
+          <mat-form-field appearance="outline" class="col-sm-3">
+            <mat-label>{{ "Forms.Name" | translate }} </mat-label>
+            <input
+              matInput
+              [(ngModel)]="city.name"
+              placeholder="{{ 'Forms.Name' | translate }}"
+              name="city-name"
+              autofocus
+              required
+              minlength="{{ inputsLength.cityName }}"
+              autocomplete="off"
+            />
+          </mat-form-field>
+
+          <div class="col-sm-2">
+            <mat-checkbox
+              class="margin"
+              [(ngModel)]="city.active"
+              name="gov-status"
+              color="primary"
+            >
+              {{ "Forms.Active" | translate }}
+            </mat-checkbox>
+          </div>
         </div>
+      </fieldset>
+      <div class="actions-buttons">
+        <button
+          mat-raised-button
+          [mat-dialog-close]="true"
+          color="primary"
+          [disabled]="!addCityForm.form.valid || busy"
+          *ngIf="
+            userLoggedIn &&
+            securityPermissionsList &&
+            securityPermissionsList.includes(permissionsNames.addCity) &&
+            actionType &&
+            actionType === site.operation.add
+          "
+          (click)="addCity(city)"
+          class="m-1"
+        >
+          {{ "Actions.Save" | translate }}<mat-icon>save</mat-icon>
+        </button>
+
+        <button
+          mat-raised-button
+          [mat-dialog-close]="true"
+          color="primary"
+          [disabled]="!addCityForm.form.valid || busy"
+          *ngIf="
+            userLoggedIn &&
+            securityPermissionsList &&
+            securityPermissionsList.includes(permissionsNames.updateCity) &&
+            actionType &&
+            actionType === site.operation.update
+          "
+          (click)="updateCity(city)"
+          class="m-1"
+        >
+          {{ "Actions.Update" | translate }}<mat-icon>save</mat-icon>
+        </button>
+
+        <button
+          mat-raised-button
+          [mat-dialog-close]="true"
+          color="danger"
+          (click)="resetActionTypeToClose()"
+          class="m-1"
+        >
+          {{ "Actions.Close" | translate }}
+          <mat-icon>close</mat-icon>
+        </button>
       </div>
-    </div>
-
-    <div class="actions-buttons">
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="!addCityForm.form.valid || busy"
-        *ngIf="
-          userLoggedIn &&
-          securityPermissionsList &&
-          securityPermissionsList.includes(permissionsNames.addCity) &&
-          actionType &&
-          actionType === definitions.operation.add
-        "
-        (click)="addCity(city)"
-        class="m-1"
-      >
-        {{ "Actions.Save" | translate }}<mat-icon>save</mat-icon>
-      </button>
-
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="!addCityForm.form.valid || busy"
-        *ngIf="
-          userLoggedIn &&
-          securityPermissionsList &&
-          securityPermissionsList.includes(permissionsNames.updateCity) &&
-          actionType &&
-          actionType === definitions.operation.update
-        "
-        (click)="updateCity(city)"
-        class="m-1"
-      >
-        {{ "Actions.Update" | translate }}<mat-icon>save</mat-icon>
-      </button>
-
-      <button
-        mat-raised-button
-        color="danger"
-        (click)="resetActionTypeToClose()"
-        class="m-1"
-      >
-        {{ "Actions.Close" | translate }}
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
+    </form>
   </fieldset>
-</form>
+</ng-template>
 
-<div *ngIf="actionType && actionType === definitions.operation.search">
-  <form #searchCityForm="ngForm">
-    <fieldset class="form">
-      <div class="container text-center">
+<ng-template #showSearch>
+  <fieldset>
+    <div class="model-header">
+      <p class="text-center">
+        {{ "Actions.Search" | translate }}
+      </p>
+    </div>
+    <form #searchCityForm="ngForm">
+      <fieldset>
         <div class="row">
           <mat-form-field appearance="outline" class="col-3">
             <mat-label>{{ "Forms.Name" | translate }} </mat-label>
@@ -162,45 +174,47 @@
             />
           </mat-form-field>
         </div>
-      </div>
-    </fieldset>
-  </form>
-  <div class="actions-buttons">
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!searchCityForm.form.valid || busy"
-      (click)="searchCity(city)"
-      class="m-1"
-    >
-      {{ "Actions.Search" | translate }}<mat-icon>search</mat-icon>
-    </button>
+      </fieldset>
+      <div class="actions-buttons">
+        <button
+          mat-raised-button
+          [mat-dialog-close]="true"
+          color="primary"
+          [disabled]="!searchCityForm.form.valid || busy"
+          (click)="searchCity(city)"
+          class="m-1"
+        >
+          {{ "Actions.Search" | translate }}<mat-icon>search</mat-icon>
+        </button>
 
-    <button
-      mat-raised-button
-      color="danger"
-      (click)="resetActionTypeToClose()"
-      class="m-1"
-    >
-      {{ "Actions.Close" | translate }}
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-</div>
+        <button
+          mat-raised-button
+          [mat-dialog-close]="true"
+          color="danger"
+          (click)="resetActionTypeToClose()"
+          class="m-1"
+        >
+          {{ "Actions.Close" | translate }}
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </form>
+  </fieldset>
+</ng-template>
 
 <div
   class="result"
   *ngIf="
     citiesList &&
     citiesList.length &&
-    (actionType === definitions.operation.result ||
-      actionType === definitions.operation.getAll)
+    (actionType === site.operation.result ||
+      actionType === site.operation.getAll)
   "
 >
   <div class="table-responsive" id="citiesList">
-    <table class="table table-sm align-middle table-hover">
+    <table class="table table-sm table-striped align-middle table-hover">
       <thead>
-        <tr class="thead">
+        <tr class="table-dark">
           <th>{{ "Forms.S" | translate }}</th>
           <th>{{ "Forms.Gov" | translate }}</th>
           <th>{{ "Forms.Name" | translate }}</th>
@@ -226,7 +240,11 @@
             <button
               mat-mini-fab
               color="edit"
-              (click)="setData(city); actionType = definitions.operation.update"
+              (click)="
+                setData(city);
+                displayUpdate(showAdd);
+                actionType = site.operation.update
+              "
               *ngIf="
                 userLoggedIn &&
                 securityPermissionsList &&
@@ -267,7 +285,7 @@
 </div>
 
 <div class="paginiantion">
-  <div *ngIf="actionType === definitions.operation.getAll">
+  <div *ngIf="actionType === site.operation.getAll">
     <paginator
       (pageChange)="getAllCities($event)"
       [paginationData]="responsePaginationData"
@@ -275,7 +293,7 @@
     </paginator>
   </div>
 
-  <div *ngIf="actionType === definitions.operation.result">
+  <div *ngIf="actionType === site.operation.result">
     <paginator
       (pageChange)="searchCity(city, $event)"
       *ngIf="citiesList && citiesList.length"
@@ -286,43 +304,43 @@
 </div>
 
 <ng-template #cityDetails>
-  <div class="details-div">
-    <h2 class="details-header">
-      <span> {{ "Actions.Details" | translate }}</span>
-    </h2>
-
-    <div class="table-responsive">
-      <table class="table table-sm align-middle table-hover">
-        <thead>
-          <tr class="thead">
-            <td>{{ "Forms.Gov" | translate }}</td>
-            <td>{{ "Forms.Name" | translate }}</td>
-            <td>{{ "Forms.Status" | translate }}</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ city.gov.name }}</td>
-            <td>{{ city.name }}</td>
-
-            <td>
-              <span *ngIf="city.active" class="status-active">
-                {{ "Forms.Active" | translate }}
-              </span>
-              <span *ngIf="!city.active" class="status-not-active">
-                {{ "Forms.Not-Active" | translate }}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <fieldset>
+    <div class="model-header">
+      <p class="text-center">{{ "Actions.Details" | translate }}</p>
     </div>
+    <fieldset>
+      <div class="table-responsive">
+        <table class="table table-sm table-striped align-middle table-hover">
+          <thead>
+            <tr class="table-dark">
+              <th>{{ "Forms.Gov" | translate }}</th>
+              <th>{{ "Forms.Name" | translate }}</th>
+              <th>{{ "Forms.Status" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ city.gov.name }}</td>
+              <td>{{ city.name }}</td>
 
+              <td>
+                <span *ngIf="city.active" class="status-active">
+                  {{ "Forms.Active" | translate }}
+                </span>
+                <span *ngIf="!city.active" class="status-not-active">
+                  {{ "Forms.Not-Active" | translate }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
     <button mat-raised-button color="danger" [mat-dialog-close]="true">
       {{ "Actions.Close" | translate }}
       <mat-icon>close</mat-icon>
     </button>
-  </div>
+  </fieldset>
 </ng-template>
 
 <spinner [busy]="busy"></spinner>

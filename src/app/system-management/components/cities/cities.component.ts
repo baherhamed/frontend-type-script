@@ -21,7 +21,7 @@ import {
 export class CitiesComponent {
   responsePaginationData: any;
   inputsLength: any;
-  definitions: any;
+  site: any;
   permissionsNames: any;
   actionType: any;
   govsList: Gov[] = [];
@@ -49,8 +49,24 @@ export class CitiesComponent {
     private notification: NotificationService
   ) {
     this.inputsLength = inputsLength;
-    this.definitions = site;
+    this.site = site;
     this.permissionsNames = permissionsNames;
+  }
+
+  displayAdd(templateRef: any) {
+    this.dialog.showAdd(templateRef);
+  }
+
+  displayUpdate(templateRef: any) {
+    this.dialog.showUpdate(templateRef);
+  }
+
+  displaySearch(templateRef: any) {
+    this.dialog.showSearch(templateRef);
+  }
+
+  showDetails(templateRef: any) {
+    this.dialog.showDetails(templateRef);
   }
 
   async ngOnInit() {
@@ -177,10 +193,6 @@ export class CitiesComponent {
         }
         this.busy = false;
       });
-  }
-
-  showDetails(templateRef: any) {
-    this.dialog.showDetails(templateRef);
   }
 
   deleteCity(city: City) {

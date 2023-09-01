@@ -20,7 +20,7 @@ import { Permission, Route, RoutesService } from '../..';
 export class RoutesComponent implements OnInit {
   responsePaginationData: any;
   inputsLength: any;
-  definitions: any;
+  site: any;
   actionType: any;
   routesList: Route[] = [];
   busy = false;
@@ -47,8 +47,25 @@ export class RoutesComponent implements OnInit {
     private notification: NotificationService
   ) {
     this.inputsLength = inputsLength;
-    this.definitions = site;
+    this.site = site;
   }
+
+  displayAdd(templateRef: any) {
+    this.dialog.showAdd(templateRef);
+  }
+
+  displayUpdate(templateRef: any) {
+    this.dialog.showUpdate(templateRef);
+  }
+
+  displaySearch(templateRef: any) {
+    this.dialog.showSearch(templateRef);
+  }
+
+  showDetails(templateRef: any) {
+    this.dialog.showDetails(templateRef);
+  }
+
   async ngOnInit() {
     this.tockenValues = await getTokenValue();
     this.actionType = null;
@@ -195,10 +212,6 @@ export class RoutesComponent implements OnInit {
         }
         this.busy = false;
       });
-  }
-
-  showDetails(templateRef: any) {
-    this.dialog.showDetails(templateRef);
   }
 
   deleteRoute(route: Route) {

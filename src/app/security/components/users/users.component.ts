@@ -25,7 +25,7 @@ export class UsersComponent implements OnInit {
   userLoggedIn: boolean = false;
   isDeveloper: boolean = false;
   inputLength: any;
-  definitions: any;
+  site: any;
   permissionsNames: any;
   actionType: any;
   languagesList: Language[] = [];
@@ -61,10 +61,25 @@ export class UsersComponent implements OnInit {
     private notification: NotificationService
   ) {
     this.inputLength = inputsLength;
-    this.definitions = site;
+    this.site = site;
     this.permissionsNames = permissionsNames;
   }
 
+  displayAdd(templateRef: any) {
+    this.dialog.showAdd(templateRef);
+  }
+
+  displayUpdate(templateRef: any) {
+    this.dialog.showUpdate(templateRef);
+  }
+
+  displaySearch(templateRef: any) {
+    this.dialog.showSearch(templateRef);
+  }
+
+  showDetails(templateRef: any) {
+    this.dialog.showDetails(templateRef);
+  }
   async ngOnInit() {
     this.tockenValues = await getTokenValue();
     this.userLoggedIn = this.tockenValues?.userLoggedIn;
@@ -233,10 +248,6 @@ export class UsersComponent implements OnInit {
         this.busy = false;
       });
     }
-  }
-
-  showDetails(templateRef: any) {
-    this.dialog.showDetails(templateRef);
   }
 
   async setDetailsData(user: User) {

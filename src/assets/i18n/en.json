@@ -28,6 +28,9 @@
     "System-Management": "System Management",
     "Security": "Security"
   },
+  "Legends": {
+    "Basic-Informations": "Basic Informations"
+  },
   "Forms": {
     "S": "S",
     "Welcome": "Welcome",

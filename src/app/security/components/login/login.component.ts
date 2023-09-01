@@ -16,7 +16,7 @@ import {
 export class LoginComponent {
   userLoggedIn?: boolean = false;
   userType: string | undefined;
-  definitions: any;
+  site: any;
   inputsLength: any;
 
   busy = false;

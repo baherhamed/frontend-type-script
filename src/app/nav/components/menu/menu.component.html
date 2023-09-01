@@ -116,36 +116,6 @@
       >
         <mat-icon>menu</mat-icon>
       </button>
-
-      <!-- <div class="row"> -->
-      <select
-        class="select-theme"
-        required
-        [(ngModel)]="seletcedTheme"
-        name="them"
-        (change)="changeTheme()"
-      >
-        <option selected disabled>{{ "Theme" | translate }}</option>
-        <option [value]="them" *ngFor="let them of themesList">
-          {{ them }}
-        </option>
-      </select>
-      <!-- </div> -->
-
-      <!-- <mat-form-field appearance="outline" class="select-theme">
-         <mat-label>{{ "Theme" | translate }} </mat-label> 
-        <mat-select
-          matNativeControl
-          (selectionChange)="changeTheme()"
-          required
-          [(ngModel)]="seletcedTheme"
-          name="them"
-        >
-          <mat-option [value]="them" *ngFor="let them of themesList">{{
-            them
-          }}</mat-option>
-        </mat-select>
-      </mat-form-field> -->
     </div>
   </mat-toolbar>
   <router-outlet></router-outlet>
