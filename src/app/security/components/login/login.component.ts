@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Component } from '@angular/core';
 import { Login } from '../../interfaces';
 import { SecurityService } from '../../services';
@@ -27,7 +29,7 @@ export class LoginComponent {
 
   constructor(
     private securityService: SecurityService,
-    private notification: NotificationService
+    private notification: NotificationService,
   ) {
     this.inputsLength = inputsLength;
   }
@@ -44,10 +46,7 @@ export class LoginComponent {
           this.notification.success(response.message);
           localStorage.setItem(site.token, res.data.token);
           localStorage.setItem(site.routesList, res.data.routesList);
-          localStorage.setItem(
-            site.permissionsList,
-            res.data.permissionsList
-          );
+          localStorage.setItem(site.permissionsList, res.data.permissionsList);
           localStorage.setItem(site.currentLangValue, res.data.language);
           const tockenValues = await getTokenValue();
           this.userLoggedIn = tockenValues?.userLoggedIn;

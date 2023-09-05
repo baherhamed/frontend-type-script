@@ -1,4 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { site } from 'src/app/shared';
@@ -15,8 +16,6 @@ export class UsersService {
   language = localStorage.getItem(site.currentLangValue);
 
   constructor(private http: HttpClient) {}
-
-
 
   addUser(user: any): Observable<any> {
     return this.http
@@ -35,7 +34,7 @@ export class UsersService {
       .put<{ success: boolean; message: string; data: User }>(
         `${this.usersUrl}/update`,
         user,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -45,7 +44,7 @@ export class UsersService {
       .put<{ success: boolean; message: string; data: User }>(
         `${this.usersUrl}/delete`,
         user,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -55,17 +54,17 @@ export class UsersService {
       .post<{ success: boolean; message: string; data: User }>(
         `${this.usersUrl}/search`,
         user,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
-  
+
   getAllUsers(pagination?: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: User }>(
         `${this.usersUrl}/getAll`,
         pagination,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -75,7 +74,7 @@ export class UsersService {
       .post<{ success: boolean; message: string; data: User[] }>(
         `${this.usersUrl}/getActive`,
         null,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }

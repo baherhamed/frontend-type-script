@@ -167,6 +167,19 @@
     <form #searchCityForm="ngForm">
       <fieldset>
         <div class="row">
+          <mat-form-field appearance="outline" class="col-sm-3">
+            <mat-label>{{ "Forms.Gov" | translate }} </mat-label>
+            <mat-select
+              matNativeControl
+              [(ngModel)]="city.gov"
+              required
+              name="search-city-gov"
+            >
+              <mat-option [value]="gov" *ngFor="let gov of govsList">{{
+                gov.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
           <mat-form-field appearance="outline" class="col-3">
             <mat-label>{{ "Forms.Name" | translate }} </mat-label>
             <input
@@ -228,17 +241,23 @@
       </thead>
       <tbody>
         <tr *ngFor="let city of citiesList; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ city.gov.name }}</td>
-          <td>{{ city.name }}</td>
+          <td>
+            <p class="text-center">{{ i + 1 }}</p>
+          </td>
+          <td>
+            <p class="text-center">{{ city.gov.name }}</p>
+          </td>
+          <td>
+            <p class="text-center">{{ city.name }}</p>
+          </td>
 
           <td>
-            <span *ngIf="city.active" class="status-active"
-              >{{ "Forms.Active" | translate }}
-            </span>
-            <span *ngIf="!city.active" class="status-not-active"
-              >{{ "Forms.Not-Active" | translate }}
-            </span>
+            <p *ngIf="city.active" class="status-active">
+              {{ "Forms.Active" | translate }}
+            </p>
+            <p *ngIf="!city.active" class="status-not-active">
+              {{ "Forms.Not-Active" | translate }}
+            </p>
           </td>
           <td class="no_print">
             <button
@@ -324,16 +343,20 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{ city.gov.name }}</td>
-              <td>{{ city.name }}</td>
+              <td>
+                <p class="text-center">{{ city.gov.name }}</p>
+              </td>
+              <td>
+                <p class="text-center">{{ city.name }}</p>
+              </td>
 
               <td>
-                <span *ngIf="city.active" class="status-active">
+                <p *ngIf="city.active" class="status-active">
                   {{ "Forms.Active" | translate }}
-                </span>
-                <span *ngIf="!city.active" class="status-not-active">
+                </p>
+                <p *ngIf="!city.active" class="status-not-active">
                   {{ "Forms.Not-Active" | translate }}
-                </span>
+                </p>
               </td>
             </tr>
           </tbody>

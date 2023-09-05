@@ -146,42 +146,37 @@
 
           <fieldset *ngFor="let route of user.routesList; let i = index">
             <!-- <div class="row" *ngFor="let route of user.routesList; let i = index"> -->
+
             <div class="col-sm-2">
-              <div class="form-group text-center">
-                <label> {{ route?.ar }} </label>
-                <div class="form-check">
-                  <input
-                    class="largerCheckbox"
-                    type="checkbox"
-                    name="role-status"
-                    [ngModelOptions]="{ standalone: true }"
-                    [(ngModel)]="route.active"
-                  />
-                </div>
-              </div>
+              <mat-checkbox
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="route.active"
+                name="primary-status"
+                color="primary"
+              >
+                {{ route?.ar }}
+              </mat-checkbox>
             </div>
+
             <div class="col-sm-10" *ngIf="route.active">
               <div class="row">
                 <div
                   class="col-sm-2"
                   *ngFor="let permission of route.permissionsList"
                 >
-                  <div class="form-group text-center">
-                    <label> {{ permission?.ar }} </label>
-                    <div class="form-check">
-                      <input
-                        class="largerCheckbox"
-                        type="checkbox"
-                        name="permission-status"
-                        [ngModelOptions]="{ standalone: true }"
-                        [(ngModel)]="permission.active"
-                      />
-                    </div>
+                  <div class="col">
+                    <mat-checkbox
+                      [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="permission.active"
+                      name="primary-status"
+                      color="primary"
+                    >
+                      {{ permission?.ar }}
+                    </mat-checkbox>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- </div> -->
           </fieldset>
         </fieldset>
       </fieldset>

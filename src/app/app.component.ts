@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { site } from './shared';
@@ -29,7 +30,7 @@ export class AppComponent {
   setLanguage() {
     const currentLanguage = localStorage.getItem(site.currentLangValue);
 
-    let htmlTag = document.querySelector('html');
+    const htmlTag = document.querySelector('html');
     let setLang = '';
     if (!currentLanguage || currentLanguage === site.language.ar) {
       if (htmlTag) {

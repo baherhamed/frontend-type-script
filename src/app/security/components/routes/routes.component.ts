@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import {
   inputsLength,
@@ -9,6 +10,7 @@ import {
   site,
   exportToExcel,
   IResponse,
+  ResponsePaginationData,
 } from 'src/app/shared';
 import { Permission, Route, RoutesService } from '../..';
 
@@ -18,13 +20,13 @@ import { Permission, Route, RoutesService } from '../..';
   styleUrls: ['./routes.component.scss'],
 })
 export class RoutesComponent implements OnInit {
-  responsePaginationData: any;
+  responsePaginationData: ResponsePaginationData | undefined;
   inputsLength: any;
   site: any;
-  actionType: any;
+  actionType: string = '';
   routesList: Route[] = [];
   busy = false;
-  lang: any;
+  lang: string = '';
   route: Route = {
     name: '',
     ar: '',
@@ -44,7 +46,7 @@ export class RoutesComponent implements OnInit {
     private dialog: DialogService,
     private routeService: RoutesService,
     private titleService: SetTitleService,
-    private notification: NotificationService
+    private notification: NotificationService,
   ) {
     this.inputsLength = inputsLength;
     this.site = site;
@@ -68,8 +70,6 @@ export class RoutesComponent implements OnInit {
 
   async ngOnInit() {
     this.tockenValues = await getTokenValue();
-    this.actionType = null;
-    this.routesList = [];
     const currentLang = localStorage.getItem(site.currentLangValue);
     if (!currentLang || currentLang === site.language.ar) {
       this.titleService.setTitle('العناوين');
@@ -117,7 +117,7 @@ export class RoutesComponent implements OnInit {
 
   async addRoute(route: Route) {
     const permissionsList = await this.setPermissionsList(
-      route.permissionsList
+      route.permissionsList,
     );
     const newRoute = {
       name: route.name,
@@ -181,7 +181,7 @@ export class RoutesComponent implements OnInit {
 
   async updateRoute(route: Route) {
     const permissionsList = await this.setPermissionsList(
-      route.permissionsList
+      route.permissionsList,
     );
     const updateRoute = {
       _id: route._id,
@@ -200,11 +200,11 @@ export class RoutesComponent implements OnInit {
           this.notification.info(response.message);
         } else {
           this.notification.success(response.message);
-          for await (let item of this.routesList) {
+          for await (const item of this.routesList) {
             if (item._id === Object(response.data)._id) {
               site.spliceElementToUpdate(
                 this.routesList,
-                Object(response.data)
+                Object(response.data),
               );
             }
           }

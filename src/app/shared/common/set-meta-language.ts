@@ -4,7 +4,7 @@ import { Meta } from '../interfaces/meta';
 
 export async function setMetaLanguage(
   page: string,
-  language: string
+  language: string,
 ): Promise<{
   description: string;
   keywords: string;

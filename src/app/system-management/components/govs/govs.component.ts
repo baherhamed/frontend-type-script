@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { Gov, GovsService } from '../..';
 import {
@@ -12,6 +13,7 @@ import {
   inputsLength,
   validateResponse,
   setMetaLanguage,
+  ResponsePaginationData,
 } from 'src/app/shared';
 import { Meta } from '@angular/platform-browser';
 
@@ -21,15 +23,15 @@ import { Meta } from '@angular/platform-browser';
   styleUrls: ['./govs.component.scss'],
 })
 export class GovsComponent implements OnInit {
-  responsePaginationData: any;
+  responsePaginationData: ResponsePaginationData | undefined;
   inputsLength: any;
   userLoggedIn: boolean = false;
   site: any;
   permissionsNames: any;
-  actionType: any;
+  actionType: string = '';
   govsList: Gov[] = [];
   busy = false;
-  lang: any;
+  lang: string = '';
 
   gov: Gov = {
     name: '',
@@ -44,7 +46,7 @@ export class GovsComponent implements OnInit {
     private govService: GovsService,
     private title: SetTitleService,
     private notification: NotificationService,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
     this.inputsLength = inputsLength;
     this.site = site;
@@ -71,8 +73,6 @@ export class GovsComponent implements OnInit {
     this.tockenValues = await getTokenValue();
     this.userLoggedIn = this.tockenValues?.userLoggedIn;
     this.securityPermissionsList = this.tockenValues?.permissionsList;
-    this.actionType = null;
-    this.govsList = [];
     const currentLang = localStorage.getItem(site.currentLangValue);
     this.language = this.tockenValues?.language;
     if (!currentLang || currentLang === site.language.ar) {
@@ -137,7 +137,7 @@ export class GovsComponent implements OnInit {
         this.notification.info(response.message);
       } else {
         this.notification.success(response.message);
-        for await (let item of this.govsList) {
+        for await (const item of this.govsList) {
           if (item._id === Object(response.data)._id) {
             site.spliceElementToUpdate(this.govsList, Object(response.data));
           }

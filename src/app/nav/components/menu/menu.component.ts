@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */import { Component } from '@angular/core';
+
 import { Meta } from '@angular/platform-browser';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -38,7 +39,7 @@ export class MenuComponent {
   language: string = '';
   busy = false;
   inputsLength: any;
-  routesNames: any[string];
+  routesNames: any;
   newPasswordPassword: ChangePassword = {
     _id: '',
     password: '',
@@ -49,7 +50,7 @@ export class MenuComponent {
     private userService: UsersService,
     private translateService: TranslateService,
     private notification: NotificationService,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
     this.inputsLength = inputsLength;
     this.routesNames = routesNames;
@@ -81,7 +82,7 @@ export class MenuComponent {
     if (currentLanguage) {
       this.language = currentLanguage;
     }
-    let htmlTag = document.querySelector('html');
+    const htmlTag = document.querySelector('html');
     let setLang = '';
     let newlanguage = '';
     if (!currentLanguage || currentLanguage === site.language.ar) {

@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import * as paginationValues from '../../common/pagination';
+import {  PageEvent } from '@angular/material/paginator';
+
 @Component({
   selector: 'paginator',
   templateUrl: './paginator.component.html',

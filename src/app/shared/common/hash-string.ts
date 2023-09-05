@@ -105,11 +105,11 @@ export const hashString = async (text: string) => {
   const wordsList = text.split('.');
 
   const hashedText = [];
-  for await (let elm of wordsList) {
+  for await (const elm of wordsList) {
     const newWord = elm.split('');
 
     let collectedWord = '';
-    for await (let lett of newWord) {
+    for await (const lett of newWord) {
       const selectedIndex = replacementList.find((el) => el.with == lett);
 
       if (selectedIndex) {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
 import { CitiesService, City, Gov, GovsService } from '../..';
 import {
@@ -11,6 +12,7 @@ import {
   getTokenValue,
   inputsLength,
   validateResponse,
+  ResponsePaginationData,
 } from 'src/app/shared';
 
 @Component({
@@ -19,15 +21,15 @@ import {
   styleUrls: ['./cities.component.scss'],
 })
 export class CitiesComponent {
-  responsePaginationData: any;
+  responsePaginationData: ResponsePaginationData | undefined;
   inputsLength: any;
   site: any;
   permissionsNames: any;
-  actionType: any;
+  actionType: string = '';
   govsList: Gov[] = [];
   citiesList: City[] = [];
   busy = false;
-  lang: any;
+  lang: string = '';
 
   city: City = {
     gov: {
@@ -40,13 +42,13 @@ export class CitiesComponent {
 
   tockenValues: any;
   userLoggedIn: boolean = false;
-  securityPermissionsList: any[string];
+  securityPermissionsList: string[] = [];
   constructor(
     private dialog: DialogService,
     private govService: GovsService,
     private cityService: CitiesService,
     private title: SetTitleService,
-    private notification: NotificationService
+    private notification: NotificationService,
   ) {
     this.inputsLength = inputsLength;
     this.site = site;
@@ -73,7 +75,6 @@ export class CitiesComponent {
     this.tockenValues = await getTokenValue();
     this.userLoggedIn = this.tockenValues?.userLoggedIn;
     this.securityPermissionsList = this.tockenValues?.permissionsList;
-    this.actionType = null;
     this.citiesList = [];
     const currentLang = localStorage.getItem(site.currentLangValue);
     if (!currentLang || currentLang === site.language.ar) {
@@ -181,11 +182,11 @@ export class CitiesComponent {
           this.notification.info(response.message);
         } else {
           this.notification.success(response.message);
-          for await (let item of this.citiesList) {
+          for await (const item of this.citiesList) {
             if (item._id === Object(response.data)._id) {
               site.spliceElementToUpdate(
                 this.citiesList,
-                Object(response.data)
+                Object(response.data),
               );
             }
           }

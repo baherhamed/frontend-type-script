@@ -1,4 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { site } from 'src/app/shared';
@@ -13,11 +14,6 @@ export class CitiesService {
   language = localStorage.getItem(site.currentLangValue);
 
   constructor(private http: HttpClient) {}
-
-  headers = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set('accept-language', `${this.language}`)
-    .set('Authorization', `Bearer ${this.token}`);
 
   addCity(city: any): Observable<any> {
     return this.http
@@ -36,7 +32,7 @@ export class CitiesService {
       .put<{ success: boolean; message: string; data: any }>(
         `${this.citiesUrl}/update`,
         city,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -46,7 +42,7 @@ export class CitiesService {
       .put<{ success: boolean; message: string; data: any }>(
         `${this.citiesUrl}/delete`,
         city,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -56,7 +52,7 @@ export class CitiesService {
       .post<{ success: boolean; message: string; data: any }>(
         `${this.citiesUrl}/search`,
         city,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -66,7 +62,7 @@ export class CitiesService {
       .post<{ success: boolean; message: string; data: any }>(
         `${this.citiesUrl}/getCitiesByGov`,
         city,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -76,7 +72,7 @@ export class CitiesService {
       .post<{ success: boolean; message: string; data: any }>(
         `${this.citiesUrl}/getAll`,
         pagination,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -86,7 +82,7 @@ export class CitiesService {
       .post<{ success: boolean; message: string; data: [] }>(
         `${this.citiesUrl}/getActive`,
         null,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }

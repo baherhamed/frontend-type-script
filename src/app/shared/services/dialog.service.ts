@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class DialogService {
   constructor(
     private dialog: MatDialog,
-    private scrollStrategyOptions: ScrollStrategyOptions
+    private scrollStrategyOptions: ScrollStrategyOptions,
   ) {}
 
   showAdd(templateRef: any) {
@@ -18,6 +19,7 @@ export class DialogService {
       autoFocus: true,
       width: '90vw',
       maxWidth: '100vw',
+      maxHeight: '90vh',
       position: { top: '5vh', bottom: '25vh' },
       disableClose: true,
 
@@ -37,7 +39,7 @@ export class DialogService {
       autoFocus: true,
       width: '90vw',
       maxWidth: '100vw',
-      maxHeight: '80vh',
+      maxHeight: '90vh',
       // scrollStrategy: this.scrollStrategyOptions.block(),
       position: { top: '5vh', bottom: '25vh' },
       disableClose: true,
@@ -52,7 +54,7 @@ export class DialogService {
       autoFocus: true,
       width: '90vw',
       maxWidth: '100vw',
-      maxHeight: '80vh',
+      maxHeight: '90vh',
       // scrollStrategy: this.scrollStrategyOptions.block(),
       position: { top: '5vh', bottom: '25vh' },
       disableClose: true,

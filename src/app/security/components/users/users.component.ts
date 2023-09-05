@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Component, OnInit } from '@angular/core';
 import {
   getTokenValue,
@@ -10,6 +12,7 @@ import {
   validateResponse,
   exportToExcel,
   permissionsNames,
+  ResponsePaginationData,
 } from 'src/app/shared';
 import { Permission, Route, User } from '../../interfaces';
 import { RoutesService, UsersService } from '../../services';
@@ -21,19 +24,19 @@ import { DefinitionsService } from 'src/app/shared/services/definitions.service'
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-  responsePaginationData: any;
+  responsePaginationData: ResponsePaginationData | undefined;
   userLoggedIn: boolean = false;
   isDeveloper: boolean = false;
   inputLength: any;
   site: any;
   permissionsNames: any;
-  actionType: any;
+  actionType: string = '';
   languagesList: Language[] = [];
   usersList: User[] = [];
   routesList: Route[] = [];
   permissionsList: Permission[] = [];
   busy = false;
-  lang: any;
+  lang: string = '';
 
   user: User = {
     name: '',
@@ -50,7 +53,7 @@ export class UsersComponent implements OnInit {
   };
 
   tockenValues: any;
-  securityPermissionsList: any[string];
+  securityPermissionsList: string[] = [];
 
   constructor(
     private dialog: DialogService,
@@ -58,7 +61,7 @@ export class UsersComponent implements OnInit {
     private routeService: RoutesService,
     private title: SetTitleService,
     private definitionService: DefinitionsService,
-    private notification: NotificationService
+    private notification: NotificationService,
   ) {
     this.inputLength = inputsLength;
     this.site = site;
@@ -85,7 +88,6 @@ export class UsersComponent implements OnInit {
     this.userLoggedIn = this.tockenValues?.userLoggedIn;
     this.securityPermissionsList = this.tockenValues?.permissionsList;
     this.isDeveloper = this.tockenValues?.isDeveloper;
-    this.actionType = null;
     const currentLang = localStorage.getItem(site.currentLangValue);
     if (!currentLang || currentLang === site.language.ar) {
       this.title.setTitle('المستخدمين');
@@ -204,7 +206,7 @@ export class UsersComponent implements OnInit {
         this.notification.info(response.message);
       } else {
         this.notification.success(response.message);
-        for await (let item of this.usersList) {
+        for await (const item of this.usersList) {
           if (item._id === res.data._id) {
             site.spliceElementToUpdate(this.usersList, res.data);
           }

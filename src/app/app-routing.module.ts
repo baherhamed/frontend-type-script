@@ -11,14 +11,14 @@ const routes: Routes = [
     path: 'security',
     loadChildren: () =>
       import('./security/security.module').then(
-        (module) => module.SecurityModule
+        (module) => module.SecurityModule,
       ),
   },
   {
     path: 'systemManagement',
     loadChildren: () =>
       import('./system-management/system-management.module').then(
-        (module) => module.SystemManagementModule
+        (module) => module.SystemManagementModule,
       ),
   },
   // {

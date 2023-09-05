@@ -1,4 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { site } from 'src/app/shared';
@@ -14,11 +15,6 @@ export class GovsService {
   language = localStorage.getItem(site.currentLangValue);
 
   constructor(private http: HttpClient) {}
-
-  headers = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set('accept-language', `${this.language}`)
-    .set('Authorization', `Bearer ${this.token}`);
 
   addGov(gov: Gov): Observable<any> {
     return this.http
@@ -37,7 +33,7 @@ export class GovsService {
       .put<{ success: boolean; message: string; data: Gov }>(
         `${this.govsUrl}/update`,
         gov,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -47,7 +43,7 @@ export class GovsService {
       .put<{ success: boolean; message: string; data: any }>(
         `${this.govsUrl}/delete`,
         gov,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -57,7 +53,7 @@ export class GovsService {
       .post<{ success: boolean; message: string; data: Gov }>(
         `${this.govsUrl}/search`,
         gov,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -67,7 +63,7 @@ export class GovsService {
       .post<{ success: boolean; message: string; data: Gov }>(
         `${this.govsUrl}/getAll`,
         pagination,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -77,7 +73,7 @@ export class GovsService {
       .post<{ success: boolean; message: string; data: Gov[] }>(
         `${this.govsUrl}/getActive`,
         null,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }

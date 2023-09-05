@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
@@ -21,11 +22,7 @@ export class SecurityService {
         success: boolean;
         message: string;
         data: Login;
-      }>(
-        `${this.securityUrl}/login`,
-        login,
-        site.requestHeadersForLogin()
-      )
+      }>(`${this.securityUrl}/login`, login, site.requestHeadersForLogin())
       .pipe(retry(5));
   }
 }

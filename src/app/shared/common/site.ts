@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpHeaders } from '@angular/common/http';
+
 import { environment } from 'src/environments/environment';
 
 import devtools from 'devtools-detect';

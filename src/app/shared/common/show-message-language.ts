@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { site } from './site';
 export async function showMessageInLanguage(msg: any): Promise<{
   message: any;

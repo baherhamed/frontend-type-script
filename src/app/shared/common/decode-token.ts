@@ -25,7 +25,7 @@ export async function getTokenValue() {
         .map((c) => {
           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         })
-        .join('')
+        .join(''),
     );
 
     decodeInfo = JSON.parse(jsonPayload);
@@ -62,10 +62,7 @@ export async function getTokenValue() {
       // console.log('decodeInfo', decodeInfo);
       // console.log('tokenValues', tokenValues);
     } else {
-      localStorage.setItem(
-        site.currentLangValue,
-        site.language.ar
-      );
+      localStorage.setItem(site.currentLangValue, site.language.ar);
       localStorage.removeItem(site.token);
       localStorage.removeItem(site.routesList);
       localStorage.removeItem(site.permissionsList);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
@@ -19,7 +20,7 @@ export class RoutesService {
       .post<{ success: boolean; message: string; data: Route }>(
         `${this.baseUrl}/add`,
         route,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -29,7 +30,7 @@ export class RoutesService {
       .put<{ success: boolean; message: string; data: Route }>(
         `${this.baseUrl}/update`,
         route,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -39,7 +40,7 @@ export class RoutesService {
       .post<{ success: boolean; message: string; data: Route }>(
         `${this.baseUrl}/search`,
         route,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -49,7 +50,7 @@ export class RoutesService {
       .post<{ success: boolean; message: string; data: any }>(
         `${this.baseUrl}/getActive`,
         null,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -59,7 +60,7 @@ export class RoutesService {
       .post<{ success: boolean; message: string; data: Route }>(
         `${this.baseUrl}/getAll`,
         pagination,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }
@@ -69,7 +70,7 @@ export class RoutesService {
       .put<{ success: boolean; message: string; data: Route }>(
         `${this.baseUrl}/delete`,
         Route,
-        { headers: site.requestHeaders().headers }
+        { headers: site.requestHeaders().headers },
       )
       .pipe(retry(5));
   }

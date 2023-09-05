@@ -9,7 +9,6 @@ export class SetTitleService {
 
   setTitle(title: string) {
     this.titleService.setTitle(title);
-   
   }
   getTitle() {
     this.titleService.getTitle();
