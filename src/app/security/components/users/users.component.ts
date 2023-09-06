@@ -7,12 +7,12 @@ import {
   Language,
   NotificationService,
   DialogService,
-  SetTitleService,
   site,
   validateResponse,
   exportToExcel,
   permissionsNames,
   ResponsePaginationData,
+  TokenValues,
 } from 'src/app/shared';
 import { Permission, Route, User } from '../../interfaces';
 import { RoutesService, UsersService } from '../../services';
@@ -25,8 +25,6 @@ import { DefinitionsService } from 'src/app/shared/services/definitions.service'
 })
 export class UsersComponent implements OnInit {
   responsePaginationData: ResponsePaginationData | undefined;
-  userLoggedIn: boolean = false;
-  isDeveloper: boolean = false;
   inputLength: any;
   site: any;
   permissionsNames: any;
@@ -52,14 +50,20 @@ export class UsersComponent implements OnInit {
     active: true,
   };
 
-  tockenValues: any;
-  securityPermissionsList: string[] = [];
+  tokenValues: TokenValues = {
+    userId: '',
+    name: '',
+    language: '',
+    routesList: [],
+    permissionsList: [],
+    isDeveloper: false,
+    userLoggedIn: false,
+  };
 
   constructor(
     private dialog: DialogService,
     private userService: UsersService,
     private routeService: RoutesService,
-    private title: SetTitleService,
     private definitionService: DefinitionsService,
     private notification: NotificationService,
   ) {
@@ -84,16 +88,8 @@ export class UsersComponent implements OnInit {
     this.dialog.showDetails(templateRef);
   }
   async ngOnInit() {
-    this.tockenValues = await getTokenValue();
-    this.userLoggedIn = this.tockenValues?.userLoggedIn;
-    this.securityPermissionsList = this.tockenValues?.permissionsList;
-    this.isDeveloper = this.tockenValues?.isDeveloper;
-    const currentLang = localStorage.getItem(site.currentLangValue);
-    if (!currentLang || currentLang === site.language.ar) {
-      this.title.setTitle('المستخدمين');
-    } else if (currentLang === site.language.en) {
-      this.title.setTitle('Users');
-    }
+    this.tokenValues = await getTokenValue();
+
     this.getActiveLanguages();
     this.getActiveRouts();
     this.getAllUsers();

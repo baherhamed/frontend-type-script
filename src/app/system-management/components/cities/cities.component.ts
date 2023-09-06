@@ -5,7 +5,6 @@ import {
   DialogService,
   IResponse,
   NotificationService,
-  SetTitleService,
   site,
   permissionsNames,
   exportToExcel,
@@ -13,6 +12,7 @@ import {
   inputsLength,
   validateResponse,
   ResponsePaginationData,
+  TokenValues,
 } from 'src/app/shared';
 
 @Component({
@@ -40,14 +40,20 @@ export class CitiesComponent {
     active: true,
   };
 
-  tockenValues: any;
-  userLoggedIn: boolean = false;
-  securityPermissionsList: string[] = [];
+  tokenValues: TokenValues = {
+    userId: '',
+    name: '',
+    language: '',
+    routesList: [],
+    permissionsList: [],
+    isDeveloper: false,
+    userLoggedIn: false,
+  };
+
   constructor(
     private dialog: DialogService,
     private govService: GovsService,
     private cityService: CitiesService,
-    private title: SetTitleService,
     private notification: NotificationService,
   ) {
     this.inputsLength = inputsLength;
@@ -72,16 +78,8 @@ export class CitiesComponent {
   }
 
   async ngOnInit() {
-    this.tockenValues = await getTokenValue();
-    this.userLoggedIn = this.tockenValues?.userLoggedIn;
-    this.securityPermissionsList = this.tockenValues?.permissionsList;
-    this.citiesList = [];
-    const currentLang = localStorage.getItem(site.currentLangValue);
-    if (!currentLang || currentLang === site.language.ar) {
-      this.title.setTitle('المدن');
-    } else if (currentLang === site.language.en) {
-      this.title.setTitle('Cities');
-    }
+    this.tokenValues = await getTokenValue();
+
     this.getActiveGovs();
     this.getAllCities();
   }

@@ -48,8 +48,8 @@ export class LoginComponent {
           localStorage.setItem(site.routesList, res.data.routesList);
           localStorage.setItem(site.permissionsList, res.data.permissionsList);
           localStorage.setItem(site.currentLangValue, res.data.language);
-          const tockenValues = await getTokenValue();
-          this.userLoggedIn = tockenValues?.userLoggedIn;
+          const tokenValues = await getTokenValue();
+          this.userLoggedIn = tokenValues?.userLoggedIn;
           location.assign('/');
         } catch (error) {
           alert(error);

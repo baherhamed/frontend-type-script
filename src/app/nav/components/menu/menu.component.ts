@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */import { Component } from '@angular/core';
-
-import { Meta } from '@angular/platform-browser';
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ChangePassword, UsersService } from 'src/app/security';
 import {
@@ -12,7 +11,7 @@ import {
   NotificationService,
   routesNames,
   validateResponse,
-  setMetaLanguage,
+  SetComponentNameService,
 } from 'src/app/shared';
 
 @Component({
@@ -25,17 +24,8 @@ export class MenuComponent {
   isDeveloper: boolean = false;
   name: string | undefined;
   routesList: string[] = [];
-  tockenValues: any;
+  tokenValues: any;
   permissionsList: string[] = [];
-  themesList = [
-    site.themes.deeppurple,
-    site.themes.indigo,
-    site.themes.pink,
-    site.themes.purple,
-  ];
-  themePath = `./assets/themes/`;
-  seletcedTheme: string = '';
-  theme: string = '';
   language: string = '';
   busy = false;
   inputsLength: any;
@@ -44,36 +34,39 @@ export class MenuComponent {
     _id: '',
     password: '',
   };
-
+  componentName: string = '';
+  title: any;
   constructor(
     private dialog: DialogService,
     private userService: UsersService,
     private translateService: TranslateService,
     private notification: NotificationService,
-    private metaService: Meta,
+    private setComponentNameService: SetComponentNameService,
+    private router: Router,
   ) {
     this.inputsLength = inputsLength;
     this.routesNames = routesNames;
+    this.getRoute();
   }
 
   async ngOnInit() {
-    this.tockenValues = await getTokenValue();
-    this.userLoggedIn = this.tockenValues?.userLoggedIn;
-    this.isDeveloper = this.tockenValues?.isDeveloper;
-    this.routesList = this.tockenValues?.routesList;
-    this.permissionsList = this.tockenValues?.permissionsList;
-    this.name = this.tockenValues?.name;
-    this.language = this.tockenValues?.language;
-    const metaData = await setMetaLanguage('home', this.language);
+    this.tokenValues = await getTokenValue();
+    this.userLoggedIn = this.tokenValues?.userLoggedIn;
+    this.isDeveloper = this.tokenValues?.isDeveloper;
+    this.routesList = this.tokenValues?.routesList;
+    this.permissionsList = this.tokenValues?.permissionsList;
+    this.name = this.tokenValues?.name;
+    this.language = this.tokenValues?.language;
+    this.setTitle(this.title);
+  }
 
-    this.metaService.updateTag({
-      name: metaData!.descriptionTag,
-      content: metaData?.description,
-    });
-    this.metaService.updateTag({
-      name: metaData!.keywordsTag,
-      content: metaData?.keywords,
-    });
+  async setTitle(screen: string) {
+    this.title = await this.setComponentNameService.setComponentName(screen);
+  }
+
+  getRoute() {
+    const selectedRoute = this.router.url !== '/' ? this.router.url : 'home';
+    this.title = selectedRoute;
   }
 
   changeLanguage() {
@@ -102,11 +95,12 @@ export class MenuComponent {
     localStorage.removeItem(site.currentLangValue);
     localStorage.setItem(site.currentLangValue, newlanguage);
     location.reload();
+    this.setTitle(this.title);
   }
 
   changePassword(data: any) {
     const newPassData = {
-      _id: this.tockenValues.userId,
+      _id: this.tokenValues.userId,
       password: data.password,
     };
     this.busy = true;

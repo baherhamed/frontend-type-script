@@ -1,51 +1,44 @@
-<h2 class="title">
-  <span> {{ "Menu.Login" | translate }}</span>
-</h2>
+<form #loginForm="ngForm" class="login-form">
+  <fieldset>
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-sm-12">
+        <mat-label>{{ 'Forms.Username' | translate }} </mat-label>
+        <input
+          matInput
+          [(ngModel)]="login.username"
+          placeholder="{{ 'Forms.Username' | translate }}"
+          name="username"
+          required
+          minlength="{{ inputsLength.username }}"
+          autocomplete="off"
+        />
+      </mat-form-field>
 
-<fieldset >
-<form #loginForm="ngForm">
-    <div class="container text-center">
-      <div class="row">
-        <mat-form-field appearance="outline" class="col-sm-4">
-          <mat-label>{{ "Forms.Username" | translate }} </mat-label>
-          <input
-            matInput
-            [(ngModel)]="login.username"
-            placeholder="{{ 'Forms.Username' | translate }}"
-            name="username"
-            required
-            minlength="{{ inputsLength.username }}"
-            autocomplete="off"
-          />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="col-sm-4">
-          <mat-label>{{ "Forms.Password" | translate }}</mat-label>
-          <input
-            matInput
-            type="password"
-            placeholder="{{ 'Forms.Password' | translate }}"
-            [(ngModel)]="login.password"
-            name="password"
-            minlength="{{ inputsLength.password }}"
-            autocomplete="off"
-            required
-          />
-        </mat-form-field>
-
-        <div class="row-button">
-          <button
-            mat-raised-button
-            color="primary"
-            [disabled]="!loginForm.form.valid || busy"
-            (click)="tryLogin(login)"
-          >
-            {{ "Menu.Login" | translate }}<mat-icon>login</mat-icon>
-          </button>
-        </div>
-      </div>
+      <mat-form-field appearance="outline" class="col-sm-12">
+        <mat-label>{{ 'Forms.Password' | translate }}</mat-label>
+        <input
+          matInput
+          type="password"
+          placeholder="{{ 'Forms.Password' | translate }}"
+          [(ngModel)]="login.password"
+          name="password"
+          minlength="{{ inputsLength.password }}"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
     </div>
-  </form>
-</fieldset>
+    <div class="row-button">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!loginForm.form.valid || busy"
+        (click)="tryLogin(login)"
+      >
+        {{ 'Menu.Login' | translate }}<mat-icon>login</mat-icon>
+      </button>
+    </div>
+  </fieldset>
+</form>
 
 <spinner [busy]="busy"></spinner>

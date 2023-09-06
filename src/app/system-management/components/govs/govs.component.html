@@ -1,13 +1,11 @@
-<h1 class="title">
-  <span>{{ "Menu.Govs" | translate }}</span>
-</h1>
+
 
 <div class="actions-buttons">
   <button
     *ngIf="
-      userLoggedIn &&
-      securityPermissionsList &&
-      securityPermissionsList.includes(permissionsNames.addGov)
+      tokenValues.userLoggedIn &&
+      tokenValues.permissionsList &&
+      tokenValues.permissionsList.includes(permissionsNames.addGov)
     "
     mat-raised-button
     color="success"
@@ -15,7 +13,7 @@
     [disabled]="busy"
     class="m-1"
   >
-    {{ "Actions.Add" | translate }}
+    {{ 'Actions.Add' | translate }}
     <mat-icon>add</mat-icon>
   </button>
 
@@ -26,7 +24,7 @@
     [disabled]="busy"
     class="m-1"
   >
-    {{ "Actions.Search" | translate }}
+    {{ 'Actions.Search' | translate }}
     <mat-icon>search</mat-icon>
   </button>
 
@@ -37,12 +35,12 @@
     [disabled]="busy"
     class="m-1"
     *ngIf="
-      userLoggedIn &&
-      securityPermissionsList &&
-      securityPermissionsList.includes(permissionsNames.exportGovs)
+      tokenValues.userLoggedIn &&
+      tokenValues.permissionsList &&
+      tokenValues.permissionsList.includes(permissionsNames.exportGovs)
     "
   >
-    {{ "Actions.Export" | translate }}
+    {{ 'Actions.Export' | translate }}
     <mat-icon>import_export</mat-icon>
   </button>
 </div>
@@ -50,10 +48,10 @@
   <fieldset>
     <div class="model-header">
       <p class="text-center" *ngIf="actionType === site.operation.add">
-        {{ "Actions.Add" | translate }}
+        {{ 'Actions.Add' | translate }}
       </p>
       <p class="text-center" *ngIf="actionType === site.operation.update">
-        {{ "Actions.Update" | translate }}
+        {{ 'Actions.Update' | translate }}
       </p>
     </div>
     <form
@@ -65,11 +63,11 @@
     >
       <fieldset>
         <legend>
-          <p class="legend">{{ "Legends.Basic-Informations" | translate }}</p>
+          <p class="legend">{{ 'Legends.Basic-Informations' | translate }}</p>
         </legend>
         <div class="row">
           <mat-form-field appearance="outline" class="col-sm-3">
-            <mat-label>{{ "Forms.Name" | translate }} </mat-label>
+            <mat-label>{{ 'Forms.Name' | translate }} </mat-label>
             <input
               matInput
               [(ngModel)]="gov.name"
@@ -83,7 +81,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="col-sm-2">
-            <mat-label>{{ "Forms.Gov-Code" | translate }} </mat-label>
+            <mat-label>{{ 'Forms.Gov-Code' | translate }} </mat-label>
             <input
               matInput
               [(ngModel)]="gov.code"
@@ -102,7 +100,7 @@
               name="gov-status"
               color="primary"
             >
-              {{ "Forms.Active" | translate }}
+              {{ 'Forms.Active' | translate }}
             </mat-checkbox>
           </div>
         </div>
@@ -114,16 +112,16 @@
           color="primary"
           [disabled]="!addGovForm.form.valid || busy"
           *ngIf="
-            userLoggedIn &&
-            securityPermissionsList &&
-            securityPermissionsList.includes(permissionsNames.addGov) &&
+            tokenValues.userLoggedIn &&
+            tokenValues.permissionsList &&
+            tokenValues.permissionsList.includes(permissionsNames.addGov) &&
             actionType &&
             actionType === site.operation.add
           "
           (click)="addGov(gov)"
           class="m-1"
         >
-          {{ "Actions.Save" | translate }}<mat-icon>save</mat-icon>
+          {{ 'Actions.Save' | translate }}<mat-icon>save</mat-icon>
         </button>
 
         <button
@@ -132,16 +130,16 @@
           color="primary"
           [disabled]="!addGovForm.form.valid || busy"
           *ngIf="
-            userLoggedIn &&
-            securityPermissionsList &&
-            securityPermissionsList.includes(permissionsNames.updateGov) &&
+            tokenValues.userLoggedIn &&
+            tokenValues.permissionsList &&
+            tokenValues.permissionsList.includes(permissionsNames.updateGov) &&
             actionType &&
             actionType === site.operation.update
           "
           (click)="updateGov(gov)"
           class="m-1"
         >
-          {{ "Actions.Update" | translate }}<mat-icon>save</mat-icon>
+          {{ 'Actions.Update' | translate }}<mat-icon>save</mat-icon>
         </button>
 
         <button
@@ -151,7 +149,7 @@
           (click)="resetActionTypeToClose()"
           class="m-1"
         >
-          {{ "Actions.Close" | translate }}
+          {{ 'Actions.Close' | translate }}
           <mat-icon>close</mat-icon>
         </button>
       </div>
@@ -163,7 +161,7 @@
   <fieldset>
     <div class="model-header">
       <p class="text-center">
-        {{ "Actions.Search" | translate }}
+        {{ 'Actions.Search' | translate }}
       </p>
     </div>
     <div *ngIf="actionType && actionType === site.operation.search">
@@ -172,7 +170,7 @@
           <div class="container text-center">
             <div class="row">
               <mat-form-field appearance="outline" class="col-3">
-                <mat-label>{{ "Forms.Name" | translate }} </mat-label>
+                <mat-label>{{ 'Forms.Name' | translate }} </mat-label>
                 <input
                   matInput
                   [(ngModel)]="gov.name"
@@ -182,7 +180,7 @@
                 />
               </mat-form-field>
               <mat-form-field appearance="outline" class="col-2">
-                <mat-label>{{ "Forms.Gov-Code" | translate }} </mat-label>
+                <mat-label>{{ 'Forms.Gov-Code' | translate }} </mat-label>
                 <input
                   matInput
                   [(ngModel)]="gov.code"
@@ -203,7 +201,7 @@
             (click)="searchGov(gov)"
             class="m-1"
           >
-            {{ "Actions.Search" | translate }}<mat-icon>search</mat-icon>
+            {{ 'Actions.Search' | translate }}<mat-icon>search</mat-icon>
           </button>
 
           <button
@@ -213,7 +211,7 @@
             (click)="resetActionTypeToClose()"
             class="m-1"
           >
-            {{ "Actions.Close" | translate }}
+            {{ 'Actions.Close' | translate }}
             <mat-icon>close</mat-icon>
           </button>
         </div>
@@ -235,11 +233,11 @@
     <table class="table table-sm table-striped align-middle table-hover">
       <thead>
         <tr class="table-dark">
-          <th>{{ "Forms.S" | translate }}</th>
-          <th>{{ "Forms.Name" | translate }}</th>
-          <th>{{ "Forms.Gov-Code" | translate }}</th>
-          <th>{{ "Forms.Status" | translate }}</th>
-          <th class="no_print">{{ "Actions.Actions" | translate }}</th>
+          <th>{{ 'Forms.S' | translate }}</th>
+          <th>{{ 'Forms.Name' | translate }}</th>
+          <th>{{ 'Forms.Gov-Code' | translate }}</th>
+          <th>{{ 'Forms.Status' | translate }}</th>
+          <th class="no_print">{{ 'Actions.Actions' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -256,10 +254,10 @@
 
           <td>
             <p *ngIf="gov.active" class="status-active">
-              {{ "Forms.Active" | translate }}
+              {{ 'Forms.Active' | translate }}
             </p>
             <p *ngIf="!gov.active" class="status-not-active">
-              {{ "Forms.Not-Active" | translate }}
+              {{ 'Forms.Not-Active' | translate }}
             </p>
           </td>
           <td class="no_print">
@@ -272,9 +270,9 @@
                 actionType = site.operation.update
               "
               *ngIf="
-                userLoggedIn &&
-                securityPermissionsList &&
-                securityPermissionsList.includes(permissionsNames.updateGov)
+                tokenValues.userLoggedIn &&
+                tokenValues.permissionsList &&
+                tokenValues.permissionsList.includes(permissionsNames.updateGov)
               "
               class="m-1"
             >
@@ -295,9 +293,9 @@
               color="danger"
               (click)="deleteGov(gov)"
               *ngIf="
-                userLoggedIn &&
-                securityPermissionsList &&
-                securityPermissionsList.includes(permissionsNames.deleteGov)
+                tokenValues.userLoggedIn &&
+                tokenValues.permissionsList &&
+                tokenValues.permissionsList.includes(permissionsNames.deleteGov)
               "
               class="m-1"
             >
@@ -332,16 +330,16 @@
 <ng-template #govDetails>
   <fieldset>
     <div class="model-header">
-      <p class="text-center">{{ "Actions.Details" | translate }}</p>
+      <p class="text-center">{{ 'Actions.Details' | translate }}</p>
     </div>
     <fieldset>
       <div class="table-responsive">
         <table class="table table-sm table-striped align-middle table-hover">
           <thead>
             <tr class="table-dark">
-              <th>{{ "Forms.Name" | translate }}</th>
-              <th>{{ "Forms.Gov-Code" | translate }}</th>
-              <th>{{ "Forms.Status" | translate }}</th>
+              <th>{{ 'Forms.Name' | translate }}</th>
+              <th>{{ 'Forms.Gov-Code' | translate }}</th>
+              <th>{{ 'Forms.Status' | translate }}</th>
             </tr>
           </thead>
           <tbody>
@@ -355,10 +353,10 @@
 
               <td>
                 <p *ngIf="gov.active" class="status-active">
-                  {{ "Forms.Active" | translate }}
+                  {{ 'Forms.Active' | translate }}
                 </p>
                 <p *ngIf="!gov.active" class="status-not-active">
-                  {{ "Forms.Not-Active" | translate }}
+                  {{ 'Forms.Not-Active' | translate }}
                 </p>
               </td>
             </tr>
@@ -368,7 +366,7 @@
     </fieldset>
     <div class="actions-buttons">
       <button mat-raised-button color="danger" [mat-dialog-close]="true">
-        {{ "Actions.Close" | translate }}
+        {{ 'Actions.Close' | translate }}
         <mat-icon>close</mat-icon>
       </button>
     </div>

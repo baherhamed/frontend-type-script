@@ -9,7 +9,7 @@
       title="{{ 'Forms.Change-Password' | translate }}"
     >
       <a (click)="showDetails(changePasswordTemplate)">
-        {{ "Forms.Change-Password" | translate }}
+        {{ 'Forms.Change-Password' | translate }}
       </a>
     </p>
 
@@ -21,7 +21,7 @@
     >
       <mat-icon color="primary"> settings </mat-icon>
       <p title="{{ 'Modules.System-Management' | translate }}">
-        {{ "Modules.System-Management" | translate }}
+        {{ 'Modules.System-Management' | translate }}
       </p>
     </button>
 
@@ -35,14 +35,14 @@
     >
       <mat-icon color="primary"> security </mat-icon>
       <p title="{{ 'Modules.Security' | translate }}">
-        {{ "Modules.Security" | translate }}
+        {{ 'Modules.Security' | translate }}
       </p>
     </button>
 
     <button mat-menu-item (click)="logout()">
       <mat-icon color="primary">logout</mat-icon>
       <p class="text-danger" title="{{ 'Actions.Logout' | translate }}">
-        {{ "Actions.Logout" | translate }}
+        {{ 'Actions.Logout' | translate }}
       </p>
     </button>
   </mat-menu>
@@ -54,17 +54,19 @@
       *ngIf="routesList && routesList.includes(routesNames.govs)"
       [routerLink]="['systemManagement/govs']"
       routerLinkActive="active"
+      (click)="setTitle(routesNames.govs)"
     >
-      <p title="{{ 'Menu.Govs' | translate }}">{{ "Menu.Govs" | translate }}</p>
+      <p title="{{ 'Menu.Govs' | translate }}">{{ 'Menu.Govs' | translate }}</p>
     </a>
     <a
       class="menu-element"
       *ngIf="routesList && routesList.includes(routesNames.cities)"
       [routerLink]="['systemManagement/cities']"
       routerLinkActive="active"
+      (click)="setTitle(routesNames.cities)"
     >
       <p title="{{ 'Menu.Cities' | translate }} ">
-        {{ "Menu.Cities" | translate }}
+        {{ 'Menu.Cities' | translate }}
       </p>
     </a>
   </mat-menu>
@@ -76,10 +78,11 @@
       *ngIf="userLoggedIn && isDeveloper"
       [routerLink]="['security/routes']"
       routerLinkActive="active"
+      (click)="setTitle(routesNames.routes)"
     >
       <!-- <mat-icon color="primary"> image </mat-icon> -->
       <p title="{{ 'Menu.Routes' | translate }}">
-        {{ "Menu.Routes" | translate }}
+        {{ 'Menu.Routes' | translate }}
       </p>
     </a>
 
@@ -90,33 +93,40 @@
       "
       [routerLink]="['security/users']"
       routerLinkActive="active"
+      (click)="setTitle(routesNames.users)"
     >
       <!-- <mat-icon color="primary"> supervised_user_circle </mat-icon> -->
       <p title="{{ 'Menu.Users' | translate }}">
-        {{ "Menu.Users" | translate }}
+        {{ 'Menu.Users' | translate }}
       </p>
     </a>
   </mat-menu>
 
   <mat-toolbar color="primary">
-    <div class="row-button">
+    <mat-toolbar-row>
       <mat-button
         class="custom-nav-item"
         *ngIf="!userLoggedIn"
         routerLink="security/login"
+        (click)="setTitle('login')"
       >
-        {{ "Menu.Login" | translate }}
+        {{ 'Menu.Login' | translate }}
       </mat-button>
 
       <button
         mat-mini-fab
         [matMenuTriggerFor]="systemMenu"
         *ngIf="userLoggedIn"
+        
         color="success"
       >
         <mat-icon>menu</mat-icon>
       </button>
-    </div>
+
+      <h1 class="title" style="margin: auto">
+        <span>{{ title }}</span>
+      </h1>
+    </mat-toolbar-row>
   </mat-toolbar>
   <router-outlet></router-outlet>
 
@@ -127,7 +137,7 @@
   <div class="change-password">
     <form #changePasswordForm="ngForm">
       <mat-form-field>
-        <mat-label>{{ "Forms.New-Password" | translate }} </mat-label>
+        <mat-label>{{ 'Forms.New-Password' | translate }} </mat-label>
         <input
           matInput
           [(ngModel)]="newPasswordPassword.password"
@@ -148,12 +158,12 @@
         (click)="changePassword(newPasswordPassword)"
         [disabled]="changePasswordForm.form.invalid"
       >
-        {{ "Actions.Save" | translate }}
+        {{ 'Actions.Save' | translate }}
         <mat-icon>save</mat-icon>
       </button>
 
       <button mat-raised-button color="danger" [mat-dialog-close]="true">
-        {{ "Actions.Close" | translate }}
+        {{ 'Actions.Close' | translate }}
         <mat-icon>close</mat-icon>
       </button>
     </div>

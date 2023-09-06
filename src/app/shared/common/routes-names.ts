@@ -1,4 +1,5 @@
 export const routesNames = {
+  routes: 'routes',
   users: 'users',
   govs: 'govs',
   cities: 'cities',

@@ -4,13 +4,13 @@ import {
   inputsLength,
   NotificationService,
   DialogService,
-  SetTitleService,
   validateResponse,
   getTokenValue,
   site,
   exportToExcel,
   IResponse,
   ResponsePaginationData,
+  TokenValues,
 } from 'src/app/shared';
 import { Permission, Route, RoutesService } from '../..';
 
@@ -34,18 +34,28 @@ export class RoutesComponent implements OnInit {
     permissionsList: [],
     active: true,
   };
+
   permission: Permission = {
     name: '',
     ar: '',
     en: '',
     active: true,
   };
-  tockenValues: any;
+
+  tokenValues: TokenValues = {
+    userId: '',
+    name: '',
+    language: '',
+    routesList: [],
+    permissionsList: [],
+    isDeveloper: false,
+    userLoggedIn: false,
+  };
 
   constructor(
     private dialog: DialogService,
     private routeService: RoutesService,
-    private titleService: SetTitleService,
+
     private notification: NotificationService,
   ) {
     this.inputsLength = inputsLength;
@@ -69,16 +79,10 @@ export class RoutesComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.tockenValues = await getTokenValue();
-    const currentLang = localStorage.getItem(site.currentLangValue);
-    if (!currentLang || currentLang === site.language.ar) {
-      this.titleService.setTitle('العناوين');
-    } else if (currentLang === site.language.en) {
-      this.titleService.setTitle('Routes');
-    }
-
+    this.tokenValues = await getTokenValue();
     this.getAllRouts();
   }
+
   async exportDataToExcel(table: any, file: any) {
     exportToExcel(table, file);
   }

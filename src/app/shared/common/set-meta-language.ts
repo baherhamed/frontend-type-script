@@ -23,8 +23,6 @@ export async function setMetaLanguage(
     }
   }
 
-  console.log('page', page, language);
-
   if (!language || language === site.language.ar) {
     keywords = metaData!.keywords.ar;
     description = metaData!.description.ar;
@@ -33,6 +31,5 @@ export async function setMetaLanguage(
     description = metaData!.description.en;
   }
 
-  // metaData = { ...metaData, content };
   return { description, keywords, keywordsTag, descriptionTag };
 }

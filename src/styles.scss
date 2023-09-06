@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 // @import "@angular/material/prebuilt-themes/indigo-pink.css";
 // @import "@angular/material/prebuilt-themes/pink-bluegrey.css";
 // @import "@angular/material/prebuilt-themes/purple-green.css";
 
-@import "ngx-toastr/toastr";
+@import 'ngx-toastr/toastr';
 
 @font-face {
   font-family: kofi_droid;
@@ -25,13 +25,18 @@ html * {
   padding: 0;
   text-align: center;
 }
+:root {
+  --primary: #673ab7;
+  --text: #0000ff;
+  --border: #1e90ff;
+  --warn: #e67e22;
+}
 
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-  // color: #0000ff;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -47,7 +52,6 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  // background: #1e90ff;
   background: #000000;
   border-radius: 10px;
 }
@@ -60,20 +64,16 @@ body {
 mat-form-field.mat-mdc-form-field {
   color: teal !important;
 }
-
-input.mat-mdc-input-element.mat-mdc-form-field-input-control.mdc-text-field__input {
-  color: #0000ff;
+// mdc-list-item mat-mdc-option-active
+input.mat-mdc-input-element.mat-mdc-form-field-input-control.mdc-text-field__input,
+.mat-mdc-option.mdc-list-item {
+  color: var(--text);
 }
 
 .login-form {
   width: 50vw;
   margin: 0 auto;
   height: 70vh;
-}
-
-.select-theme > * {
-  border-color: #ffffff;
-  border: solid 3px;
 }
 
 .details-div {
@@ -122,14 +122,14 @@ mat-mdc-button-ripple {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: teal;
-  color: white;
+  background-color: var(--primary);
+  color: #ffffff;
   text-align: center;
 }
 
 .footer-link {
   text-decoration: none;
-  color: cyan;
+  color: #ffffff;
 }
 .status-active {
   color: #32cd32;
@@ -167,7 +167,7 @@ mat-mdc-button-ripple {
 .model-header {
   border-radius: 7px;
   color: #ffffff;
-  background-color: #000000;
+  background-color: #673ab7;
   font-size: large;
   text-align: center;
   padding: 0.5em;
@@ -186,8 +186,8 @@ mat-mdc-button-ripple {
   text-decoration-thickness: 3px;
 }
 
-.custom-nav-item::after {
-  content: "|";
+.custom-nav-item ood::after {
+  content: ' | ';
 }
 
 .custom-nav-item:last-child::after {
@@ -198,15 +198,12 @@ mat-mdc-button-ripple {
   margin: 1rem;
 }
 
-// .serial,
-// tbody > * {
-//   color: #0000ff;
-//   font-weight: bold;
-// }
+.table-dark {
+  height: 2em;
+}
 
- td > *
- {
-  color: #0000ff;
+td > * {
+  color: var(--text);
 }
 
 table {
@@ -220,13 +217,6 @@ table {
 }
 .mat-icon.view-icon {
   font-size: 2rem;
-}
-
-.title {
-  margin: 10px auto;
-  color: #0000ff;
-  font-weight: bold;
-  text-align: center;
 }
 
 .paginiantion {
@@ -297,12 +287,12 @@ a.menu-element {
 }
 
 a.menu-element:hover {
-  background-color: #6610f2;
+  background-color: var(--primary);
   color: #ffffff;
 }
 
 fieldset {
-  border: 2px solid #2e5958;
+  border: 2px solid var(--border);
   border-radius: 7px;
   padding: 0.5em 0.5em;
   position: relative;
@@ -312,7 +302,7 @@ fieldset {
 }
 
 .legend {
-  border: 3px solid #e67e22;
+  border: 3px solid var(--warn);
   border-radius: 7px;
   margin: 0.5em;
   padding: 0.5em;
@@ -325,7 +315,7 @@ fieldset {
 }
 
 .legend::after {
-  content: " : ";
+  content: ' : ';
 }
 
 .tooltip {
@@ -362,14 +352,29 @@ a:active {
 
 @media only screen and (max-width: 576px) {
   //
+  .login-form {
+    width: 90vw;
+    margin: 0 auto;
+    height: 70vh;
+  }
 }
 
 @media only screen and (min-width: 577px) and (max-width: 768px) {
   //
+  .login-form {
+    width: 70vw;
+    margin: 0 auto;
+    height: 70vh;
+  }
 }
 
 @media only screen and (min-width: 769px) and (max-width: 992px) {
   //
+  .login-form {
+    width: 70vw;
+    margin: 0 auto;
+    height: 70vh;
+  }
 }
 
 @media only screen and (min-width: 993px) and (max-width: 1200px) {

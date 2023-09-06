@@ -1,7 +1,15 @@
-import { Token, hashString } from '..';
+import { Token, TokenValues, hashString } from '..';
 import { site } from './site';
 export async function getTokenValue() {
-  let tokenValues;
+  let tokenValues: TokenValues = {
+    userId: '',
+    name: '',
+    language: '',
+    routesList: [],
+    permissionsList: [],
+    isDeveloper: false,
+    userLoggedIn: false,
+  };
   const routesList = [];
   const permissionsList = [];
   let decodeInfo: Token;
@@ -31,7 +39,8 @@ export async function getTokenValue() {
     decodeInfo = JSON.parse(jsonPayload);
 
     if (decodeInfo.exp * 1000 > Date.now()) {
-      language = localStorage.getItem(site.currentLangValue);
+      language =
+        localStorage.getItem(site.currentLangValue) || site.language.ar;
 
       if (localStorageRoutesList) {
         const routesListArr = localStorageRoutesList.split(',');
@@ -67,9 +76,7 @@ export async function getTokenValue() {
       localStorage.removeItem(site.routesList);
       localStorage.removeItem(site.permissionsList);
       location.replace('/security/login');
-      tokenValues = {
-        userLoggedIn: false,
-      };
+      tokenValues.userLoggedIn = false;
     }
   } else if (!token) {
     localStorage.setItem(site.currentLangValue, site.language.en);

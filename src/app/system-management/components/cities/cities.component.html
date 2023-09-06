@@ -1,6 +1,3 @@
-<h1 class="title">
-  <span>{{ "Menu.Cities" | translate }}</span>
-</h1>
 
 <div class="actions-buttons">
   <button
@@ -8,9 +5,9 @@
     color="success"
     (click)="resetModel(site.operation.add); displayAdd(showAdd)"
     *ngIf="
-      userLoggedIn &&
-      securityPermissionsList &&
-      securityPermissionsList.includes(permissionsNames.addCity)
+      tokenValues.userLoggedIn &&
+      tokenValues.permissionsList &&
+      tokenValues.permissionsList.includes(permissionsNames.addCity)
     "
     [disabled]="busy"
     class="m-1"
@@ -37,9 +34,9 @@
     [disabled]="busy"
     class="m-1"
     *ngIf="
-      userLoggedIn &&
-      securityPermissionsList &&
-      securityPermissionsList.includes(permissionsNames.exportCities)
+      tokenValues.userLoggedIn &&
+      tokenValues.permissionsList &&
+      tokenValues.permissionsList.includes(permissionsNames.exportCities)
     "
   >
     {{ "Actions.Export" | translate }}
@@ -112,9 +109,9 @@
           color="primary"
           [disabled]="!addCityForm.form.valid || busy"
           *ngIf="
-            userLoggedIn &&
-            securityPermissionsList &&
-            securityPermissionsList.includes(permissionsNames.addCity) &&
+            tokenValues.userLoggedIn &&
+            tokenValues.permissionsList &&
+            tokenValues.permissionsList.includes(permissionsNames.addCity) &&
             actionType &&
             actionType === site.operation.add
           "
@@ -130,9 +127,9 @@
           color="primary"
           [disabled]="!addCityForm.form.valid || busy"
           *ngIf="
-            userLoggedIn &&
-            securityPermissionsList &&
-            securityPermissionsList.includes(permissionsNames.updateCity) &&
+            tokenValues.userLoggedIn &&
+            tokenValues.permissionsList &&
+            tokenValues.permissionsList.includes(permissionsNames.updateCity) &&
             actionType &&
             actionType === site.operation.update
           "
@@ -269,9 +266,9 @@
                 actionType = site.operation.update
               "
               *ngIf="
-                userLoggedIn &&
-                securityPermissionsList &&
-                securityPermissionsList.includes(permissionsNames.updateCity)
+                tokenValues.userLoggedIn &&
+                tokenValues.permissionsList &&
+                tokenValues.permissionsList.includes(permissionsNames.updateCity)
               "
               class="m-1"
             >
@@ -292,9 +289,9 @@
               color="danger"
               (click)="deleteCity(city)"
               *ngIf="
-                userLoggedIn &&
-                securityPermissionsList &&
-                securityPermissionsList.includes(permissionsNames.deleteCity)
+                tokenValues.userLoggedIn &&
+                tokenValues.permissionsList &&
+                tokenValues.permissionsList.includes(permissionsNames.deleteCity)
               "
               class="m-1"
             >

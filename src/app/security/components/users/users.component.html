@@ -1,20 +1,16 @@
-<h1 class="title">
-  <span>{{ "Menu.Users" | translate }}</span>
-</h1>
-
 <div class="actions-buttons">
   <button
     mat-raised-button
     color="success"
     (click)="resetModel(site.operation.add); displayAdd(showAdd)"
     *ngIf="
-      (userLoggedIn && isDeveloper) ||
-      (securityPermissionsList &&
-        securityPermissionsList.includes(permissionsNames.addUser))
+      (tokenValues.userLoggedIn && tokenValues.isDeveloper) ||
+      (tokenValues.permissionsList &&
+        tokenValues.permissionsList.includes(permissionsNames.addUser))
     "
     class="m-1"
   >
-    {{ "Actions.Add" | translate }}
+    {{ 'Actions.Add' | translate }}
     <mat-icon>add</mat-icon>
   </button>
 
@@ -24,7 +20,7 @@
     (click)="resetModel(site.operation.search); displaySearch(showSearch)"
     class="m-1"
   >
-    {{ "Actions.Search" | translate }}
+    {{ 'Actions.Search' | translate }}
     <mat-icon>search</mat-icon>
   </button>
 
@@ -35,12 +31,12 @@
     [disabled]="busy"
     class="m-1"
     *ngIf="
-      userLoggedIn &&
-      securityPermissionsList &&
-      securityPermissionsList.includes(permissionsNames.exportUsers)
+      tokenValues.userLoggedIn &&
+      tokenValues.permissionsList &&
+      tokenValues.permissionsList.includes(permissionsNames.exportUsers)
     "
   >
-    {{ "Actions.Export" | translate }}
+    {{ 'Actions.Export' | translate }}
     <mat-icon>import_export</mat-icon>
   </button>
 </div>
@@ -49,22 +45,22 @@
   <fieldset>
     <div class="model-header">
       <p class="text-center" *ngIf="actionType === site.operation.add">
-        {{ "Actions.Add" | translate }}
+        {{ 'Actions.Add' | translate }}
       </p>
       <p class="text-center" *ngIf="actionType === site.operation.update">
-        {{ "Actions.Update" | translate }}
+        {{ 'Actions.Update' | translate }}
       </p>
     </div>
 
     <form #addUsersForm="ngForm">
       <fieldset>
         <legend>
-          <p class="legend">{{ "Legends.Basic-Informations" | translate }}</p>
+          <p class="legend">{{ 'Legends.Basic-Informations' | translate }}</p>
         </legend>
 
         <div class="row">
           <mat-form-field appearance="outline" class="col-sm-3">
-            <mat-label>{{ "Forms.Name" | translate }} </mat-label>
+            <mat-label>{{ 'Forms.Name' | translate }} </mat-label>
             <input
               matInput
               [(ngModel)]="user.name"
@@ -77,7 +73,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="col-sm-3">
-            <mat-label>{{ "Forms.Mobile" | translate }} </mat-label>
+            <mat-label>{{ 'Forms.Mobile' | translate }} </mat-label>
             <input
               matInput
               [(ngModel)]="user.mobile"
@@ -91,7 +87,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="col-sm-6">
-            <mat-label>{{ "Forms.Email" | translate }} </mat-label>
+            <mat-label>{{ 'Forms.Email' | translate }} </mat-label>
             <input
               matInput
               [(ngModel)]="user.email"
@@ -103,7 +99,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="col-sm-3">
-            <mat-label>{{ "Forms.Password" | translate }}</mat-label>
+            <mat-label>{{ 'Forms.Password' | translate }}</mat-label>
             <input
               matInput
               type="password"
@@ -116,7 +112,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="col-sm-3">
-            <mat-label>{{ "Forms.Language" | translate }} </mat-label>
+            <mat-label>{{ 'Forms.Language' | translate }} </mat-label>
             <mat-select
               matNativeControl
               [(ngModel)]="user.language"
@@ -135,18 +131,16 @@
               name="primary-status"
               color="primary"
             >
-              {{ "Forms.Active" | translate }}
+              {{ 'Forms.Active' | translate }}
             </mat-checkbox>
           </div>
         </div>
         <fieldset>
           <legend>
-            <p class="legend">{{ "Menu.Routes" | translate }}</p>
+            <p class="legend">{{ 'Menu.Routes' | translate }}</p>
           </legend>
 
           <fieldset *ngFor="let route of user.routesList; let i = index">
-            <!-- <div class="row" *ngFor="let route of user.routesList; let i = index"> -->
-
             <div class="col-sm-2">
               <mat-checkbox
                 [ngModelOptions]="{ standalone: true }"
@@ -158,7 +152,10 @@
               </mat-checkbox>
             </div>
 
-            <div class="col-sm-10" *ngIf="route.active">
+            <fieldset *ngIf="route.active">
+              <legend>
+                <p class="legend">{{ 'Menu.Permissions' | translate }}</p>
+              </legend>
               <div class="row">
                 <div
                   class="col-sm-2"
@@ -176,7 +173,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </fieldset>
           </fieldset>
         </fieldset>
       </fieldset>
@@ -187,16 +184,18 @@
           color="primary"
           [disabled]="!addUsersForm.form.valid"
           *ngIf="
-            ((userLoggedIn && isDeveloper) ||
-              (securityPermissionsList &&
-                securityPermissionsList.includes(permissionsNames.addUser))) &&
+            ((tokenValues.userLoggedIn && tokenValues.isDeveloper) ||
+              (tokenValues.permissionsList &&
+                tokenValues.permissionsList.includes(
+                  permissionsNames.addUser
+                ))) &&
             actionType &&
             actionType === site.operation.add
           "
           (click)="addUser(user)"
           class="m-1"
         >
-          {{ "Actions.Save" | translate }}<mat-icon>save</mat-icon>
+          {{ 'Actions.Save' | translate }}<mat-icon>save</mat-icon>
         </button>
 
         <button
@@ -205,9 +204,9 @@
           color="primary"
           [disabled]="!addUsersForm.form.valid || busy"
           *ngIf="
-            ((userLoggedIn && isDeveloper) ||
-              (securityPermissionsList &&
-                securityPermissionsList.includes(
+            ((tokenValues.userLoggedIn && tokenValues.isDeveloper) ||
+              (tokenValues.permissionsList &&
+                tokenValues.permissionsList.includes(
                   permissionsNames.updateUser
                 ))) &&
             actionType &&
@@ -216,7 +215,7 @@
           (click)="updateUser(user)"
           class="m-1"
         >
-          {{ "Actions.Update" | translate }}<mat-icon>save</mat-icon>
+          {{ 'Actions.Update' | translate }}<mat-icon>save</mat-icon>
         </button>
 
         <button
@@ -226,7 +225,7 @@
           (click)="resetActionTypeToClose()"
           class="m-1"
         >
-          {{ "Actions.Close" | translate }}
+          {{ 'Actions.Close' | translate }}
           <mat-icon>close</mat-icon>
         </button>
       </div>
@@ -238,14 +237,14 @@
   <fieldset>
     <div class="model-header">
       <p class="text-center">
-        {{ "Actions.Search" | translate }}
+        {{ 'Actions.Search' | translate }}
       </p>
     </div>
     <form #searchUserForm="ngForm">
       <fieldset>
         <div class="row">
           <mat-form-field appearance="outline" class="col-sm-3">
-            <mat-label>{{ "Forms.Name" | translate }} </mat-label>
+            <mat-label>{{ 'Forms.Name' | translate }} </mat-label>
             <input
               matInput
               [(ngModel)]="user.name"
@@ -255,7 +254,7 @@
             />
           </mat-form-field>
           <mat-form-field appearance="outline" class="col-sm-3">
-            <mat-label>{{ "Forms.Mobile" | translate }} </mat-label>
+            <mat-label>{{ 'Forms.Mobile' | translate }} </mat-label>
             <input
               matInput
               [(ngModel)]="user.mobile"
@@ -266,7 +265,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="col-sm-3">
-            <mat-label>{{ "Forms.Email" | translate }} </mat-label>
+            <mat-label>{{ 'Forms.Email' | translate }} </mat-label>
             <input
               matInput
               [(ngModel)]="user.email"
@@ -286,7 +285,7 @@
           (click)="searchUser(user)"
           class="m-1"
         >
-          {{ "Actions.Search" | translate }}<mat-icon>search</mat-icon>
+          {{ 'Actions.Search' | translate }}<mat-icon>search</mat-icon>
         </button>
 
         <button
@@ -296,7 +295,7 @@
           (click)="resetActionTypeToClose()"
           class="m-1"
         >
-          {{ "Actions.Close" | translate }}
+          {{ 'Actions.Close' | translate }}
           <mat-icon>close</mat-icon>
         </button>
       </div>
@@ -318,13 +317,13 @@
     <table class="table table-sm table-striped align-middle table-hover">
       <thead>
         <tr class="table-dark">
-          <th>{{ "Forms.S" | translate }}</th>
-          <th>{{ "Forms.Name" | translate }}</th>
-          <th>{{ "Forms.Mobile" | translate }}</th>
-          <th>{{ "Forms.Email" | translate }}</th>
-          <th>{{ "Forms.Language" | translate }}</th>
-          <th>{{ "Forms.Status" | translate }}</th>
-          <th>{{ "Actions.Actions" | translate }}</th>
+          <th>{{ 'Forms.S' | translate }}</th>
+          <th>{{ 'Forms.Name' | translate }}</th>
+          <th>{{ 'Forms.Mobile' | translate }}</th>
+          <th>{{ 'Forms.Email' | translate }}</th>
+          <th>{{ 'Forms.Language' | translate }}</th>
+          <th>{{ 'Forms.Status' | translate }}</th>
+          <th>{{ 'Actions.Actions' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -347,10 +346,10 @@
 
           <td>
             <p *ngIf="user.active" class="status-active">
-              {{ "Forms.Active" | translate }}
+              {{ 'Forms.Active' | translate }}
             </p>
             <p *ngIf="!user.active" class="status-not-active">
-              {{ "Forms.Not-Active" | translate }}
+              {{ 'Forms.Not-Active' | translate }}
             </p>
           </td>
           <td>
@@ -363,9 +362,11 @@
                 actionType = site.operation.update
               "
               *ngIf="
-                (userLoggedIn && isDeveloper) ||
-                (securityPermissionsList &&
-                  securityPermissionsList.includes(permissionsNames.updateUser))
+                (tokenValues.userLoggedIn && tokenValues.isDeveloper) ||
+                (tokenValues.permissionsList &&
+                  tokenValues.permissionsList.includes(
+                    permissionsNames.updateUser
+                  ))
               "
               class="m-1"
             >
@@ -386,9 +387,11 @@
               color="danger"
               (click)="deleteUser(user)"
               *ngIf="
-                (userLoggedIn && isDeveloper) ||
-                (securityPermissionsList &&
-                  securityPermissionsList.includes(permissionsNames.deleteUser))
+                (tokenValues.userLoggedIn && tokenValues.isDeveloper) ||
+                (tokenValues.permissionsList &&
+                  tokenValues.permissionsList.includes(
+                    permissionsNames.deleteUser
+                  ))
               "
               class="m-1"
             >
@@ -423,19 +426,19 @@
 <ng-template #userDetails>
   <fieldset>
     <div class="model-header">
-      <p class="text-center">{{ "Actions.Details" | translate }}</p>
+      <p class="text-center">{{ 'Actions.Details' | translate }}</p>
     </div>
     <fieldset>
       <div class="table-responsive">
         <table class="table table-sm table-striped align-middle table-hover">
           <thead>
             <tr class="table-dark">
-              <th>{{ "Forms.Name" | translate }}</th>
-              <th>{{ "Forms.Mobile" | translate }}</th>
-              <th>{{ "Forms.Email" | translate }}</th>
-              <th>{{ "Forms.Language" | translate }}</th>
+              <th>{{ 'Forms.Name' | translate }}</th>
+              <th>{{ 'Forms.Mobile' | translate }}</th>
+              <th>{{ 'Forms.Email' | translate }}</th>
+              <th>{{ 'Forms.Language' | translate }}</th>
 
-              <th>{{ "Forms.Status" | translate }}</th>
+              <th>{{ 'Forms.Status' | translate }}</th>
             </tr>
           </thead>
           <tbody>
@@ -455,10 +458,10 @@
 
               <td>
                 <p *ngIf="user.active" class="status-active">
-                  {{ "Forms.Active" | translate }}
+                  {{ 'Forms.Active' | translate }}
                 </p>
                 <p *ngIf="!user.active" class="status-not-active">
-                  {{ "Forms.Not-Active" | translate }}
+                  {{ 'Forms.Not-Active' | translate }}
                 </p>
               </td>
             </tr>
@@ -470,10 +473,10 @@
         <table class="table table-sm table-striped align-middle table-hover">
           <thead>
             <tr class="table-dark">
-              <th>{{ "Forms.S" | translate }}</th>
-              <th>{{ "Forms.Route-Ar" | translate }}</th>
-              <th>{{ "Forms.Route-En" | translate }}</th>
-              <th>{{ "Menu.Permissions" | translate }}</th>
+              <th>{{ 'Forms.S' | translate }}</th>
+              <th>{{ 'Forms.Route-Ar' | translate }}</th>
+              <th>{{ 'Forms.Route-En' | translate }}</th>
+              <th>{{ 'Menu.Permissions' | translate }}</th>
             </tr>
           </thead>
           <tbody>
@@ -488,15 +491,15 @@
                 <p class="text-center">{{ route.en }}</p>
               </td>
 
-              <td *ngIf="route.permissionsList">
+              <td>
                 <div class="table-responsive">
                   <table
                     class="table table-sm table-striped align-middle table-hover"
                   >
                     <thead>
                       <tr class="table-dark">
-                        <th>{{ "Forms.Permission-Ar" | translate }}</th>
-                        <th>{{ "Forms.Permission-En" | translate }}</th>
+                        <th>{{ 'Forms.Permission-Ar' | translate }}</th>
+                        <th>{{ 'Forms.Permission-En' | translate }}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -524,7 +527,7 @@
     </fieldset>
     <div class="actions-buttons">
       <button mat-raised-button color="danger" [mat-dialog-close]="true">
-        {{ "Actions.Close" | translate }}
+        {{ 'Actions.Close' | translate }}
         <mat-icon>close</mat-icon>
       </button>
     </div>

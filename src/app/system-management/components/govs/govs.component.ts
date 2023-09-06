@@ -5,17 +5,15 @@ import {
   DialogService,
   IResponse,
   NotificationService,
-  SetTitleService,
   site,
   permissionsNames,
   exportToExcel,
   getTokenValue,
   inputsLength,
   validateResponse,
-  setMetaLanguage,
   ResponsePaginationData,
+  TokenValues,
 } from 'src/app/shared';
-import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'govs',
@@ -25,7 +23,6 @@ import { Meta } from '@angular/platform-browser';
 export class GovsComponent implements OnInit {
   responsePaginationData: ResponsePaginationData | undefined;
   inputsLength: any;
-  userLoggedIn: boolean = false;
   site: any;
   permissionsNames: any;
   actionType: string = '';
@@ -38,15 +35,21 @@ export class GovsComponent implements OnInit {
     code: '',
     active: true,
   };
-  language = '';
-  tockenValues: any;
-  securityPermissionsList: any[string];
+
+  tokenValues: TokenValues = {
+    userId: '',
+    name: '',
+    language: '',
+    routesList: [],
+    permissionsList: [],
+    isDeveloper: false,
+    userLoggedIn: false,
+  };
+
   constructor(
     private dialog: DialogService,
     private govService: GovsService,
-    private title: SetTitleService,
     private notification: NotificationService,
-    private metaService: Meta,
   ) {
     this.inputsLength = inputsLength;
     this.site = site;
@@ -70,27 +73,7 @@ export class GovsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.tockenValues = await getTokenValue();
-    this.userLoggedIn = this.tockenValues?.userLoggedIn;
-    this.securityPermissionsList = this.tockenValues?.permissionsList;
-    const currentLang = localStorage.getItem(site.currentLangValue);
-    this.language = this.tockenValues?.language;
-    if (!currentLang || currentLang === site.language.ar) {
-      this.title.setTitle('المحافظات');
-    } else if (currentLang === site.language.en) {
-      this.title.setTitle('Govs');
-    }
-
-    const metaData = await setMetaLanguage('home', this.language);
-
-    this.metaService.updateTag({
-      name: metaData!.descriptionTag,
-      content: metaData?.description,
-    });
-    this.metaService.updateTag({
-      name: metaData!.keywordsTag,
-      content: metaData?.keywords,
-    });
+    this.tokenValues = await getTokenValue();
 
     this.getAllGovs();
   }

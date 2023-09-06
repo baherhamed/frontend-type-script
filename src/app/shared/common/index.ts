@@ -11,3 +11,4 @@ export * from './permissions-names';
 export * from './hash-string';
 export * from './meta';
 export * from './set-meta-language';
+export * from './components-names';
