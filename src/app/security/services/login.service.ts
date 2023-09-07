@@ -11,8 +11,8 @@ import { Login } from '../interfaces';
   providedIn: 'root',
 })
 export class SecurityService {
-  securityUrl = `${environment.url}${site.api}/security`;
-  usersUrl = `${environment.url}${site.api}/security/users`;
+  securityUrl = `${environment.url}${site.api}${site.modules.security}}`;
+  usersUrl = `${environment.url}${site.api}${site.modules.security}${site.apps.users}`;
 
   constructor(private http: HttpClient) {}
 

@@ -12,7 +12,31 @@ export const site = {
     phone: '0404475000',
     mobile: '01065055550',
   },
-  api: '/api',
+  api: '/api/',
+  modules: {
+    security: 'security/',
+    systemManagement: 'systemManagement/',
+  },
+  appsRoutes: {
+    login: 'login',
+    add: 'add',
+    update: 'update',
+    search: 'search',
+    delete: 'delete',
+    getAll: 'getAll',
+    getActive: 'getActive',
+    getCitiesByGov: 'getCitiesByGov',
+    changePassword: 'changePassword',
+  },
+  apps: {
+    home: 'home',
+    login: 'login',
+    languages: 'languages/',
+    routes: 'routes/',
+    users: 'users/',
+    govs: 'govs/',
+    cities: 'cities/',
+  },
   token: 'token',
   routesList: 'routesList',
   permissionsList: 'permissionsList',
@@ -159,23 +183,3 @@ export const site = {
     return false;
   },
 };
-
-// export const requestHeaders = () => {
-//   const token = localStorage.getItem('token');
-//   const language = localStorage.getItem('language');
-//   const newHeader = new HttpHeaders()
-//     .set('Content-Type', 'application/json')
-//     .set('accept-language', `${language}`)
-//     .set('Authorization', `Bearer ${token}`);
-
-//   return { headers: newHeader, observe: 'response' };
-// };
-
-// export const requestHeadersForLogin = () => {
-//   const language = localStorage.getItem('language');
-//   const newHeader = new HttpHeaders()
-//     .set('Content-Type', 'application/json')
-//     .set('accept-language', `${language}`);
-
-//   return { headers: newHeader };
-// };

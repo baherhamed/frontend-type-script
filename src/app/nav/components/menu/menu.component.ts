@@ -11,7 +11,7 @@ import {
   NotificationService,
   routesNames,
   validateResponse,
-  SetComponentNameService,
+  SetAppNameService,
 } from 'src/app/shared';
 
 @Component({
@@ -34,14 +34,13 @@ export class MenuComponent {
     _id: '',
     password: '',
   };
-  componentName: string = '';
   title: any;
   constructor(
     private dialog: DialogService,
     private userService: UsersService,
     private translateService: TranslateService,
     private notification: NotificationService,
-    private setComponentNameService: SetComponentNameService,
+    private setAppNameService: SetAppNameService,
     private router: Router,
   ) {
     this.inputsLength = inputsLength;
@@ -61,7 +60,7 @@ export class MenuComponent {
   }
 
   async setTitle(screen: string) {
-    this.title = await this.setComponentNameService.setComponentName(screen);
+    this.title = await this.setAppNameService.setAppName(screen);
   }
 
   getRoute() {

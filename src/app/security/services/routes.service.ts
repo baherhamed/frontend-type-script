@@ -10,7 +10,7 @@ import { Route } from '..';
   providedIn: 'root',
 })
 export class RoutesService {
-  baseUrl = `${environment.url}${site.api}/security/routes`;
+  baseUrl = `${environment.url}${site.api}${site.modules.security}${site.apps.routes}`;
   token = localStorage.getItem(site.token);
   language = localStorage.getItem(site.currentLangValue);
   constructor(private http: HttpClient) {}
@@ -18,7 +18,7 @@ export class RoutesService {
   addRoute(route: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: Route }>(
-        `${this.baseUrl}/add`,
+        `${this.baseUrl}${site.appsRoutes.add}`,
         route,
         { headers: site.requestHeaders().headers },
       )
@@ -28,7 +28,7 @@ export class RoutesService {
   updateRoute(route: any): Observable<any> {
     return this.http
       .put<{ success: boolean; message: string; data: Route }>(
-        `${this.baseUrl}/update`,
+        `${this.baseUrl}${site.appsRoutes.update}`,
         route,
         { headers: site.requestHeaders().headers },
       )
@@ -38,7 +38,7 @@ export class RoutesService {
   searchRoute(route: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: Route }>(
-        `${this.baseUrl}/search`,
+        `${this.baseUrl}${site.appsRoutes.search}`,
         route,
         { headers: site.requestHeaders().headers },
       )
@@ -48,7 +48,7 @@ export class RoutesService {
   getActiveRouts(): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: any }>(
-        `${this.baseUrl}/getActive`,
+        `${this.baseUrl}${site.appsRoutes.getActive}`,
         null,
         { headers: site.requestHeaders().headers },
       )
@@ -58,7 +58,7 @@ export class RoutesService {
   getAllRouts(pagination?: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: Route }>(
-        `${this.baseUrl}/getAll`,
+        `${this.baseUrl}${site.appsRoutes.getAll}`,
         pagination,
         { headers: site.requestHeaders().headers },
       )
@@ -68,7 +68,7 @@ export class RoutesService {
   deleteRoute(Route: any): Observable<any> {
     return this.http
       .put<{ success: boolean; message: string; data: Route }>(
-        `${this.baseUrl}/delete`,
+        `${this.baseUrl}${site.appsRoutes.delete}`,
         Route,
         { headers: site.requestHeaders().headers },
       )

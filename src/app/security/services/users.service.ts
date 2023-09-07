@@ -11,7 +11,7 @@ import { ChangePassword, User } from '..';
   providedIn: 'root',
 })
 export class UsersService {
-  usersUrl = `${environment.url}/api/security/users`;
+  usersUrl = `${environment.url}${site.api}${site.modules.security}${site.apps.users}`;
   token = localStorage.getItem(site.token);
   language = localStorage.getItem(site.currentLangValue);
 
@@ -23,7 +23,7 @@ export class UsersService {
         success: boolean;
         message: string;
         data: any;
-      }>(`${this.usersUrl}/add`, user, {
+      }>(`${this.usersUrl}${site.appsRoutes.add}`, user, {
         headers: site.requestHeaders().headers,
       })
       .pipe(retry(5));
@@ -32,7 +32,7 @@ export class UsersService {
   updateUser(user: any): Observable<any> {
     return this.http
       .put<{ success: boolean; message: string; data: User }>(
-        `${this.usersUrl}/update`,
+        `${this.usersUrl}${site.appsRoutes.update}`,
         user,
         { headers: site.requestHeaders().headers },
       )
@@ -42,7 +42,7 @@ export class UsersService {
   deleteUser(user: any): Observable<any> {
     return this.http
       .put<{ success: boolean; message: string; data: User }>(
-        `${this.usersUrl}/delete`,
+        `${this.usersUrl}${site.appsRoutes.delete}`,
         user,
         { headers: site.requestHeaders().headers },
       )
@@ -52,7 +52,7 @@ export class UsersService {
   searchUser(user: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: User }>(
-        `${this.usersUrl}/search`,
+        `${this.usersUrl}${site.appsRoutes.search}`,
         user,
         { headers: site.requestHeaders().headers },
       )
@@ -62,7 +62,7 @@ export class UsersService {
   getAllUsers(pagination?: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: User }>(
-        `${this.usersUrl}/getAll`,
+        `${this.usersUrl}${site.appsRoutes.getAll}`,
         pagination,
         { headers: site.requestHeaders().headers },
       )
@@ -72,7 +72,7 @@ export class UsersService {
   getActiveUsers() {
     return this.http
       .post<{ success: boolean; message: string; data: User[] }>(
-        `${this.usersUrl}/getActive`,
+        `${this.usersUrl}${site.appsRoutes.getAll}`,
         null,
         { headers: site.requestHeaders().headers },
       )
@@ -85,7 +85,7 @@ export class UsersService {
         success: boolean;
         message: string;
         data: ChangePassword;
-      }>(`${this.usersUrl}/changePassword`, changePassword, {
+      }>(`${this.usersUrl}${site.appsRoutes.changePassword}`, changePassword, {
         headers: site.requestHeaders().headers,
       })
       .pipe(retry(5));

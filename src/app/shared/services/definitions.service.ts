@@ -9,7 +9,7 @@ import { Language } from '../interfaces';
   providedIn: 'root',
 })
 export class DefinitionsService {
-  languageUrl = `${environment.url}/api/system_management/languages`;
+  languageUrl = `${environment.url}${site.api}${site.modules.systemManagement}${site.apps.languages}`;
   token = localStorage.getItem(site.token);
   language = localStorage.getItem(site.currentLangValue);
 
@@ -20,7 +20,7 @@ export class DefinitionsService {
       success: boolean;
       message: string;
       data: Language[];
-    }>(`${this.languageUrl}/get_active_languages`, null, {
+    }>(`${this.languageUrl}${site.appsRoutes.getActive}`, null, {
       headers: site.requestHeaders().headers,
       // observe: 'response',
     });

@@ -299,6 +299,7 @@ fieldset {
   margin: 0.5em 0.5em;
   align-content: center;
   max-width: 95vw;
+
 }
 
 .legend {
@@ -310,9 +311,13 @@ fieldset {
   text-decoration: underline;
   font-weight: lighter;
   font-size: 1rem;
-  background-color: #000000;
+  background-color: gray;
+  font-weight: bold;
   color: #ffffff;
+  // color: var(--text);
 }
+
+
 
 .legend::after {
   content: ' : ';

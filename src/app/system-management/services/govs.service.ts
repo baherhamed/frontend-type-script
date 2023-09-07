@@ -10,7 +10,7 @@ import { Gov } from '..';
   providedIn: 'root',
 })
 export class GovsService {
-  govsUrl = `${environment.url}/api/systemManagement/govs`;
+  govsUrl = `${environment.url}${site.api}${site.modules.systemManagement}${site.apps.govs}`;
   token = localStorage.getItem(site.token);
   language = localStorage.getItem(site.currentLangValue);
 
@@ -22,7 +22,7 @@ export class GovsService {
         success: boolean;
         message: string;
         data: Gov;
-      }>(`${this.govsUrl}/add`, gov, {
+      }>(`${this.govsUrl}${site.appsRoutes.add}`, gov, {
         headers: site.requestHeaders().headers,
       })
       .pipe(retry(5));
@@ -31,7 +31,7 @@ export class GovsService {
   updateGov(gov: any): Observable<any> {
     return this.http
       .put<{ success: boolean; message: string; data: Gov }>(
-        `${this.govsUrl}/update`,
+        `${this.govsUrl}${site.appsRoutes.update}`,
         gov,
         { headers: site.requestHeaders().headers },
       )
@@ -41,7 +41,7 @@ export class GovsService {
   deleteGov(gov: any): Observable<any> {
     return this.http
       .put<{ success: boolean; message: string; data: any }>(
-        `${this.govsUrl}/delete`,
+        `${this.govsUrl}${site.appsRoutes.delete}`,
         gov,
         { headers: site.requestHeaders().headers },
       )
@@ -51,7 +51,7 @@ export class GovsService {
   searchGov(gov: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: Gov }>(
-        `${this.govsUrl}/search`,
+        `${this.govsUrl}${site.appsRoutes.search}`,
         gov,
         { headers: site.requestHeaders().headers },
       )
@@ -61,7 +61,7 @@ export class GovsService {
   getAllGovs(pagination?: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: Gov }>(
-        `${this.govsUrl}/getAll`,
+        `${this.govsUrl}${site.appsRoutes.getAll}`,
         pagination,
         { headers: site.requestHeaders().headers },
       )
@@ -71,7 +71,7 @@ export class GovsService {
   getActiveGovs() {
     return this.http
       .post<{ success: boolean; message: string; data: Gov[] }>(
-        `${this.govsUrl}/getActive`,
+        `${this.govsUrl}${site.appsRoutes.getActive}`,
         null,
         { headers: site.requestHeaders().headers },
       )

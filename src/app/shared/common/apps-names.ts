@@ -1,31 +1,31 @@
-export const componentsNames = [
+export const appsNames = [
   {
-    component: 'home',
+    app: 'home',
     ar: 'الرئيسية',
     en: 'Home',
   },
   {
-    component: 'login',
+    app: 'login',
     ar: 'تسجيل دخول',
     en: 'Login',
   },
   {
-    component: 'routes',
+    app: 'routes',
     ar: 'العناوين',
     en: 'Routes',
   },
   {
-    component: 'users',
+    app: 'users',
     ar: 'المستخدمين',
     en: 'Users',
   },
   {
-    component: 'govs',
+    app: 'govs',
     ar: 'المحافظات',
     en: 'Govs',
   },
   {
-    component: 'cities',
+    app: 'cities',
     ar: 'المدن',
     en: 'Cities',
   },

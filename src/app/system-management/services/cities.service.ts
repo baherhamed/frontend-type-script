@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class CitiesService {
-  citiesUrl = `${environment.url}/api/systemManagement/cities`;
+  citiesUrl = `${environment.url}${site.api}${site.modules.systemManagement}${site.apps.cities}`;
   token = localStorage.getItem(site.token);
   language = localStorage.getItem(site.currentLangValue);
 
@@ -21,7 +21,7 @@ export class CitiesService {
         success: boolean;
         message: string;
         data: any;
-      }>(`${this.citiesUrl}/add`, city, {
+      }>(`${this.citiesUrl}${site.appsRoutes.add}`, city, {
         headers: site.requestHeaders().headers,
       })
       .pipe(retry(5));
@@ -30,7 +30,7 @@ export class CitiesService {
   updateCity(city: any): Observable<any> {
     return this.http
       .put<{ success: boolean; message: string; data: any }>(
-        `${this.citiesUrl}/update`,
+        `${this.citiesUrl}${site.appsRoutes.update}`,
         city,
         { headers: site.requestHeaders().headers },
       )
@@ -40,7 +40,7 @@ export class CitiesService {
   deleteCity(city: any): Observable<any> {
     return this.http
       .put<{ success: boolean; message: string; data: any }>(
-        `${this.citiesUrl}/delete`,
+        `${this.citiesUrl}${site.appsRoutes.delete}`,
         city,
         { headers: site.requestHeaders().headers },
       )
@@ -50,7 +50,7 @@ export class CitiesService {
   searchCity(city: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: any }>(
-        `${this.citiesUrl}/search`,
+        `${this.citiesUrl}${site.appsRoutes.search}`,
         city,
         { headers: site.requestHeaders().headers },
       )
@@ -60,7 +60,7 @@ export class CitiesService {
   getCitiesByGov(city: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: any }>(
-        `${this.citiesUrl}/getCitiesByGov`,
+        `${this.citiesUrl}${site.appsRoutes.getCitiesByGov}`,
         city,
         { headers: site.requestHeaders().headers },
       )
@@ -70,7 +70,7 @@ export class CitiesService {
   getAllCities(pagination?: any): Observable<any> {
     return this.http
       .post<{ success: boolean; message: string; data: any }>(
-        `${this.citiesUrl}/getAll`,
+        `${this.citiesUrl}${site.appsRoutes.getAll}`,
         pagination,
         { headers: site.requestHeaders().headers },
       )
@@ -80,7 +80,7 @@ export class CitiesService {
   getActiveCities() {
     return this.http
       .post<{ success: boolean; message: string; data: [] }>(
-        `${this.citiesUrl}/getActive`,
+        `${this.citiesUrl}${site.appsRoutes.getActive}`,
         null,
         { headers: site.requestHeaders().headers },
       )
