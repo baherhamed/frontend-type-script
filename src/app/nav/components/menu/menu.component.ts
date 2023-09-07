@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ChangePassword, UsersService } from 'src/app/security';
 import {
@@ -41,7 +40,7 @@ export class MenuComponent {
     private translateService: TranslateService,
     private notification: NotificationService,
     private setAppNameService: SetAppNameService,
-    private router: Router,
+
   ) {
     this.inputsLength = inputsLength;
     this.routesNames = routesNames;
@@ -56,7 +55,7 @@ export class MenuComponent {
     this.permissionsList = this.tokenValues?.permissionsList;
     this.name = this.tokenValues?.name;
     this.language = this.tokenValues?.language;
-    this.setTitle(this.title);
+    this.getRoute();
   }
 
   async setTitle(screen: string) {
@@ -64,8 +63,7 @@ export class MenuComponent {
   }
 
   getRoute() {
-    const selectedRoute = this.router.url !== '/' ? this.router.url : 'home';
-    this.title = selectedRoute;
+    this.setTitle(location.href);
   }
 
   changeLanguage() {

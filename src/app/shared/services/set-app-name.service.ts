@@ -9,14 +9,17 @@ export class SetAppNameService {
   constructor(private title: Title) {}
 
   setAppName = async (screen: string) => {
+    const selectedScreen = screen.split('/')[4] || screen;
     const currentLang = localStorage.getItem(site.currentLangValue);
-    const selectedApp = appsNames.findIndex((co) =>
-      screen
-        ? co.app?.toLowerCase() === screen?.toLowerCase() ||
-          co.en?.toLowerCase() === screen.toLowerCase() ||
-          co.ar?.toLowerCase() === screen.toLowerCase()
-        : appsNames.findIndex((el) => el.app === 'home'),
+    let selectedApp = appsNames.findIndex(
+      (co) => co.app?.toLowerCase() === selectedScreen?.toLowerCase(),
     );
+
+    if (selectedApp === -1) {
+      selectedApp = appsNames.findIndex(
+        (el) => el.app.toLowerCase() === 'home',
+      );
+    }
 
     let data;
     if (!currentLang || currentLang === site.language.ar) {

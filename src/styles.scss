@@ -30,6 +30,8 @@ html * {
   --text: #0000ff;
   --border: #1e90ff;
   --warn: #e67e22;
+  --white: #ffffff;
+  --black: #000000;
 }
 
 html,
@@ -254,7 +256,10 @@ table {
 }
 
 .active {
-  color: teal;
+  color: var(--white);
+  background-color: var(--primary);
+  border-radius: 5px;
+  padding: 0px 1px;
 }
 
 .spinner {
@@ -287,8 +292,10 @@ a.menu-element {
 }
 
 a.menu-element:hover {
+  color: var(--white);
   background-color: var(--primary);
-  color: #ffffff;
+  border-radius: 5px;
+  padding: 0px 1px;
 }
 
 fieldset {
@@ -299,7 +306,6 @@ fieldset {
   margin: 0.5em 0.5em;
   align-content: center;
   max-width: 95vw;
-
 }
 
 .legend {
@@ -316,8 +322,6 @@ fieldset {
   color: #ffffff;
   // color: var(--text);
 }
-
-
 
 .legend::after {
   content: ' : ';
