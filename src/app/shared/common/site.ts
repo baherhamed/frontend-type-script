@@ -42,13 +42,6 @@ export const site = {
   permissionsList: 'permissionsList',
   currentLangValue: 'language',
   language: { ar: 'ar', en: 'en' },
-  themes: {
-    default: 'deeppurple',
-    deeppurple: 'deeppurple',
-    indigo: 'indigo',
-    pink: 'pink',
-    purple: 'purple',
-  },
   requestHeaders: () => {
     const token = localStorage.getItem('token');
     const language = localStorage.getItem('language');
@@ -164,22 +157,8 @@ export const site = {
       }
     }
   },
-  searchDateType: {
-    specificDate: 'specificDate',
-    period: 'period',
-  },
-  tooltipPosiition: 'above',
   convertDate: (date: string) => {
     return new Date(date).toISOString().slice(0, 10);
   },
-  numbersOnly: (e: any) => {
-    const regex = new RegExp('^[0-9]+$');
-    const str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-    if (regex.test(str)) {
-      return true;
-    }
 
-    e.preventDefault();
-    return false;
-  },
 };
