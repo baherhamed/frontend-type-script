@@ -1,6 +1,7 @@
 # About 
 
-## AR: 
+## العربية :
+
 -  المشروع عبارة عن مجموعة من الأداوت التي تم استخدامها علي مدار سنوات حيث تعتمد الفكرة الأساسية علي عدم تكرار الأكواد التي عادة ما يتم إعادة إستخدامها مثل Request Headers التي يتم إستخدامها في التواصل مع السرفر.
 -  مثال أخر خانة المحمول يتم إعدادها مرة واحدة في مكان واحد ويتم إستخدامها في أي input وان حدث اي تغيير لعدد الأرقام يتم ببساطة تعديلها في هذا المكان وتصبح جاهزة للأستعمال.
 -  Function Splice From array التي يمكن من خلالها عمل تعديل إلي array 
@@ -60,7 +61,7 @@
     - يتم تعريف ملف index.ts لجميع المجلدات السابفة علي أن يتم تصديرها لملف index.ts رئيسي للموديول.
 
 
-## En:
+## English :
 - The project is a set of tools that have been used over the years, where the basic idea depends on not repeating codes that are usually reused, such as Request Headers, which are used to communicate with the server.
 - Another example is the mobile field. It is set up once in one place and is used in any input. If there is any change in the number of numbers, it is simply modified in this place and becomes ready for use.
 - Function Splice From array, through which you can make modifications to the array.
