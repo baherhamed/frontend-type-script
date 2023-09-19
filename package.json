@@ -30,7 +30,6 @@
     "bootstrap": "^5.3.1",
     "devtools-detect": "^4.0.1",
     "ngx-toastr": "^17.0.2",
-    "prettier": "^3.0.3",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",
     "xlsx": "^0.18.5",
@@ -48,15 +47,16 @@
     "eslint-plugin-n": "^16.0.2",
     "eslint-plugin-promise": "^6.1.1",
     "jasmine-core": "~5.1.1",
+    "prettier": "^3.0.3",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.1.0"
-  },  "repository": {
+  },
+  "repository": {
     "type": "git",
-    "url": "git://github.com/baherhamed/new-system-template.git"
+    "url": "git://github.com/baherhamed/frontend-type-script-.git"
   }
 }
-
