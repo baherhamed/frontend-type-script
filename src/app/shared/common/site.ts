@@ -115,7 +115,7 @@ export const site = {
     });
   },
   spliceElementToDelete: (array: any[], elem: any): any => {
-    array.forEach(function (itm, i): any {
+    array.forEach((itm, i): any => {
       if (itm._id === elem._id) {
         return array.splice(i, 1, elem);
       }
@@ -144,7 +144,7 @@ export const site = {
     return yearsList;
   },
   disableDeveloperTools: () => {
-    document.addEventListener('contextmenu', function (e) {
+    document.addEventListener('contextmenu', (e) => {
       e.preventDefault();
     });
     if (devtools.isOpen) {
@@ -160,5 +160,4 @@ export const site = {
   convertDate: (date: string) => {
     return new Date(date).toISOString().slice(0, 10);
   },
-
 };

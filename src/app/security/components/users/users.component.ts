@@ -136,10 +136,9 @@ export class UsersComponent implements OnInit {
     this.userService.addUser(newUser).subscribe(async (res: any) => {
       const response = await validateResponse(res);
       if (!response.success || !response.data) {
-        this.notification.info(response.message);
+        return this.notification.info(response.message);
       } else {
         this.notification.success(response.message);
-        this.actionType = '';
         this.usersList.push({
           _id: Object(response.data)._id,
           name: user.name,

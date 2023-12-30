@@ -1,6 +1,6 @@
 import { Token, TokenValues, hashString } from '..';
 import { site } from './site';
-export async function getTokenValue() {
+export const getTokenValue = async () => {
   let tokenValues: TokenValues = {
     userId: '',
     name: '',
@@ -83,4 +83,4 @@ export async function getTokenValue() {
   }
 
   return tokenValues;
-}
+};

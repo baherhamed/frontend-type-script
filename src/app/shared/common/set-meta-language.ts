@@ -2,7 +2,7 @@ import { site } from './site';
 import { meta } from './meta';
 import { Meta } from '../interfaces/meta';
 
-export async function setMetaLanguage(
+export const setMetaLanguage = async (
   page: string,
   language: string,
 ): Promise<{
@@ -10,7 +10,7 @@ export async function setMetaLanguage(
   keywords: string;
   descriptionTag: string;
   keywordsTag: string;
-}> {
+}> => {
   let metaData: Meta;
   const descriptionTag = 'description';
   const keywordsTag = 'keywords';
@@ -32,4 +32,4 @@ export async function setMetaLanguage(
   }
 
   return { description, keywords, keywordsTag, descriptionTag };
-}
+};

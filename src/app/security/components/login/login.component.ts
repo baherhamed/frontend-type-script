@@ -40,7 +40,7 @@ export class LoginComponent {
       const response = await validateResponse(res);
 
       if (!response.success || !response.data) {
-        this.notification.info(response.message);
+        return this.notification.info(response.message);
       } else {
         try {
           this.notification.success(response.message);

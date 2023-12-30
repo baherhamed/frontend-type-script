@@ -11,8 +11,7 @@ import { Login } from '../interfaces';
   providedIn: 'root',
 })
 export class SecurityService {
-  securityUrl = `${environment.url}${site.api}${site.modules.security}}`;
-  usersUrl = `${environment.url}${site.api}${site.modules.security}${site.apps.users}`;
+  securityUrl = `${environment.url}${site.api}${site.modules.security}`;
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +21,11 @@ export class SecurityService {
         success: boolean;
         message: string;
         data: Login;
-      }>(`${this.securityUrl}/login`, login, site.requestHeadersForLogin())
+      }>(
+        `${this.securityUrl}${site.appsRoutes.login}`,
+        login,
+        site.requestHeadersForLogin(),
+      )
       .pipe(retry(5));
   }
 }

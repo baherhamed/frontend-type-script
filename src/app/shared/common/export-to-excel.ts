@@ -1,6 +1,9 @@
 import * as XLSX from 'xlsx';
 // let fileName;
-export async function exportToExcel(tableName: string, exportFileName: string) {
+export const exportToExcel = async (
+  tableName: string,
+  exportFileName: string,
+) => {
   /* pass here the table id */
   const element = document.getElementById(tableName);
   const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -11,4 +14,4 @@ export async function exportToExcel(tableName: string, exportFileName: string) {
 
   /* save to file */
   return XLSX.writeFile(wb, `${exportFileName + '.xlsx'}`);
-}
+};

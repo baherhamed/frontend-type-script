@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { site } from './site';
-export async function showMessageInLanguage(msg: any): Promise<{
+export const showMessageInLanguage = async (
+  msg: any,
+): Promise<{
   message: any;
   error: any;
   success: any;
   info: any;
   warning: any;
-}> {
+}> => {
   let message;
   let error;
   let success;
@@ -29,4 +31,4 @@ export async function showMessageInLanguage(msg: any): Promise<{
   }
 
   return { message, error, success, info, warning };
-}
+};
