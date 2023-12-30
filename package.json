@@ -1,5 +1,5 @@
 {
-  "name": "system",
+  "name": "frontend-typescript",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
@@ -57,6 +57,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/baherhamed/frontend-type-script-.git"
+    "url": "git://github.com/baherhamed/frontend-typescript-.git"
   }
 }
