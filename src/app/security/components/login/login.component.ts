@@ -55,7 +55,7 @@ export class LoginComponent {
           alert(error);
         }
       }
-      this.busy = false;
     });
+    this.busy = false;
   }
 }

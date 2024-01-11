@@ -47,6 +47,7 @@ export class UsersComponent implements OnInit {
     },
     routesList: [],
     permissionsList: [],
+    isAdmin: false,
     active: true,
   };
 
@@ -56,6 +57,7 @@ export class UsersComponent implements OnInit {
     language: '',
     routesList: [],
     permissionsList: [],
+    isAdmin: false,
     isDeveloper: false,
     userLoggedIn: false,
   };
@@ -89,7 +91,6 @@ export class UsersComponent implements OnInit {
   }
   async ngOnInit() {
     this.tokenValues = await getTokenValue();
-
     this.getActiveLanguages();
     this.getActiveRouts();
     this.getAllUsers();
@@ -113,6 +114,7 @@ export class UsersComponent implements OnInit {
       },
       routesList: this.routesList,
       permissionsList: [],
+      isAdmin: false,
       active: true,
     };
     this.getActiveRouts();
@@ -130,6 +132,7 @@ export class UsersComponent implements OnInit {
       permissionsList,
       password: user.password,
       languageId: user.language._id,
+      isAdmin: user.isAdmin,
       active: user.active,
     };
     this.busy = true;
@@ -148,6 +151,7 @@ export class UsersComponent implements OnInit {
           language: user.language,
           routesList: user.routesList,
           permissionsList: user.permissionsList,
+          isAdmin: user.isAdmin,
           active: user.active,
         });
         this.actionType = site.operation.result;
@@ -191,6 +195,7 @@ export class UsersComponent implements OnInit {
       languageId: user.language._id,
       routesList,
       permissionsList,
+      isAdmin: user.isAdmin,
       active: user.active,
     };
     this.busy = true;
@@ -256,6 +261,7 @@ export class UsersComponent implements OnInit {
       language: user.language,
       routesList: user.routesList,
       permissionsList: user.permissionsList,
+      isAdmin: user.isAdmin,
       active: user.active,
     };
   }
@@ -275,6 +281,7 @@ export class UsersComponent implements OnInit {
       email: user.email,
       language: selectedLanguage || user.language,
       routesList: user.routesList,
+      isAdmin: user.isAdmin,
       active: user.active,
     };
   }

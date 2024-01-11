@@ -81,6 +81,7 @@ export class RoutesComponent implements OnInit {
   async ngOnInit() {
     this.tokenValues = await getTokenValue();
     this.getAllRouts();
+  
   }
 
   async exportDataToExcel(table: any, file: any) {

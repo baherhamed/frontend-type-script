@@ -53,8 +53,8 @@
     </div>
 
     <form #addUsersForm="ngForm">
-      <fieldset >
-        <legend >
+      <fieldset>
+        <legend>
           <p class="legend">
             {{ 'Legends.Basic-Informations' | translate }}
           </p>
@@ -126,6 +126,19 @@
               }}</mat-option>
             </mat-select>
           </mat-form-field>
+
+          <div
+            class="col-sm-2"
+            *ngIf="tokenValues.isDeveloper || tokenValues.isAdmin"
+          >
+            <mat-checkbox
+              [(ngModel)]="user.isAdmin"
+              name="isAdmin-status"
+              color="primary"
+            >
+              {{ 'Forms.Is-Admin' | translate }}
+            </mat-checkbox>
+          </div>
 
           <div class="col-sm-2">
             <mat-checkbox
@@ -364,7 +377,9 @@
                 actionType = site.operation.update
               "
               *ngIf="
-                (tokenValues.userLoggedIn && tokenValues.isDeveloper) ||
+                (tokenValues.userLoggedIn &&
+                  tokenValues.isDeveloper &&
+                  user.isAdmin) ||
                 (tokenValues.permissionsList &&
                   tokenValues.permissionsList.includes(
                     permissionsNames.updateUser

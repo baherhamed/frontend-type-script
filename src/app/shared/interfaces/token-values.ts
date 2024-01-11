@@ -5,5 +5,6 @@ export interface TokenValues {
   routesList: string[];
   permissionsList: string[];
   isDeveloper?: boolean;
+  isAdmin?: boolean;
   userLoggedIn: boolean;
 }

@@ -12,5 +12,6 @@ export interface User {
   };
   routesList: Route[];
   permissionsList?: Permission[];
+  isAdmin: boolean;
   active: boolean;
 }
